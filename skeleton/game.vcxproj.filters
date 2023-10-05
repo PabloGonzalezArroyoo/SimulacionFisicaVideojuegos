@@ -13,6 +13,9 @@
     <ClCompile Include="RenderItems\Particle.cpp">
       <Filter>RenderItems</Filter>
     </ClCompile>
+    <ClCompile Include="RenderItems\Projectile.cpp">
+      <Filter>RenderItems</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="core.hpp" />
@@ -25,6 +28,9 @@
     <ClInclude Include="RenderUtils.hpp" />
     <ClInclude Include="callbacks.hpp" />
     <ClInclude Include="RenderItems\Particle.h">
+      <Filter>RenderItems</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderItems\Projectile.h">
       <Filter>RenderItems</Filter>
     </ClInclude>
   </ItemGroup>

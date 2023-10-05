@@ -10,11 +10,11 @@
 
 #include <iostream>
 
-#include "RenderItems/Particle.h"
+#include "RenderItems/Projectile.h"
 
 std::string display_text = "This is a test";
 
-
+using namespace std;
 using namespace physx;
 
 PxDefaultAllocator		gAllocator;
@@ -31,7 +31,8 @@ PxPvd*                  gPvd        = NULL;
 PxDefaultCpuDispatcher*	gDispatcher = NULL;
 PxScene*				gScene      = NULL;
 ContactReportCallback gContactReportCallback;
-Particle* particle;
+
+vector<Particle*> particles;
 
 // Initialize physics engine
 void initPhysics(bool interactive)
@@ -56,8 +57,6 @@ void initPhysics(bool interactive)
 	sceneDesc.filterShader = contactReportFilterShader;
 	sceneDesc.simulationEventCallback = &gContactReportCallback;
 	gScene = gPhysics->createScene(sceneDesc);
-
-	particle = new Particle(Vector3(), Vector3(0, 0, -2));
 }
 
 
@@ -67,7 +66,14 @@ void initPhysics(bool interactive)
 void stepPhysics(bool interactive, double t)
 {
 	PX_UNUSED(interactive);
-	particle->integrate(t);
+
+	for (Particle* p : particles) {
+		if (!p->integrate(t)) {
+			Particle* deletedParticle = *particles.begin();
+			particles.erase(particles.begin());
+			delete deletedParticle;
+		}
+	}
 
 	gScene->simulate(t);
 	gScene->fetchResults(true);
@@ -100,8 +106,24 @@ void keyPress(unsigned char key, const PxTransform& camera)
 	{
 	//case 'B': break;
 	//case ' ':	break;
-	case ' ':
+	case 'R':
 	{
+		particles.push_back(new Projectile(camera, GetCamera()->getDir(), 8, REVOLER));
+		break;
+	}
+	case 'F':
+	{
+		particles.push_back(new Projectile(camera, GetCamera()->getDir(), 5, FIREBALL));
+		break;
+	}
+	case 'L':
+	{
+		particles.push_back(new Projectile(camera, GetCamera()->getDir(), 10, LASER));
+		break;
+	}
+	case 'T':
+	{
+		particles.push_back(new Projectile(camera, GetCamera()->getDir(), 6, TANK));
 		break;
 	}
 	default:
