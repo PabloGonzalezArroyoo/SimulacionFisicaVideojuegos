@@ -46,7 +46,7 @@ bool Projectile::integrate(double t) {
 	vel += accl * t;
 	vel *= powf(damping, t);
 
-	// Eliminar tras 8 segundos
+	// Eliminar
 	if (startTime + lifeTime < GetLastTime()) return false;
 
 	return true;

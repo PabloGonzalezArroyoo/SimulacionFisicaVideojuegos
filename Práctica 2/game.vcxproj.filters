@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="Render\Camera.cpp">
+      <Filter>Render</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Render.cpp">
+      <Filter>Render</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderUtils.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="callbacks.cpp" />
+    <ClCompile Include="objects\physicObjects\Particle.cpp">
+      <Filter>objects\physicObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="objects\systems\ParticleSystem.cpp">
+      <Filter>objects\systems</Filter>
+    </ClCompile>
+    <ClCompile Include="objects\generators\ParticleGenerator.cpp">
+      <Filter>objects\generators</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="core.hpp" />
+    <ClInclude Include="Render\Camera.h">
+      <Filter>Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Render.h">
+      <Filter>Render</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderUtils.hpp" />
+    <ClInclude Include="callbacks.hpp" />
+    <ClInclude Include="objects\physicObjects\Particle.h">
+      <Filter>objects\physicObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="objects\systems\ParticleSystem.h">
+      <Filter>objects\systems</Filter>
+    </ClInclude>
+    <ClInclude Include="objects\generators\ParticleGenerator.h">
+      <Filter>objects\generators</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Render">
+      <UniqueIdentifier>{d04b4f9f-5a69-465e-8070-25c6d0bcd3c2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="objects">
+      <UniqueIdentifier>{f1e4e7c5-514c-45a5-8d25-c602350484f5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="objects\physicObjects">
+      <UniqueIdentifier>{b5e5d126-6983-4e2d-8dda-981a68c1c36a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="objects\generators">
+      <UniqueIdentifier>{aea78d70-47db-4183-a7b8-26876e16a963}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="objects\systems">
+      <UniqueIdentifier>{730126ad-570b-4f34-93cb-71821070abee}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

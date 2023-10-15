@@ -10,11 +10,9 @@
 
 #include <iostream>
 
-#include "RenderItems/Projectile.h"
-
 std::string display_text = "This is a test";
 
-using namespace std;
+
 using namespace physx;
 
 PxDefaultAllocator		gAllocator;
@@ -32,7 +30,6 @@ PxDefaultCpuDispatcher*	gDispatcher = NULL;
 PxScene*				gScene      = NULL;
 ContactReportCallback gContactReportCallback;
 
-vector<Particle*> particles;
 
 // Initialize physics engine
 void initPhysics(bool interactive)
@@ -57,7 +54,7 @@ void initPhysics(bool interactive)
 	sceneDesc.filterShader = contactReportFilterShader;
 	sceneDesc.simulationEventCallback = &gContactReportCallback;
 	gScene = gPhysics->createScene(sceneDesc);
-}
+	}
 
 
 // Function to configure what happens in each step of physics
@@ -66,14 +63,6 @@ void initPhysics(bool interactive)
 void stepPhysics(bool interactive, double t)
 {
 	PX_UNUSED(interactive);
-
-	for (Particle* p : particles) {
-		if (!p->integrate(t)) {
-			Particle* deletedParticle = *particles.begin();
-			particles.erase(particles.begin());
-			delete deletedParticle;
-		}
-	}
 
 	gScene->simulate(t);
 	gScene->fetchResults(true);
@@ -95,7 +84,7 @@ void cleanupPhysics(bool interactive)
 	transport->release();
 	
 	gFoundation->release();
-}
+	}
 
 // Function called when a key is pressed
 void keyPress(unsigned char key, const PxTransform& camera)
@@ -106,24 +95,8 @@ void keyPress(unsigned char key, const PxTransform& camera)
 	{
 	//case 'B': break;
 	//case ' ':	break;
-	case 'R':
+	case ' ':
 	{
-		particles.push_back(new Projectile(camera, GetCamera()->getDir(), 8, REVOLER));
-		break;
-	}
-	case 'F':
-	{
-		particles.push_back(new Projectile(camera, GetCamera()->getDir(), 5, FIREBALL));
-		break;
-	}
-	case 'L':
-	{
-		particles.push_back(new Projectile(camera, GetCamera()->getDir(), 10, LASER));
-		break;
-	}
-	case 'T':
-	{
-		particles.push_back(new Projectile(camera, GetCamera()->getDir(), 6, TANK));
 		break;
 	}
 	default:
@@ -140,16 +113,16 @@ void onCollision(physx::PxActor* actor1, physx::PxActor* actor2)
 
 int main(int, const char*const*)
 {
-	#ifndef OFFLINE_EXECUTION 
-		extern void renderLoop();
-		renderLoop();
-	#else
-		static const PxU32 frameCount = 100;
-		initPhysics(false);
-		for(PxU32 i=0; i<frameCount; i++)
-			stepPhysics(false);
-		cleanupPhysics(false);
-	#endif
+#ifndef OFFLINE_EXECUTION 
+	extern void renderLoop();
+	renderLoop();
+#else
+	static const PxU32 frameCount = 100;
+	initPhysics(false);
+	for(PxU32 i=0; i<frameCount; i++)
+		stepPhysics(false);
+	cleanupPhysics(false);
+#endif
 
 	return 0;
 }
