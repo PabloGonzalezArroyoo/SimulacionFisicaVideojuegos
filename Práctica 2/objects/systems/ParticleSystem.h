@@ -10,6 +10,7 @@ class ParticleSystem {
 private:
 	list<Particle*> _particles;
 	list<ParticleGenerator*> _particle_generators;
+	vector<list<Particle*>::iterator> _particlesToDelete;
 
 public:
 	ParticleSystem();

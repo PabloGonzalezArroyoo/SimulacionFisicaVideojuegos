@@ -32,8 +32,8 @@ public:
 	bool integrate(double t);
 
 	void setProperties(float m, Vector3 v, Vector3 a, float d);
-	void setMass(float m) { mass = m; }
-	void setVelocity(Vector3 v) { vel = v; }
-	void setAcceleration(Vector3 a) { accl = a; }
-	void setDamping(float d) { damping = d; }
+	inline void setMass(float m) { mass = m; }
+	inline void setVelocity(Vector3 v) { vel = v; }
+	inline void setAcceleration(Vector3 a) { accl = a; }
+	inline void setDamping(float d) { damping = d; }
 };
