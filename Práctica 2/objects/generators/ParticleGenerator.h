@@ -1,21 +1,20 @@
 #pragma once
 
 #include <list>
-#define _USE_MATH_DEFINES
-#include <cmath>
+#include <random>
+#include <chrono>
 #include "../physicObjects/Particle.h"
 using namespace std;
 
 class ParticleGenerator {
 private:
 	string name;
-	Vector3 _mean_pos, _mean_vel;
-	double _generation_probability;
-	int _num_particles;
+	int probability;
 	Particle* _model;
+	std::default_random_engine gen;
 
 public:
-	ParticleGenerator();
+	ParticleGenerator(Vector3 medSpeed, Vector3 medVar, int prob);
 	~ParticleGenerator();
 
 	void setParticle(Particle* model);

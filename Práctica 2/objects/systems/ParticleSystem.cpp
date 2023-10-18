@@ -1,7 +1,7 @@
 #include "ParticleSystem.h"
 
 ParticleSystem::ParticleSystem() {
-	_particle_generators.push_back(new ParticleGenerator());
+	_particle_generators.push_back(new ParticleGenerator(Vector3(50, 50, 50), Vector3(35, 35, 35), 500));
 }
 
 ParticleSystem::~ParticleSystem() {
