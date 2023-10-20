@@ -1,34 +1,34 @@
-#include "GaussianParticleGenerator.h"
+#include "UniformParticleGenerator.h"
 
 // Constructora - Setea la partícula modelo y las distribuciones según proceda
-GaussianParticleGenerator::GaussianParticleGenerator(Vector3 iniPos, Vector3 var, float prob, Particle* m, bool st)
+UniformParticleGenerator::UniformParticleGenerator(Vector3 iniPos, Vector3 var, float prob, Particle* m, bool st)
 	: ParticleGenerator(iniPos, m->getVelocity(), var, prob, st) {
-
+	
 	// Partícula modelo
 	m->setPos(iniPos);
 	setParticle(m);
 
 	// Distribuciones de velocidad
-	vX = new normal_distribution<float>(m->getVelocity().x, var.x);
-	vY = new normal_distribution<float>(m->getVelocity().y, var.y);
-	vZ = new normal_distribution<float>(m->getVelocity().z, var.z);
+	vX = new uniform_real_distribution<float>(m->getVelocity().x - var.x, m->getVelocity().x + var.x);
+	vY = new uniform_real_distribution<float>(m->getVelocity().y - var.y, m->getVelocity().y + var.y);
+	vZ = new uniform_real_distribution<float>(m->getVelocity().z - var.z, m->getVelocity().z + var.z);
 
 	// Distribuciones de posición
 	if (!st) {
-		pX = new normal_distribution<float>(iniPos.x, var.x / 2.0f);
-		pY = new normal_distribution<float>(iniPos.y, var.y / 2.0f);
-		pZ = new normal_distribution<float>(iniPos.z, var.z / 2.0f);
+		pX = new uniform_real_distribution<float>(iniPos.x - var.x * 2, iniPos.x + var.x / 2.0f);
+		pY = new uniform_real_distribution<float>(iniPos.y - var.y * 2, iniPos.y + var.y / 2.0f);
+		pZ = new uniform_real_distribution<float>(iniPos.z - var.z * 2, iniPos.z + var.z / 2.0f);
 	}
 }
 
 // Destructora
-GaussianParticleGenerator::~GaussianParticleGenerator() {
+UniformParticleGenerator::~UniformParticleGenerator() {
 	delete vX, vY, vZ;
 	if (pX != nullptr) delete pX, pY, pZ;
 }
 
 // Genera partículas que se devuelven en la lista
-list<Particle*> GaussianParticleGenerator::generateParticles() {
+list<Particle*> UniformParticleGenerator::generateParticles() {
 	// Lista de partículas
 	list<Particle*> prtcls;
 

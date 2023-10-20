@@ -24,15 +24,20 @@ protected:
 	float startTime, lifeTime;
 
 public:
+	// Constructoras y destructora
 	Particle(float m, Vector3 p, Vector3 vel, Vector3 ac, int lTime, Vector4 col, PxShape* shp);
 	Particle(float m, Vector3 vel, Vector3 ac, Vector4 col, PxShape* shp);
 	~Particle();
 
+	// Actualizar
 	bool integrate(double t);
 
+	// Clonar partícula
 	virtual Particle* clone(Vector3 newRanVel, Vector3 newRanAccl, float newLifeTime) const;
-	void setProperties(float m, Vector3 v, Vector3 a, Vector4 c, PxShape* s, float l, float d = 0.998);
+	virtual Particle* clone(Vector3 newPos, Vector3 newRanVel, Vector3 newRanAccl, float newLifeTime) const;
 
+	// Getters y setters
+	void setProperties(float m, Vector3 v, Vector3 a, Vector4 c, PxShape* s, float l, float d = 0.998);
 	#pragma region getters&setters
 	inline void setMass(float m) { mass = m; }
 	inline void setVelocity(Vector3 v) { vel = v; }

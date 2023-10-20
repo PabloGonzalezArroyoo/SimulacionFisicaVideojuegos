@@ -1,25 +1,31 @@
 #include "ParticleSystem.h"
 
+// Constructora
 ParticleSystem::ParticleSystem() {
+
+	// Generador de partículas amarillas redondas
 	Particle* model = new Particle(10, Vector3(0), Vector3(50), Vector3(0), 0, Vector4(125, 125, 0, 1), CreateShape(PxSphereGeometry(3)));
 	ParticleGenerator* ptGen = new GaussianParticleGenerator(Vector3(0), Vector3(35), 0.3, model);
 	_particle_generators.push_back(ptGen);
 
+	// Generador de partículas azules cuadradas
 	model = new Particle(10, Vector3(0), Vector3(50), Vector3(0), 0, Vector4(0, 125, 125, 1), CreateShape(PxBoxGeometry(2, 2, 2)));
-	ptGen = new GaussianParticleGenerator(Vector3(-150, 0, 0), Vector3(35), 0.3, model);
+	ptGen = new UniformParticleGenerator(Vector3(-150, 0, 0), Vector3(35), 0.3, model);
 	_particle_generators.push_back(ptGen);
 }
 
+// Destructora
 ParticleSystem::~ParticleSystem() {
-	// Actualizar generadores (generar partículas si procede)
+	// Borrar generadores
 	for (ParticleGenerator* p : _particle_generators) delete p;
 	_particle_generators.clear();
 
-	// Actualizar partículas y añadir al vector de eliminación si han muerto
+	// Borrar partículas
 	for (Particle* p : _particles) delete p;
 	_particles.clear();
 }
 
+// Update
 void ParticleSystem::update(double t) {
 	// Actualizar generadores (generar partículas si procede)
 	for (ParticleGenerator* p : _particle_generators) {
@@ -41,6 +47,7 @@ void ParticleSystem::update(double t) {
 	_particlesToDelete.clear();
 }
 
+// Buscar y devolver un generador con el nombre recibido
 ParticleGenerator* ParticleSystem::getParticleGenerator(string name) {
 	auto it = _particle_generators.begin();
 	bool enc = false;

@@ -4,16 +4,23 @@
 
 class GaussianParticleGenerator : public ParticleGenerator {
 private:
+	// Velocidad
 	normal_distribution<float>* vX;
 	normal_distribution<float>* vY;
 	normal_distribution<float>* vZ;
-	default_random_engine gen;
+
+	// Posición
+	normal_distribution<float>* pX;
+	normal_distribution<float>* pY;
+	normal_distribution<float>* pZ;
 
 
 public:
-	GaussianParticleGenerator(Vector3 iniPos, Vector3 var, float prob, Particle* m);
-	//~GaussianParticleGenerator() {};
+	// Constructora y destructora
+	GaussianParticleGenerator(Vector3 iniPos, Vector3 var, float prob, Particle* m, bool st = true);
+	virtual ~GaussianParticleGenerator();
 
+	// Método abstracto
 	virtual list<Particle*> generateParticles();
 };
 
