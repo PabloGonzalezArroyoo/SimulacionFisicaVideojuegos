@@ -19,6 +19,9 @@
     <ClCompile Include="objects\generators\ParticleGenerator.cpp">
       <Filter>objects\generators</Filter>
     </ClCompile>
+    <ClCompile Include="objects\generators\GaussianParticleGenerator.cpp">
+      <Filter>objects\generators</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="core.hpp" />
@@ -37,6 +40,9 @@
       <Filter>objects\systems</Filter>
     </ClInclude>
     <ClInclude Include="objects\generators\ParticleGenerator.h">
+      <Filter>objects\generators</Filter>
+    </ClInclude>
+    <ClInclude Include="objects\generators\GaussianParticleGenerator.h">
       <Filter>objects\generators</Filter>
     </ClInclude>
   </ItemGroup>

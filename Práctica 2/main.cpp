@@ -2,7 +2,8 @@
 
 #include <PxPhysicsAPI.h>
 
-#include <vector>
+#include <chrono>
+#include <thread>
 
 #include "core.hpp"
 #include "RenderUtils.hpp"
@@ -32,6 +33,7 @@ PxDefaultCpuDispatcher*	gDispatcher = NULL;
 PxScene*				gScene      = NULL;
 ContactReportCallback gContactReportCallback;
 
+// VARIABLES PROPIAS
 ParticleSystem* partSys = nullptr;
 
 // Initialize physics engine
@@ -68,12 +70,24 @@ void initPhysics(bool interactive)
 // t: time passed since last call in milliseconds
 void stepPhysics(bool interactive, double t)
 {
+	auto startTime = std::chrono::high_resolution_clock::now();
+
 	PX_UNUSED(interactive);
 
 	gScene->simulate(t);
+	partSys->update(t);
 	gScene->fetchResults(true);
 
-	partSys->update(t);
+	//auto endTime = std::chrono::high_resolution_clock::now();
+	//std::chrono::duration<double> elapsedSeconds = endTime - startTime;
+	//double elapsedTime = elapsedSeconds.count();
+
+	//// Comprobar si el frame ha ocurrido en menos tiempo que el framerate establecido
+	//if (elapsedTime < 1.0f/ 120.0f) {
+	//	// Parar la ejecución un tiempo concreto
+	//	double sleepTime = 1.0f / 120.0f - elapsedTime;
+	//	std::this_thread::sleep_for(std::chrono::duration<double>(sleepTime));
+	//}
 }
 
 // Function to clean data

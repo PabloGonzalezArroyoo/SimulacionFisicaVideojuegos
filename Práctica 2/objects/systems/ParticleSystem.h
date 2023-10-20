@@ -1,7 +1,7 @@
 #pragma once
 
 #include "../physicObjects/Particle.h"
-#include "../generators/ParticleGenerator.h"
+#include "../generators/GaussianParticleGenerator.h"
 #include <list>
 
 using namespace std;

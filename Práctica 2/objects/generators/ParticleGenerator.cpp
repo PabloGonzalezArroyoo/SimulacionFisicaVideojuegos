@@ -1,35 +1,18 @@
 #include "ParticleGenerator.h"
 
-ParticleGenerator::ParticleGenerator(Vector3 medSpeed, Vector3 medVar, int prob) : probability(prob), 
-	gen(std::default_random_engine(std::chrono::system_clock::now().time_since_epoch().count())) {
+ParticleGenerator::ParticleGenerator(Vector3 iniPos, Vector3 medSpeed, Vector3 medVar, float prob) :
+	iniPos(iniPos), meanVel(medSpeed), meanVar(medVar), probability(prob) {
+	srand((unsigned)time);
 
+	cout << "Particle generation set with " << prob << " probability\n";
+	cout << "Speed: (" << medSpeed.x << ", " << medSpeed.y << ", " << medSpeed.z << ")\n";
+	cout << "Var:   (" << medVar.x << ", " << medVar.y << ", " << medVar.z << ")\n";
 }
 
 ParticleGenerator::~ParticleGenerator() {
-
+	// delete model;
 }
 
-void ParticleGenerator::setParticle(Particle* model) {
-
-}
-
-list<Particle*> ParticleGenerator::generateParticles() {
-	list<Particle*> prtcls;
-
-	if (rand() % 10000 < probability) {
-
-		// REVISAR ESTO
-		std::normal_distribution<float>* vX = new std::normal_distribution<float>(50, 45);
-		std::normal_distribution<float>* vY = new std::normal_distribution<float>(50, 45);
-		std::normal_distribution<float>* vZ = new std::normal_distribution<float>(50, 45);
-		
-		Vector3 iniPos = Vector3(0, 0, 0);
-		Vector3 vel = Vector3((*vX)(gen), (*vY)(gen), (*vZ)(gen));
-		Vector3 acc = Vector3(0, -10.0, 0);
-		int lifeTime = rand() % 10 + 3;
-
-		prtcls.push_back(new Particle(iniPos, vel, acc, lifeTime));
-	}
-
-	return prtcls;
+void ParticleGenerator::setParticle(Particle* m) {
+	model = m;
 }

@@ -1,7 +1,13 @@
 #include "ParticleSystem.h"
 
 ParticleSystem::ParticleSystem() {
-	_particle_generators.push_back(new ParticleGenerator(Vector3(50, 50, 50), Vector3(35, 35, 35), 500));
+	Particle* model = new Particle(10, Vector3(0), Vector3(50), Vector3(0), 0, Vector4(125, 125, 0, 1), CreateShape(PxSphereGeometry(3)));
+	ParticleGenerator* ptGen = new GaussianParticleGenerator(Vector3(0), Vector3(35), 0.3, model);
+	_particle_generators.push_back(ptGen);
+
+	model = new Particle(10, Vector3(0), Vector3(50), Vector3(0), 0, Vector4(0, 125, 125, 1), CreateShape(PxBoxGeometry(2, 2, 2)));
+	ptGen = new GaussianParticleGenerator(Vector3(-150, 0, 0), Vector3(35), 0.3, model);
+	_particle_generators.push_back(ptGen);
 }
 
 ParticleSystem::~ParticleSystem() {
