@@ -1,17 +1,19 @@
 #include "ParticleGenerator.h"
 
 // Constructora - Inicializa valores básicos, aleatorios y muestra información por pantalla
-ParticleGenerator::ParticleGenerator(Vector3 iniPos, Vector3 medSpeed, Vector3 medVar, float prob, bool st) :
-	iniPos(iniPos), meanVel(medSpeed), meanVar(medVar), probability(prob), staticGenerator(st),
+ParticleGenerator::ParticleGenerator(string n, Particle* p, Vector3 pos, Vector3 var, float f, bool st) : name(n),
+	iniPos(pos), frecuency(f), cont(0), staticGenerator(st), model(p), meanVel(p->getVelocity()), meanVar(var),
 	gen(default_random_engine(chrono::system_clock::now().time_since_epoch().count())) {
 	srand((unsigned)time);
-
-	cout << "Particle generation set with " << prob << " probability\n";
-	cout << "Speed: (" << medSpeed.x << ", " << medSpeed.y << ", " << medSpeed.z << ")\n";
-	cout << "Var:   (" << medVar.x << ", " << medVar.y << ", " << medVar.z << ")\n";
 }
 
 // Destructora
 ParticleGenerator::~ParticleGenerator() {
 	delete model;
+}
+
+void ParticleGenerator::setParticle(Particle* m, bool mod) {
+	delete model;
+	model = m->clone();
+	if (mod) meanVel = m->getPos();
 }

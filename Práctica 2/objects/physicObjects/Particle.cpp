@@ -1,26 +1,21 @@
 #include "Particle.h"
 
 // Constructora - Crea una particula definiendo todas sus propiedades
-Particle::Particle(float m, Vector3 p, Vector3 vel, Vector3 ac, int lTime, Vector4 col, PxShape* shp) :
-	pos(p), gravity(Vector3(0, -10.0f, 0)) {
+Particle::Particle(Vector3 p, Vector3 vel, int lTime, Vector4 col, PxShape* shp, float m, Vector3 ac) :
+	pos(p) {
 	
 	startTime = GetLastTime();
 	setProperties(m, vel, ac, col, shp, lTime);
 	renderItem = new RenderItem(shape, &pos, color);
 }
 
-// Constructora - Crea una partícula sin especificar posición y tiempo de vida
-Particle::Particle(float m, Vector3 vel, Vector3 ac, Vector4 col, PxShape* shp) :
-	gravity(Vector3(0, -10.0f, 0)) {
-	
-	startTime = GetLastTime();
-	setProperties(m, vel, ac, col, shp, 0);
-	renderItem = new RenderItem(shape, &pos, color);
-}
+
+
 
 // Destructora
 Particle::~Particle() {
 	renderItem->release();
+	renderItem = nullptr;
 };
 
 // Settea las propiedades de la partícula
@@ -37,16 +32,22 @@ bool Particle::integrate(double t) {
 
 	// Eliminar tras lifeTime segundos
 	if (startTime + lifeTime < GetLastTime()) return false;
+	// Eliminar tras lifeTime segundos o si ha sobrepasado el límite
+	//if (startTime + lifeTime < GetLastTime() || !insideLimit()) return false;
 	
 	return true;
 }
 
-// Clona la partícula actual modificando velocidad, aceleración y tiempo de vida
-Particle* Particle::clone(Vector3 newRanVel, Vector3 newRanAccl, float newLifeTime) const {
-	return new Particle(mass, pos.p, newRanVel, newRanAccl, newLifeTime, color, shape);
+bool Particle::insideLimit() {
+	return pos.p.y < vLimit && pos.p.y > -vLimit && pos.p.x < xLimit && pos.p.x > -xLimit;
 }
 
-// Clona la partícula actual modificando posición, velocidad, aceleración y tiempo de vida
-Particle* Particle::clone(Vector3 newPos, Vector3 newRanVel, Vector3 newRanAccl, float newLifeTime) const {
-	return new Particle(mass, newPos, newRanVel, newRanAccl, newLifeTime, color, shape);
+// Clona la partícula actual modificando velocidad, aceleración y tiempo de vida
+Particle* Particle::clone(Vector3 newRanVel, float newLifeTime, Vector3 newPos, Vector3 newRanAccl) const {
+	return new Particle(newPos, newRanVel, newLifeTime, color, shape, mass, newRanAccl);
+}
+
+// Clona la partícula actual
+Particle* Particle::clone() const {
+	return new Particle(pos.p, vel, lifeTime, color, shape, mass, accl);
 }

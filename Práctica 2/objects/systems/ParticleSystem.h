@@ -1,8 +1,9 @@
 #pragma once
 
-#include "../physicObjects/Particle.h"
+#include "../physicObjects/Firework.h"
 #include "../generators/GaussianParticleGenerator.h"
 #include "../generators/UniformParticleGenerator.h"
+#include "../generators/FireworkGenerator.h"
 #include <list>
 
 using namespace std;

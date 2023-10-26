@@ -3,7 +3,7 @@
 #include "ParticleGenerator.h"
 
 class UniformParticleGenerator : public ParticleGenerator {
-private:
+protected:
 	// Velocidad
 	uniform_real_distribution<float>* vX;
 	uniform_real_distribution<float>* vY;
@@ -16,10 +16,10 @@ private:
 
 public:
 	// Constructora y destructora
-	UniformParticleGenerator(Vector3 iniPos, Vector3 var, float prob, Particle* m, bool st = true);
+	UniformParticleGenerator(string n, Particle* m, Vector3 iniPos, Vector3 var = Vector3(0), float f = 0, bool st = true);
 	virtual ~UniformParticleGenerator();
 
 	// Método abstracto
-	virtual list<Particle*> generateParticles();
+	virtual list<Particle*> generateParticles(double t);
 };
 

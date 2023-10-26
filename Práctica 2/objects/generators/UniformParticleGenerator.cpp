@@ -1,12 +1,11 @@
 #include "UniformParticleGenerator.h"
 
 // Constructora - Setea la partícula modelo y las distribuciones según proceda
-UniformParticleGenerator::UniformParticleGenerator(Vector3 iniPos, Vector3 var, float prob, Particle* m, bool st)
-	: ParticleGenerator(iniPos, m->getVelocity(), var, prob, st) {
+UniformParticleGenerator::UniformParticleGenerator(string n, Particle* m, Vector3 iniPos, Vector3 var, float f, bool st)
+	: ParticleGenerator(n, m, iniPos, var, f, st) {
 	
 	// Partícula modelo
 	m->setPos(iniPos);
-	setParticle(m);
 
 	// Distribuciones de velocidad
 	vX = new uniform_real_distribution<float>(m->getVelocity().x - var.x, m->getVelocity().x + var.x);
@@ -28,13 +27,13 @@ UniformParticleGenerator::~UniformParticleGenerator() {
 }
 
 // Genera partículas que se devuelven en la lista
-list<Particle*> UniformParticleGenerator::generateParticles() {
+list<Particle*> UniformParticleGenerator::generateParticles(double t) {
 	// Lista de partículas
 	list<Particle*> prtcls;
 
 	// Generar según un aleatorio
-	float random = (rand() % 101) / 100.0f;
-	if (random < probability) {
+	cont += t;
+	if (cont > frecuency) {
 		// Variables aleatorias
 		Vector3 vel = Vector3((*vX)(gen), (*vY)(gen), (*vZ)(gen));
 		Vector3 accl = Vector3(0);
@@ -43,9 +42,11 @@ list<Particle*> UniformParticleGenerator::generateParticles() {
 		// Crear partícula
 		if (!staticGenerator) {
 			Vector3 pos = Vector3((*pX)(gen), (*pY)(gen), (*pZ)(gen));
-			prtcls.push_back(model->clone(pos, vel, accl, lifeTime));
+			prtcls.push_back(model->clone(vel, lifeTime, pos));
 		}
-		else prtcls.push_back(model->clone(vel, accl, lifeTime));
+		else prtcls.push_back(model->clone(vel, lifeTime, model->getPos()));
+
+		cont = 0;
 	}
 
 	return prtcls;

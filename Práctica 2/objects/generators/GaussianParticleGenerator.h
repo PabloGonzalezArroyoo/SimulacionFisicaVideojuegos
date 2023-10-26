@@ -3,7 +3,7 @@
 #include "ParticleGenerator.h"
 
 class GaussianParticleGenerator : public ParticleGenerator {
-private:
+protected:
 	// Velocidad
 	normal_distribution<float>* vX;
 	normal_distribution<float>* vY;
@@ -17,10 +17,10 @@ private:
 
 public:
 	// Constructora y destructora
-	GaussianParticleGenerator(Vector3 iniPos, Vector3 var, float prob, Particle* m, bool st = true);
+	GaussianParticleGenerator(string n, Particle* m, Vector3 iniPos, Vector3 var = Vector3(0), float f = 0, bool st = true);
 	virtual ~GaussianParticleGenerator();
 
 	// Método abstracto
-	virtual list<Particle*> generateParticles();
+	virtual list<Particle*> generateParticles(double t);
 };
 

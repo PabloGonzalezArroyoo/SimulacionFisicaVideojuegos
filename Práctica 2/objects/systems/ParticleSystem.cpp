@@ -3,15 +3,46 @@
 // Constructora
 ParticleSystem::ParticleSystem() {
 
-	// Generador de partículas amarillas redondas
-	Particle* model = new Particle(10, Vector3(0), Vector3(50), Vector3(0), 0, Vector4(125, 125, 0, 1), CreateShape(PxSphereGeometry(3)));
-	ParticleGenerator* ptGen = new GaussianParticleGenerator(Vector3(0), Vector3(35), 0.3, model);
+	#pragma region Particulas (Actividad 1)
+	//// Generador de partículas amarillas redondas
+	//Particle* model = new Particle(Vector3(0), Vector3(50), 0, colors[YELLOW], CreateShape(PxSphereGeometry(3)));
+	//ParticleGenerator* ptGen = new GaussianParticleGenerator("Gaussian", model, model->getPos(), Vector3(35), 0);
+	//_particle_generators.push_back(ptGen);
+	//
+	//// Generador de partículas azules cuadradas
+	//model = new Particle(Vector3(0), Vector3(50), 0, colors[BLUE], CreateShape(PxBoxGeometry(2, 2, 2)));
+	//ptGen = new UniformParticleGenerator("Uniform", model, model->getPos() + Vector3(-100, 0, 0), Vector3(35), 0);
+	//_particle_generators.push_back(ptGen);
+
+	//// Generador no estático
+	//model = new Particle(Vector3(0), Vector3(50), 0, colors[BLUE], CreateShape(PxBoxGeometry(2, 2, 2)));
+	//ptGen = new UniformParticleGenerator("Uniform", model, model->getPos() + Vector3(-100, 0, 0), Vector3(35), 0, false);
+	//_particle_generators.push_back(ptGen);
+	#pragma endregion
+
+	#pragma region Fireworks (Actividad 2)
+	// Generador de fireworks amarillos
+	Particle* pt = new Particle(Vector3(0), Vector3(50), 2, colors[YELLOW], CreateShape(PxSphereGeometry(3)));
+	Firework* model = new Firework(pt, nullptr, 3, make_pair(3, 5));
+	pt->setInvisible(); model->setInvisible();
+	ParticleGenerator* ptGen = new FireworkGenerator("FireworksY1", model, Vector3(0), Vector3(15, 10, 15));
 	_particle_generators.push_back(ptGen);
 
-	// Generador de partículas azules cuadradas
-	model = new Particle(10, Vector3(0), Vector3(50), Vector3(0), 0, Vector4(0, 125, 125, 1), CreateShape(PxBoxGeometry(2, 2, 2)));
-	ptGen = new UniformParticleGenerator(Vector3(-150, 0, 0), Vector3(35), 0.3, model);
+	// Generador de fireworks azules
+	pt = new Particle(Vector3(0), Vector3(80), 2, colors[BLUE], CreateShape(PxBoxGeometry(3, 3, 3)));
+	model = new Firework(pt, nullptr, 4, make_pair(5, 8));
+	pt->setInvisible(); model->setInvisible();
+	ptGen = new FireworkGenerator("FireworksB1", model, Vector3(-100, 0, -100), Vector3(30, 25, 30));
 	_particle_generators.push_back(ptGen);
+
+	// Generador de fireworks verdes
+	pt = new Particle(Vector3(0), Vector3(100), 2, colors[GREEN], CreateShape(PxBoxGeometry(2, 2, 2)));
+	model = new Firework(pt, nullptr, 5, make_pair(8, 10));
+	pt->setInvisible(); model->setInvisible();
+	ptGen = new FireworkGenerator("Fireworks", model, Vector3(-200, 0, -200), Vector3(40, 30, 40));
+	_particle_generators.push_back(ptGen);
+	#pragma endregion
+
 }
 
 // Destructora
@@ -29,7 +60,7 @@ ParticleSystem::~ParticleSystem() {
 void ParticleSystem::update(double t) {
 	// Actualizar generadores (generar partículas si procede)
 	for (ParticleGenerator* p : _particle_generators) {
-		list<Particle*> prtcls = p->generateParticles();
+		list<Particle*> prtcls = p->generateParticles(t);
 		if (!prtcls.empty()) _particles.splice(_particles.end(), prtcls);
 	}
 
@@ -41,6 +72,11 @@ void ParticleSystem::update(double t) {
 	// Eliminar las partículas guardadas en el vector de eliminación, borrándo también memoria
 	for (int i = 0; i < _particlesToDelete.size(); i++) {
 		Particle* p = *_particlesToDelete[i];
+
+		// Añadir las nuevas partículas generadas por la explosión de un firework
+		_particles.splice(_particles.end(), static_cast<Firework*>(p)->explode());
+		
+		// Borrar
 		_particles.erase(_particlesToDelete[i]);
 		delete p;
 	}
