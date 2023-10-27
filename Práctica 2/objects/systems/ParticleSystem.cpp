@@ -36,11 +36,11 @@ ParticleSystem::ParticleSystem() {
 	_particle_generators.push_back(ptGen);
 
 	// Generador de fireworks verdes
-	pt = new Particle(Vector3(0), Vector3(100), 2, colors[GREEN], CreateShape(PxBoxGeometry(2, 2, 2)));
+	/*pt = new Particle(Vector3(0), Vector3(100), 2, colors[GREEN], CreateShape(PxBoxGeometry(2, 2, 2)));
 	model = new Firework(pt, nullptr, 5, make_pair(8, 10));
 	pt->setInvisible(); model->setInvisible();
 	ptGen = new FireworkGenerator("Fireworks", model, Vector3(-200, 0, -200), Vector3(40, 30, 40));
-	_particle_generators.push_back(ptGen);
+	_particle_generators.push_back(ptGen);*/
 	#pragma endregion
 
 }
