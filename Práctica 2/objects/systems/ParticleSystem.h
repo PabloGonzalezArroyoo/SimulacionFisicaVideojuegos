@@ -27,7 +27,5 @@ public:
 	
 	// Getters
 	ParticleGenerator* getParticleGenerator(string name);
-
-	void generateFireworkSystem();
 };
 

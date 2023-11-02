@@ -6,6 +6,12 @@ FireworkGenerator::FireworkGenerator(string n, Particle* m, Vector3 pos, Vector3
 
 }
 
+FireworkGenerator::~FireworkGenerator() {
+	if (vX != nullptr) {
+		delete vX; delete vY; delete vZ;
+	}
+}
+
 void FireworkGenerator::recalculateDistributions(Vector3 vel) {
 	if (vX != nullptr) {
 		delete vX; delete vY; delete vZ;
@@ -25,7 +31,8 @@ list<Particle*> FireworkGenerator::generateParticles(double t) {
 
 	if (initiateGenerator) {
 		Firework* fr = static_cast<Firework*>(model);
-		fr = new Firework(model, this, fr->getGenerations(), fr->getChilds());
+		model->setPos(iniPos);
+		fr = new Firework(model, this, fr->getGenerations(), fr->getChilds(), fr->getChangeColors());
 		fr->setVelocity({ 0, meanVel.y, 0 });
 		lista.push_back(fr);
 		initiateGenerator = false;

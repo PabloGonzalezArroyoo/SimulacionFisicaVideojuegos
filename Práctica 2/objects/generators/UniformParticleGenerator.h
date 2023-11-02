@@ -16,7 +16,7 @@ protected:
 
 public:
 	// Constructora y destructora
-	UniformParticleGenerator(string n, Particle* m, Vector3 iniPos, Vector3 var = Vector3(0), float f = 0, bool st = true);
+	UniformParticleGenerator(string n, Particle* m, Vector3 iniPos, Vector3 var = Vector3(0), float f = 0, bool st = true, Vector3 stOffset = Vector3(0));
 	virtual ~UniformParticleGenerator();
 
 	// Método abstracto

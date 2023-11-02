@@ -1,8 +1,8 @@
 #include "GaussianParticleGenerator.h"
 
 // Constructora - Setea la partícula modelo y las distribuciones según proceda
-GaussianParticleGenerator::GaussianParticleGenerator(string n, Particle* m, Vector3 iniPos, Vector3 var, float f, bool st)
-	: ParticleGenerator(n, m, iniPos, var, f,st) {
+GaussianParticleGenerator::GaussianParticleGenerator(string n, Particle* m, Vector3 iniPos, Vector3 var, float f, bool st, Vector3 stOffset)
+	: ParticleGenerator(n, m, iniPos, var, f, st, stOffset) {
 
 	// Partícula modelo
 	m->setPos(iniPos);
@@ -14,9 +14,9 @@ GaussianParticleGenerator::GaussianParticleGenerator(string n, Particle* m, Vect
 
 	// Distribuciones de posición
 	if (!st) {
-		pX = new normal_distribution<float>(iniPos.x, var.x / 2.0f);
-		pY = new normal_distribution<float>(iniPos.y, var.y / 2.0f);
-		pZ = new normal_distribution<float>(iniPos.z, var.z / 2.0f);
+		pX = new normal_distribution<float>(iniPos.x, stOffset.x);
+		pY = new normal_distribution<float>(iniPos.y, stOffset.y);
+		pZ = new normal_distribution<float>(iniPos.z, stOffset.z);
 	}
 }
 
@@ -24,6 +24,7 @@ GaussianParticleGenerator::GaussianParticleGenerator(string n, Particle* m, Vect
 GaussianParticleGenerator::~GaussianParticleGenerator() {
 	delete vX, vY, vZ;
 	if (pX != nullptr) delete pX, pY, pZ;
+	delete model;
 }
 
 // Genera partículas que se devuelven en la lista
@@ -40,11 +41,16 @@ list<Particle*> GaussianParticleGenerator::generateParticles(double t) {
 		int lifeTime = rand() % 10 + 3;
 
 		// Crear partícula
+		ElimState st = model->getState();
 		if (!staticGenerator) {
 			Vector3 pos = Vector3((*pX)(gen), (*pY)(gen), (*pZ)(gen));
-			prtcls.push_back(model->clone(vel, lifeTime, pos));
+			if (st == BOUNDARIES) prtcls.push_back(model->clone(st, vel, pos));
+			else prtcls.push_back(model->clone(st, vel, pos, lifeTime));
 		}
-		else prtcls.push_back(model->clone(vel, lifeTime, model->getPos()));
+		else {
+			if (st == BOUNDARIES) prtcls.push_back(model->clone(st, vel, model->getPos()));
+			else prtcls.push_back(model->clone(st, vel, model->getPos(), lifeTime));
+		}
 
 		cont = 0;
 	}

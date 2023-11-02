@@ -8,10 +8,8 @@
 
 using namespace physx;
 
-const float vLimit = 200.0f;
-const float xLimit = 200.0f;
-
 enum Colors { RED, BLUE, YELLOW, GREEN };
+enum ElimState { TIME, BOUNDARIES, BOTH };
 
 const std::vector<Vector4> colors = {
 	Vector4(125, 0, 0, 1),
@@ -28,16 +26,20 @@ protected:
 	Vector4 color;
 
 	// Properties
-	Vector3 vel, accl, gravity = Vector3(0, -9.8f, 0);
+	Vector3 vel, accl, iniPos, gravity = Vector3(0, -9.8f, 0);
 	PxTransform pos;
 	float mass, damping;
 
+	// Modo
+	ElimState state;
 	// Tiempo
 	float startTime, lifeTime;
+	// Barrera
+	Vector3 limits;
 
 public:
 	// Constructoras y destructora
-	Particle(Vector3 p, Vector3 vel, int lTime, Vector4 col, PxShape* shp, float m = 10, Vector3 ac = Vector3(0));
+	Particle(Vector3 p, Vector3 vel, ElimState st, Vector4 col, PxShape* shp, float m = 10, Vector3 ac = Vector3(0));
 	//Particle(float m, Vector3 vel, Vector4 col, PxShape* shp, Vector3 ac = Vector3(0));
 	~Particle();
 
@@ -47,10 +49,10 @@ public:
 
 	// Clonar partícula
 	virtual Particle* clone() const;
-	virtual Particle* clone(Vector3 newRanVel, float newLifeTime, Vector3 newPos, Vector3 newRanAccl = Vector3(0)) const;
+	virtual Particle* clone(ElimState mode, Vector3 newRanVel, Vector3 newPos, float newLifeTime = 0, Vector3 newRanAccl = Vector3(0)) const;
 
 	// Getters y setters
-	void setProperties(float m, Vector3 v, Vector3 a, Vector4 c, PxShape* s, float l, float d = 0.998);
+	void setProperties(float m, Vector3 v, Vector3 a, Vector4 c, PxShape* s, float d = 0.998);
 	void setInvisible() { renderItem->release(); }
 	#pragma region getters&setters
 	inline void setMass(float m) { mass = m; }
@@ -60,6 +62,7 @@ public:
 	inline void setColor(Vector4 c) { color = c; }
 	inline void setShape(PxShape* s) { shape = s; }
 	inline void setLifeTime(float l) { lifeTime = l; }
+	inline void setBoundaries(Vector3 lmt) { limits = lmt; }
 	inline void setPos(Vector3 p) { pos.p = p; }
 
 	inline float getMass() { return mass; }
@@ -71,5 +74,6 @@ public:
 	inline float getLifeTime() { return lifeTime; }
 	inline Vector3 getPos() { return Vector3(pos.p.x, pos.p.y, pos.p.z); }
 	inline PxTransform getTransform() { return pos; }
+	inline ElimState getState() { return state; }
 	#pragma endregion
 };

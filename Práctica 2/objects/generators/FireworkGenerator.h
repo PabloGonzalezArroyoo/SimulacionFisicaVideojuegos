@@ -9,7 +9,7 @@ private:
 
 public:
 	FireworkGenerator(string n, Particle* p, Vector3 pos, Vector3 var);
-	virtual ~FireworkGenerator() {};
+	virtual ~FireworkGenerator();
 
 	virtual list<Particle*> generateParticles(double t);
 

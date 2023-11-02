@@ -17,7 +17,7 @@ protected:
 
 public:
 	// Constructora y destructora
-	GaussianParticleGenerator(string n, Particle* m, Vector3 iniPos, Vector3 var = Vector3(0), float f = 0, bool st = true);
+	GaussianParticleGenerator(string n, Particle* m, Vector3 iniPos, Vector3 var = Vector3(0), float f = 0, bool st = true, Vector3 stOffset = Vector3(0));
 	virtual ~GaussianParticleGenerator();
 
 	// Método abstracto
