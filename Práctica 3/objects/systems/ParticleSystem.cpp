@@ -3,14 +3,14 @@
 // Constructora
 ParticleSystem::ParticleSystem() {
 
-	#pragma region Particulas (Actividad 1)
+	#pragma region Particulas (Práctica 2 - Actividad 1)
 	// Generador de partículas amarillas redondas
-	Particle* model = new Particle(Vector3(0), Vector3(50), BOUNDARIES, colors[YELLOW], CreateShape(PxSphereGeometry(3)));
-	model->setBoundaries(Vector3(100));
-	ParticleGenerator* ptGen = new GaussianParticleGenerator("Gaussian", model, model->getPos(), Vector3(35), 0);
-	_particle_generators.push_back(ptGen);
-	//
-	//// Generador de partículas azules cuadradas
+	//Particle* model = new Particle(Vector3(0), Vector3(50), TIME, colors[YELLOW], CreateShape(PxSphereGeometry(3)));
+	////model->setBoundaries(Vector3(100));
+	//ParticleGenerator* ptGen = new GaussianParticleGenerator("Gaussian", model, model->getPos(), Vector3(35), 0);
+	//_particle_generators.push_back(ptGen);
+	
+	// Generador de partículas azules cuadradas
 	//model = new Particle(Vector3(0), Vector3(50), TIME, colors[BLUE], CreateShape(PxBoxGeometry(2, 2, 2)));
 	////model->setBoundaries(Vector3(200));
 	//ptGen = new UniformParticleGenerator("Uniform", model, model->getPos() + Vector3(-100, 0, 0), Vector3(35), 0);
@@ -23,7 +23,7 @@ ParticleSystem::ParticleSystem() {
 	//_particle_generators.push_back(ptGen);
 	#pragma endregion
 
-	#pragma region Fireworks (Actividad 2)
+	#pragma region Fireworks (Práctica 2 - Actividad 2)
 	//// Generador de fireworks amarillos
 	//Particle* pt = new Particle(Vector3(0), Vector3(50), TIME, colors[YELLOW], CreateShape(PxSphereGeometry(3)));
 	//pt->setLifeTime(2);
@@ -47,6 +47,14 @@ ParticleSystem::ParticleSystem() {
 	//pt->setInvisible(); 
 	//ptGen = new FireworkGenerator("Fireworks", model, Vector3(-200, 0, -200), Vector3(40, 30, 40));
 	//_particle_generators.push_back(ptGen);
+	#pragma endregion
+
+	#pragma region Fuerzas (Práctica 3 - Actividad 1)
+	Particle* p = new Particle(Vector3(0), Vector3(0, 10, 0), BOUNDARIES, colors[RED], CreateShape(PxSphereGeometry(3)));
+	p->setBoundaries(Vector3(100));
+	_particles.push_back(p);
+	_forceRegistry = new ParticleForceRegistry();
+	_forceRegistry->addRegistry(new GravityForceGenerator(Vector3(0, -10, 0)), *_particles.begin());
 	#pragma endregion
 
 }
@@ -85,7 +93,7 @@ void ParticleSystem::update(double t) {
 
 		#pragma region Fireworks (Actividad 2)
 		// Añadir las nuevas partículas generadas por la explosión de un firework
-		// _particles.splice(_particles.end(), static_cast<Firework*>(p)->explode());
+		//_particles.splice(_particles.end(), static_cast<Firework*>(p)->explode());
 		#pragma endregion
 		
 		// Borrar
