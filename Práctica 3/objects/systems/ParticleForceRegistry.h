@@ -7,7 +7,7 @@ class ParticleForceRegistry : public multimap<ForceGenerator*, Particle*> {
 private:
 
 public:
-	inline void updateForces(double duration) {
+	inline void updateForces() {
 		for (auto it = begin(); it != end(); it++) {
 			it->first->updateForce(it->second);
 			//it->first->updateForces(it->second, duration);

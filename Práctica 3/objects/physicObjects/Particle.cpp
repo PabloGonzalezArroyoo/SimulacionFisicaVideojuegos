@@ -23,7 +23,7 @@ void Particle::setProperties(float m, Vector3 v, Vector4 c, PxShape* s, float d)
 // Update
 bool Particle::integrate(double t) {
 	// Calcular aceleración y velocidad
-	Vector3 resulting_accel = force * (1 / mass);
+	Vector3 resulting_accel = force * getInvMass();
 	vel += resulting_accel * t;
 	vel *= powf(damping, t);
 

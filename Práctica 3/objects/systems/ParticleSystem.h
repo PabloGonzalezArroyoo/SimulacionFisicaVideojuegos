@@ -10,8 +10,22 @@
 
 using namespace std;
 
+enum PracticeType {
+	PARTICLES_P2A1,
+	FIREWORKS_P2A2,
+	FORCES_P3A1
+};
+
+enum ParticlesType {
+	GeneratorsType,
+	FireworksType
+};
+
 class ParticleSystem {
 private:
+	PracticeType practiceType = FORCES_P3A1;
+	ParticlesType particlesType = GeneratorsType;
+
 	// Listas de objetos
 	list<Particle*> _particles;
 	list<ParticleGenerator*> _particle_generators;
