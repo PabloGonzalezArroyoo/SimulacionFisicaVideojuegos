@@ -31,7 +31,7 @@
     <ClCompile Include="objects\generators\GravityForceGenerator.cpp">
       <Filter>objects\generators</Filter>
     </ClCompile>
-    <ClCompile Include="objects\generators\ParticleDragGenerator.cpp">
+    <ClCompile Include="objects\generators\WindForceGenerator.cpp">
       <Filter>objects\generators</Filter>
     </ClCompile>
     <ClCompile Include="objects\generators\FireworkGenerator.cpp">
@@ -78,7 +78,7 @@
     <ClInclude Include="objects\generators\GravityForceGenerator.h">
       <Filter>objects\generators</Filter>
     </ClInclude>
-    <ClInclude Include="objects\generators\ParticleDragGenerator.h">
+    <ClInclude Include="objects\generators\WindForceGenerator.h">
       <Filter>objects\generators</Filter>
     </ClInclude>
   </ItemGroup>

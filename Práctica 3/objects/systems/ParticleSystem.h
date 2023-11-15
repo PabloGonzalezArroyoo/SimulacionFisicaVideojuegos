@@ -5,6 +5,7 @@
 #include "../generators/UniformParticleGenerator.h"
 #include "../generators/FireworkGenerator.h"
 #include "../generators/GravityForceGenerator.h"
+#include "../generators/WindForceGenerator.h"
 #include <list>
 #include "ParticleForceRegistry.h"
 

@@ -102,9 +102,13 @@ void ParticleSystem::update(double t) {
 				#pragma region Fuerzas (Práctica 3 - Actividad 1)
 				// Para generadores normales
 				if (particlesType == GeneratorsType) {
+					// Fuerza de la gravedad
 					rand() % 2 == 0 ?
 						_forceRegistry->addRegistry(new GravityForceGenerator(Vector3(0, -10, 0)), *prtcls.begin()) :
 						_forceRegistry->addRegistry(new GravityForceGenerator(Vector3(0, 10, 0)), *prtcls.begin());
+
+					// Rozamiento (viento)
+					_forceRegistry->addRegistry(new WindForceGenerator(20, 0), *prtcls.begin());
 				}
 
 				// Para fireworks

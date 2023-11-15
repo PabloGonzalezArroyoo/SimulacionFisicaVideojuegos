@@ -3,16 +3,16 @@
 #include "ForceGenerator.h"
 #include "../../core.hpp"
 
-class ParticleDragGenerator : public ForceGenerator {
+class WindForceGenerator : public ForceGenerator {
 protected:
 	// k1 -> velocidad, k2 -> velocidad cuadrática
 	float k1, k2;
 
 public:
-	ParticleDragGenerator();
-	ParticleDragGenerator(const float k1, const float k2);
+	WindForceGenerator();
+	WindForceGenerator(const float _k1, const float _k2);
 
-	virtual void updateForce(Particle* particle, double t);
+	virtual void updateForce(Particle* particle);
 
 	inline void setDrag(float _k1, float _k2) { k1 = _k1; k2 = _k2; }
 	inline float getK1() { return k1; }
