@@ -22,6 +22,12 @@ enum ParticlesType {
 	FireworksType
 };
 
+enum ForceType {
+	GRAVITY_DOWN,
+	GRAVITY_UP,
+	WIND
+};
+
 class ParticleSystem {
 private:
 	PracticeType practiceType = FORCES_P3A1;
@@ -34,7 +40,9 @@ private:
 	// Vector de objetos a destruir
 	vector<list<Particle*>::iterator> _particlesToDelete;
 
+	// Fuerzas
 	ParticleForceRegistry* _forceRegistry;
+	vector<ForceGenerator*> _forceGenerators;
 
 public:
 	// Constructora y destructora

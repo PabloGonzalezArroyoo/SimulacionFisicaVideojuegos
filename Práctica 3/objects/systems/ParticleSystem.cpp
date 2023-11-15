@@ -72,6 +72,9 @@ ParticleSystem::ParticleSystem() {
 
 		// Contenedor de fuerzas
 		_forceRegistry = new ParticleForceRegistry();
+		_forceGenerators.push_back(new GravityForceGenerator(Vector3(0, -10, 0)));
+		_forceGenerators.push_back(new GravityForceGenerator(Vector3(0, 10, 0)));
+		_forceGenerators.push_back(new WindForceGenerator(Vector3(0), Vector3(0, 0, 20), 200, 10, 0));
 		#pragma endregion
 	}
 }
@@ -85,6 +88,13 @@ ParticleSystem::~ParticleSystem() {
 	// Borrar partículas
 	for (Particle* p : _particles) delete p;
 	_particles.clear();
+
+	// Borrar registro
+	delete _forceRegistry;
+
+	// Borrar generadores
+	for (ForceGenerator* fg : _forceGenerators) delete fg;
+	_forceGenerators.clear();
 
 	// Borrar partículas no eliminadas
 	for (int i = 0; i < _particlesToDelete.size(); i++) delete *_particlesToDelete[i];
@@ -103,17 +113,15 @@ void ParticleSystem::update(double t) {
 				// Para generadores normales
 				if (particlesType == GeneratorsType) {
 					// Fuerza de la gravedad
-					rand() % 2 == 0 ?
-						_forceRegistry->addRegistry(new GravityForceGenerator(Vector3(0, -10, 0)), *prtcls.begin()) :
-						_forceRegistry->addRegistry(new GravityForceGenerator(Vector3(0, 10, 0)), *prtcls.begin());
+					_forceRegistry->addRegistry(_forceGenerators[rand() % 2], *prtcls.begin());
 
 					// Rozamiento (viento)
-					_forceRegistry->addRegistry(new WindForceGenerator(20, 0), *prtcls.begin());
+					_forceRegistry->addRegistry(_forceGenerators[WIND], *prtcls.begin());
 				}
 
 				// Para fireworks
 				else if (particlesType == FireworksType)
-					_forceRegistry->addRegistry(new GravityForceGenerator(Vector3(0, -10, 0)), *prtcls.begin());
+					_forceRegistry->addRegistry(_forceGenerators[GRAVITY_DOWN], *prtcls.begin());
 				#pragma endregion
 			}
 			
@@ -150,6 +158,7 @@ void ParticleSystem::update(double t) {
 		}
 		
 		// Borrar
+		_forceRegistry->deleteParticleRegistry(p);
 		_particles.erase(_particlesToDelete[i]);
 		delete p;
 	}
