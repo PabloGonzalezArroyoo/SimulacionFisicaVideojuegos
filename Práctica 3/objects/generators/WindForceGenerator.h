@@ -7,7 +7,7 @@ class WindForceGenerator : public ForceGenerator {
 protected:
 	// k1 -> velocidad, k2 -> velocidad cuadrática
 	float k1, k2;
-	Vector3 vel, pos;
+	Vector3 vel;
 	float size;
 
 	RenderItem* renderItem;

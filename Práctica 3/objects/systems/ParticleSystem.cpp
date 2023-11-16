@@ -53,7 +53,7 @@ ParticleSystem::ParticleSystem() {
 	}
 
 	else if (practiceType == FORCES_P3A1) {
-		#pragma region Fuerzas (Práctica 3 - Actividad 1)
+		#pragma region Fuerzas (Práctica 3)
 		// Contenedor de fuerzas
 		_forceRegistry = new ParticleForceRegistry();
 		// Gravedad
@@ -66,21 +66,43 @@ ParticleSystem::ParticleSystem() {
 		_forceGenerators.push_back(new WindForceGenerator(Vector3(-150, 45, -40), Vector3(0, 600, 0), 50, Vector4(0, 0, 255, 1), 10, 0));
 		// Tornado
 		_forceGenerators.push_back(new TornadoForceGenerator(Vector3(0), 600, 10));
+		// Explosión
+		_forceGenerators.push_back(new ExplosionForceGenerator(Vector3(0), 80, 400000, 0.1));
 
 		if (particlesType == GeneratorsType) {
 			// Generador de partículas amarillas redondas
-			ParticleGenerator* ptGen;
-			if (forcesType == WIND) {
-				Particle* model = new Particle(Vector3(0), Vector3(50), TIME, colors[YELLOW], CreateShape(PxSphereGeometry(3)));
-				ptGen = new GaussianParticleGenerator("Gaussian", model, model->getPos(), Vector3(5), 0);
+			if (forcesType != EXPLOSION) {
+				ParticleGenerator* ptGen;
+				if (forcesType == WIND) {
+					Particle* model = new Particle(Vector3(0), Vector3(50), TIME, colors[YELLOW], CreateShape(PxSphereGeometry(3)));
+					ptGen = new GaussianParticleGenerator("Gaussian", model, model->getPos(), Vector3(5), 0);
+				}
+				else if (forcesType == TORNADO) {
+					Particle* model = new Particle(Vector3(0), Vector3(0), TIME, colors[YELLOW], CreateShape(PxSphereGeometry(3)));
+					ptGen = new GaussianParticleGenerator("Gaussian", model, model->getPos(), Vector3(0.001, 0.001, 0.001), 0, false,
+						Vector3(10, 0.0001, 10));
+					// for (int i = WIND; i < WIND4; i++) static_cast<WindForceGenerator*>(_forceGenerators[i])->setInvisible();
+				}
+				_particle_generators.push_back(ptGen);
 			}
-			else if (forcesType == TORNADO) {
-				Particle* model = new Particle(Vector3(0), Vector3(20), TIME, colors[YELLOW], CreateShape(PxSphereGeometry(3)));
-				ptGen = new GaussianParticleGenerator("Gaussian", model, model->getPos(), Vector3(0.001, 0.001, 0.001), 0, false,
-					Vector3(100, 0.0001, 100));
-				// for (int i = WIND; i < WIND4; i++) static_cast<WindForceGenerator*>(_forceGenerators[i])->setInvisible();
+			else {
+				int a = 360 / 1500; float pi = 3.141516;
+				for (int i = 0; i < 1500; i++) {
+					float theta = rand() % 360;
+					float phi = rand() % 360;
+					float x = 10 * sin(theta * pi / 180.0f) * cos(phi * pi / 180.0f);
+					float y = 10 * sin(theta * pi / 180.0f) * sin(phi * pi / 180.0f);
+					float z = 10 * cos(theta * pi / 180.0f);
+					Particle* p;
+					if (i < 300) p = new Particle(Vector3(x, y, z), Vector3(0), NONE, colors[rand() % 4], CreateShape(PxSphereGeometry(2)), rand() % 1000);
+					else if (i < 600) p = new Particle(Vector3(x + 50, y, z), Vector3(0), NONE, colors[rand() % 4], CreateShape(PxSphereGeometry(2)), rand() % 1000);
+					else if (i < 900) p = new Particle(Vector3(x, y + 50, z), Vector3(0), NONE, colors[rand() % 4], CreateShape(PxSphereGeometry(2)), rand() % 1000);
+					else if (i < 1200) p = new Particle(Vector3(x, y - 50, z), Vector3(0), NONE, colors[rand() % 4], CreateShape(PxSphereGeometry(2)), rand() % 1000);
+					else if (i < 1500) p = new Particle(Vector3(x - 50, y, z), Vector3(0), NONE, colors[rand() % 4], CreateShape(PxSphereGeometry(2)), rand() % 1000);
+					p->setBoundaries(Vector3(10000, 10000, 10000));
+					_particles.push_back(p);
+				}
 			}
-			_particle_generators.push_back(ptGen);
 		}
 		else if (particlesType == FireworksType) {
 			// Generador de fireworks azules
@@ -141,7 +163,7 @@ void ParticleSystem::update(double t) {
 					// Tornado
 					else if (forcesType == TORNADO) {
 						_forceRegistry->addRegistry(_forceGenerators[TORNADO], *prtcls.begin());
-					}					
+					}				
 				}
 
 				// Para fireworks
@@ -161,7 +183,10 @@ void ParticleSystem::update(double t) {
 	}
 
 	// Actualizar fuerzas
-	if (practiceType == FORCES_P3A1) _forceRegistry->updateForces();
+	if (practiceType == FORCES_P3A1) {
+		_forceRegistry->updateForces();
+		_forceRegistry->updateTime(t);
+	}
 
 	// Eliminar las partículas guardadas en el vector de eliminación, borrándo también memoria
 	for (int i = 0; i < _particlesToDelete.size(); i++) {
@@ -200,4 +225,18 @@ ParticleGenerator* ParticleSystem::getParticleGenerator(string name) {
 	}
 
 	return (*it);
+}
+
+void ParticleSystem::createExplosion(bool expl) {
+	for (Particle* p : _particles) {
+		if (expl) {
+			_forceRegistry->addRegistry(_forceGenerators[EXPLOSION], p);
+			//_forceRegistry->addRegistry(_forceGenerators[GRAVITY_DOWN], p);
+		}
+		else {
+			p->reset();
+			_forceRegistry->deleteParticleRegistry(p);
+			_forceRegistry->updateTime(0);
+		}
+	}
 }

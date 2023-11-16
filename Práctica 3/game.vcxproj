@@ -255,6 +255,7 @@
   <ItemGroup>
     <ClCompile Include="callbacks.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="objects\generators\ExplosionForceGenerator.cpp" />
     <ClCompile Include="objects\generators\FireworkGenerator.cpp" />
     <ClCompile Include="objects\generators\GaussianParticleGenerator.cpp" />
     <ClCompile Include="objects\generators\GravityForceGenerator.cpp" />
@@ -272,6 +273,7 @@
   <ItemGroup>
     <ClInclude Include="callbacks.hpp" />
     <ClInclude Include="core.hpp" />
+    <ClInclude Include="objects\generators\ExplosionForceGenerator.h" />
     <ClInclude Include="objects\generators\FireworkGenerator.h" />
     <ClInclude Include="objects\generators\ForceGenerator.h" />
     <ClInclude Include="objects\generators\GaussianParticleGenerator.h" />

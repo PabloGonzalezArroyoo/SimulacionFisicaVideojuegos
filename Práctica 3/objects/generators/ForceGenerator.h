@@ -5,18 +5,28 @@
 using namespace std;
 
 class ForceGenerator {
-private:
+protected:
 	string name;
-	double _time = 0.0;
+	double t = 0.0;
 	double lifeTime = -1e10;
+	Vector3 pos;
 
 public:
+	// TO-DO: Refactorizar para tener constructor
 	virtual ~ForceGenerator() {}
 
 	virtual void updateForce(Particle* particle) = 0;
 
-	inline bool updateTime(double t) {
-		_time += t;
-		return _time < lifeTime || lifeTime < 0.0;
+	inline void updateTime(double _t) {
+		t += _t;
 	}
+
+	inline void resetTime() {
+		t = 0;
+	}
+
+	/*inline bool updateTime(double _t) {
+		t += _t;
+		return t < lifeTime || lifeTime < 0.0;
+	}*/
 };

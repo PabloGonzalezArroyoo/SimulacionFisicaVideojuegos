@@ -43,6 +43,7 @@ bool Particle::integrate(double t) {
 	return true;
 }
 
+// Comprueba si está dentro de los límites
 bool Particle::insideLimit() {
 	return pos.p.y < limits.y + iniPos.y
 		&& pos.p.y > -limits.y + iniPos.y
@@ -50,6 +51,13 @@ bool Particle::insideLimit() {
 		&& pos.p.x > -limits.x + iniPos.x
 		&& pos.p.z < limits.z + iniPos.z
 		&& pos.p.z > -limits.z + iniPos.z;
+}
+
+// Devuelve la partícula a su estado inicial
+void Particle::reset() {
+	clearForce();
+	setPos(iniPos);
+	setVelocity(Vector3(0));
 }
 
 // Clona la partícula actual modificando velocidad, aceleración y tiempo de vida

@@ -10,7 +10,7 @@ void TornadoForceGenerator::updateForce(Particle* particle) {
 	if (fabs(particle->getInvMass()) > 1e-10 && insideLimit(particle->getPos())) {
 		Vector3 pPos = particle->getPos();
 		Vector3 vel = k * Vector3(pos.z - pPos.z, 50 - pPos.y + pos.y, pPos.x - pos.x);
-		particle->addFroce(vel);
+		particle->addForce(vel);
 
 		//WindForceGenerator::updateForce(particle);
 	}

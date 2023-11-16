@@ -35,6 +35,7 @@ ContactReportCallback gContactReportCallback;
 
 // VARIABLES PROPIAS
 ParticleSystem* partSys = nullptr;
+bool explosion = true;
 
 // Initialize physics engine
 void initPhysics(bool interactive)
@@ -117,7 +118,8 @@ void keyPress(unsigned char key, const PxTransform& camera)
 
 	switch(toupper(key)) {
 		case ' ':
-
+			partSys->createExplosion(explosion);
+			explosion = !explosion;
 			break;
 
 		default:

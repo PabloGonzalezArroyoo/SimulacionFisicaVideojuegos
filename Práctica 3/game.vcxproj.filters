@@ -40,6 +40,9 @@
     <ClCompile Include="objects\generators\TornadoForceGenerator.cpp">
       <Filter>objects\generators</Filter>
     </ClCompile>
+    <ClCompile Include="objects\generators\ExplosionForceGenerator.cpp">
+      <Filter>objects\generators</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="core.hpp" />
@@ -85,6 +88,9 @@
       <Filter>objects\generators</Filter>
     </ClInclude>
     <ClInclude Include="objects\generators\TornadoForceGenerator.h">
+      <Filter>objects\generators</Filter>
+    </ClInclude>
+    <ClInclude Include="objects\generators\ExplosionForceGenerator.h">
       <Filter>objects\generators</Filter>
     </ClInclude>
   </ItemGroup>

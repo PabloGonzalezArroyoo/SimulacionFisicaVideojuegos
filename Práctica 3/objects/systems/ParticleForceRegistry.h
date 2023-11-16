@@ -14,6 +14,13 @@ public:
 		}
 	}
 
+	inline void updateTime(double t) {
+		for (auto it = begin(); it != end(); it++) {
+			if (t != 0) it->first->updateForce(it->second);	
+			else it->first->resetTime();
+		}
+	}
+
 	inline void addRegistry(ForceGenerator* fg, Particle* p) {
 		insert({ fg, p });
 	}

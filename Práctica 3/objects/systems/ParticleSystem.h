@@ -6,6 +6,7 @@
 #include "../generators/FireworkGenerator.h"
 #include "../generators/GravityForceGenerator.h"
 #include "../generators/TornadoForceGenerator.h"
+#include "../generators/ExplosionForceGenerator.h"
 #include <list>
 #include "ParticleForceRegistry.h"
 
@@ -26,14 +27,15 @@ enum ForceType {
 	GRAVITY_DOWN,
 	GRAVITY_UP,
 	WIND, WIND2, WIND3, WIND4,
-	TORNADO
+	TORNADO,
+	EXPLOSION
 };
 
 class ParticleSystem {
 private:
 	PracticeType practiceType = FORCES_P3A1;
 	ParticlesType particlesType = GeneratorsType;
-	ForceType forcesType = TORNADO;
+	ForceType forcesType = EXPLOSION;
 
 	// Listas de objetos
 	list<Particle*> _particles;
@@ -53,6 +55,8 @@ public:
 
 	// Update
 	void update(double t);
+
+	void createExplosion(bool expl);
 	
 	// Getters
 	ParticleGenerator* getParticleGenerator(string name);

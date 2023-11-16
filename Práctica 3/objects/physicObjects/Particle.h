@@ -9,7 +9,7 @@
 using namespace physx;
 
 enum Colors { RED, BLUE, YELLOW, GREEN };
-enum ElimState { TIME, BOUNDARIES, BOTH };
+enum ElimState { TIME, BOUNDARIES, BOTH, NONE };
 
 const std::vector<Vector4> colors = {
 	Vector4(125, 0, 0, 1),
@@ -45,6 +45,7 @@ public:
 	// Actualizar
 	virtual bool integrate(double t);
 	bool insideLimit();
+	void reset();
 
 	// Clonar partícula
 	virtual Particle* clone() const;
@@ -52,7 +53,7 @@ public:
 
 	// Fuerzas
 	inline void clearForce() { force *= 0.0; }
-	inline void addFroce(const Vector3& f) { force += f; }
+	inline void addForce(const Vector3& f) { force += f; }
 
 	// Getters y setters
 	void setProperties(float m, Vector3 v, Vector4 c, PxShape* s, float d = 0.998);
