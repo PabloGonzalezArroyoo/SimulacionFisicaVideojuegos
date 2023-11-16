@@ -1,8 +1,7 @@
 #include "ExplosionForceGenerator.h"
 
-ExplosionForceGenerator::ExplosionForceGenerator(Vector3 p, float r, float _k, float _tau) : radius(r), k(_k), tau(1 / _tau) {
-	pos = p;
-}
+ExplosionForceGenerator::ExplosionForceGenerator(Vector3 p, float r, float _k, float _tau) : ForceGenerator(Vector3(0)), radius(r),
+	k(_k), tau(1 / _tau) { }
 
 void ExplosionForceGenerator::updateForce(Particle* particle) {
 	if (fabs(particle->getInvMass()) > 1e-10) {

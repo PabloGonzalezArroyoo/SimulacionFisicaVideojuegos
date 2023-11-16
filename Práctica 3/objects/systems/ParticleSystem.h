@@ -33,9 +33,10 @@ enum ForceType {
 
 class ParticleSystem {
 private:
+	// Marcadores
 	PracticeType practiceType = FORCES_P3A1;
 	ParticlesType particlesType = GeneratorsType;
-	ForceType forcesType = EXPLOSION;
+	ForceType forcesType = WIND;
 
 	// Listas de objetos
 	list<Particle*> _particles;
@@ -56,7 +57,15 @@ public:
 	// Update
 	void update(double t);
 
+	// Fuerzas
+	void createForces();
+
+	// Viento y tornado
+	void createWindOrTornadoParticles();
+
+	// Explosión
 	void createExplosion(bool expl);
+	void createParticleSpheres(int n, int rad);
 	
 	// Getters
 	ParticleGenerator* getParticleGenerator(string name);

@@ -10,11 +10,11 @@ protected:
 	Vector3 vel;
 	float size;
 
-	RenderItem* renderItem;
+	RenderItem* renderItem = nullptr;
 
 public:
-	~WindForceGenerator() { renderItem->release(); };
-	WindForceGenerator(Vector3 p, Vector3 v, float s, Vector4 c, const float _k1, const float _k2 = 0);
+	~WindForceGenerator() { if (renderItem != nullptr) renderItem->release(); };
+	WindForceGenerator(Vector3 p, Vector3 v, float s, Vector4 c, const float _k1, bool txt = false, const float _k2 = 0);
 
 	virtual void updateForce(Particle* particle);
 	virtual bool insideLimit(Vector3 p);

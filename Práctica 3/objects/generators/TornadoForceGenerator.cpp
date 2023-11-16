@@ -1,10 +1,7 @@
 #include "TornadoForceGenerator.h"
 
 TornadoForceGenerator::TornadoForceGenerator(Vector3 p, float size, float _k) : WindForceGenerator(p, Vector3(0), size, Vector4(0, 0, 0, 1), 1),
-	k(_k) {
-	pos = p;
-	//setInvisible();
-}
+	k(_k) { }
 
 void TornadoForceGenerator::updateForce(Particle* particle) {
 	if (fabs(particle->getInvMass()) > 1e-10 && insideLimit(particle->getPos())) {

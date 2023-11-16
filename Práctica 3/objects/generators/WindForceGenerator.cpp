@@ -1,10 +1,10 @@
 
 #include "WindForceGenerator.h"
 
-WindForceGenerator::WindForceGenerator(Vector3 p, Vector3 v, float s, Vector4 c, const float _k1, const float _k2) : vel(v), size(s),
-	k1(_k1), k2(_k2) {
+WindForceGenerator::WindForceGenerator(Vector3 p, Vector3 v, float s, Vector4 c, float _k1, bool txt,  float _k2) : ForceGenerator(pos),
+vel(v), size(s), k1(_k1), k2(_k2) {
 	pos = p;
-	//if (c != Vector4(0, 0, 0, 1)) new Particle(p, Vector3(0), BOUNDARIES, c, CreateShape(PxBoxGeometry(s, 1, s)));
+	if (txt) new Particle(p, Vector3(0), BOUNDARIES, c, CreateShape(PxBoxGeometry(s, 1, s)));
 }
 
 void WindForceGenerator::updateForce(Particle* particle) {

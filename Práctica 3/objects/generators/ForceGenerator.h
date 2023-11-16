@@ -12,7 +12,7 @@ protected:
 	Vector3 pos;
 
 public:
-	// TO-DO: Refactorizar para tener constructor
+	ForceGenerator(Vector3 p) : pos(p) {};
 	virtual ~ForceGenerator() {}
 
 	virtual void updateForce(Particle* particle) = 0;
