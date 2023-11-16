@@ -10,13 +10,16 @@ protected:
 	Vector3 vel, pos;
 	float size;
 
+	RenderItem* renderItem;
+
 public:
-	WindForceGenerator();
-	WindForceGenerator(Vector3 p, Vector3 v, float s, const float _k1, const float _k2 = 0);
+	~WindForceGenerator() { renderItem->release(); };
+	WindForceGenerator(Vector3 p, Vector3 v, float s, Vector4 c, const float _k1, const float _k2 = 0);
 
 	virtual void updateForce(Particle* particle);
-	bool insideLimit(Vector3 p);
+	virtual bool insideLimit(Vector3 p);
 
+	inline void setInvisible() { renderItem->release(); }
 	inline void setDrag(float _k1, float _k2) { k1 = _k1; k2 = _k2; }
 	inline float getK1() { return k1; }
 	inline float getK2() { return k2; }

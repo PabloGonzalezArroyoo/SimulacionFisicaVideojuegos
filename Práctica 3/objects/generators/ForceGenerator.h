@@ -7,7 +7,7 @@ using namespace std;
 class ForceGenerator {
 private:
 	string name;
-	double time = 0.0;
+	double _time = 0.0;
 	double lifeTime = -1e10;
 
 public:
@@ -16,7 +16,7 @@ public:
 	virtual void updateForce(Particle* particle) = 0;
 
 	inline bool updateTime(double t) {
-		time += t;
-		return time < lifeTime || lifeTime < 0.0;
+		_time += t;
+		return _time < lifeTime || lifeTime < 0.0;
 	}
 };

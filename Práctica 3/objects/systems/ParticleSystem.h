@@ -5,7 +5,7 @@
 #include "../generators/UniformParticleGenerator.h"
 #include "../generators/FireworkGenerator.h"
 #include "../generators/GravityForceGenerator.h"
-#include "../generators/WindForceGenerator.h"
+#include "../generators/TornadoForceGenerator.h"
 #include <list>
 #include "ParticleForceRegistry.h"
 
@@ -25,13 +25,15 @@ enum ParticlesType {
 enum ForceType {
 	GRAVITY_DOWN,
 	GRAVITY_UP,
-	WIND
+	WIND, WIND2, WIND3, WIND4,
+	TORNADO
 };
 
 class ParticleSystem {
 private:
 	PracticeType practiceType = FORCES_P3A1;
 	ParticlesType particlesType = GeneratorsType;
+	ForceType forcesType = TORNADO;
 
 	// Listas de objetos
 	list<Particle*> _particles;

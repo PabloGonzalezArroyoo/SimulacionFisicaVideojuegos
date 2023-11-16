@@ -258,6 +258,7 @@
     <ClCompile Include="objects\generators\FireworkGenerator.cpp" />
     <ClCompile Include="objects\generators\GaussianParticleGenerator.cpp" />
     <ClCompile Include="objects\generators\GravityForceGenerator.cpp" />
+    <ClCompile Include="objects\generators\TornadoForceGenerator.cpp" />
     <ClCompile Include="objects\generators\WindForceGenerator.cpp" />
     <ClCompile Include="objects\generators\ParticleGenerator.cpp" />
     <ClCompile Include="objects\generators\UniformParticleGenerator.cpp" />
@@ -275,6 +276,7 @@
     <ClInclude Include="objects\generators\ForceGenerator.h" />
     <ClInclude Include="objects\generators\GaussianParticleGenerator.h" />
     <ClInclude Include="objects\generators\GravityForceGenerator.h" />
+    <ClInclude Include="objects\generators\TornadoForceGenerator.h" />
     <ClInclude Include="objects\generators\WindForceGenerator.h" />
     <ClInclude Include="objects\generators\ParticleGenerator.h" />
     <ClInclude Include="objects\generators\UniformParticleGenerator.h" />

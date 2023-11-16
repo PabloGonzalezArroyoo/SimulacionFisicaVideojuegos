@@ -75,6 +75,7 @@ public:
 	inline PxShape* getShape() { return shape; }
 	inline float getLifeTime() { return lifeTime; }
 	inline Vector3 getPos() { return Vector3(pos.p.x, pos.p.y, pos.p.z); }
+	inline Vector3 getIniPos() { return iniPos; }
 	inline PxTransform getTransform() { return pos; }
 	inline ElimState getState() { return state; }
 	#pragma endregion

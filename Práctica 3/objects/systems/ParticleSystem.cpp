@@ -54,10 +54,32 @@ ParticleSystem::ParticleSystem() {
 
 	else if (practiceType == FORCES_P3A1) {
 		#pragma region Fuerzas (Práctica 3 - Actividad 1)
+		// Contenedor de fuerzas
+		_forceRegistry = new ParticleForceRegistry();
+		// Gravedad
+		_forceGenerators.push_back(new GravityForceGenerator(Vector3(0, -10, 0)));
+		_forceGenerators.push_back(new GravityForceGenerator(Vector3(0, 10, 0)));
+		// Viento
+		_forceGenerators.push_back(new WindForceGenerator(Vector3(0), Vector3(0, 0, -200), 50, colors[BLUE], 10, 0));
+		_forceGenerators.push_back(new WindForceGenerator(Vector3(50, 20, -100), Vector3(-200, 0, 0), 50, colors[RED], 10, 0));
+		_forceGenerators.push_back(new WindForceGenerator(Vector3(-100, 30, -170), Vector3(0, 0, 200), 50, colors[GREEN], 10, 0));
+		_forceGenerators.push_back(new WindForceGenerator(Vector3(-150, 45, -40), Vector3(0, 600, 0), 50, Vector4(0, 0, 255, 1), 10, 0));
+		// Tornado
+		_forceGenerators.push_back(new TornadoForceGenerator(Vector3(0), 600, 10));
+
 		if (particlesType == GeneratorsType) {
 			// Generador de partículas amarillas redondas
-			Particle* model = new Particle(Vector3(0), Vector3(50), TIME, colors[YELLOW], CreateShape(PxSphereGeometry(3)), 10);
-			ParticleGenerator* ptGen = new GaussianParticleGenerator("Gaussian", model, model->getPos(), Vector3(5), 0.5);
+			ParticleGenerator* ptGen;
+			if (forcesType == WIND) {
+				Particle* model = new Particle(Vector3(0), Vector3(50), TIME, colors[YELLOW], CreateShape(PxSphereGeometry(3)));
+				ptGen = new GaussianParticleGenerator("Gaussian", model, model->getPos(), Vector3(5), 0);
+			}
+			else if (forcesType == TORNADO) {
+				Particle* model = new Particle(Vector3(0), Vector3(20), TIME, colors[YELLOW], CreateShape(PxSphereGeometry(3)));
+				ptGen = new GaussianParticleGenerator("Gaussian", model, model->getPos(), Vector3(0.001, 0.001, 0.001), 0, false,
+					Vector3(100, 0.0001, 100));
+				// for (int i = WIND; i < WIND4; i++) static_cast<WindForceGenerator*>(_forceGenerators[i])->setInvisible();
+			}
 			_particle_generators.push_back(ptGen);
 		}
 		else if (particlesType == FireworksType) {
@@ -69,12 +91,6 @@ ParticleSystem::ParticleSystem() {
 			ParticleGenerator* ptGen = new FireworkGenerator("FireworksB1", model, Vector3(-100, 0, -100), Vector3(30, 25, 30));
 			_particle_generators.push_back(ptGen);
 		}
-
-		// Contenedor de fuerzas
-		_forceRegistry = new ParticleForceRegistry();
-		_forceGenerators.push_back(new GravityForceGenerator(Vector3(0, -10, 0)));
-		_forceGenerators.push_back(new GravityForceGenerator(Vector3(0, 10, 0)));
-		_forceGenerators.push_back(new WindForceGenerator(Vector3(0), Vector3(0, 0, 20), 200, 10, 0));
 		#pragma endregion
 	}
 }
@@ -116,7 +132,16 @@ void ParticleSystem::update(double t) {
 					_forceRegistry->addRegistry(_forceGenerators[rand() % 2], *prtcls.begin());
 
 					// Rozamiento (viento)
-					_forceRegistry->addRegistry(_forceGenerators[WIND], *prtcls.begin());
+					if (forcesType == WIND) {
+						_forceRegistry->addRegistry(_forceGenerators[WIND], *prtcls.begin());
+						_forceRegistry->addRegistry(_forceGenerators[WIND2], *prtcls.begin());
+						_forceRegistry->addRegistry(_forceGenerators[WIND3], *prtcls.begin());
+						_forceRegistry->addRegistry(_forceGenerators[WIND4], *prtcls.begin());
+					}
+					// Tornado
+					else if (forcesType == TORNADO) {
+						_forceRegistry->addRegistry(_forceGenerators[TORNADO], *prtcls.begin());
+					}					
 				}
 
 				// Para fireworks
