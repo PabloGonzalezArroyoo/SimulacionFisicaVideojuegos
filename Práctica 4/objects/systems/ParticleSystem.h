@@ -36,7 +36,8 @@ enum ForceType {
 enum SpringType {
 	GRAVITY_GEN,
 	WIND_GEN,
-	STATIC_SPRING
+	STATIC_SPRING,
+	PARTICLES_SPRING, PARTICLES_SPRING2,
 };
 
 class ParticleSystem {
@@ -45,7 +46,7 @@ private:
 	PracticeType practiceType = SPRINGS_P4;
 	ParticlesType particlesType = GeneratorsType;
 	ForceType forcesType = EXPLOSION;
-	SpringType springType = STATIC_SPRING;
+	SpringType springType = PARTICLES_SPRING2;
 
 	// Listas de objetos
 	list<Particle*> _particles;
