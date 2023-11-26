@@ -117,22 +117,12 @@ void keyPress(unsigned char key, const PxTransform& camera)
 	PX_UNUSED(camera);
 
 	switch(toupper(key)) {
-		case ' ':
-			partSys->createExplosion(explosion);
-			explosion = !explosion;
-			break;
-		case 'F':
-			cout << "Valor nuevo de k: ";
-			float n; cin >> n;
-			partSys->setSpringK(STATIC_SPRING, n);
-			cout << "> k = " << n << "\n";
-			break;
-		case 'Z':
-			bool active;
-			active = partSys->getForceGenerator("wind")->getActive();
-			partSys->setWindActive(WIND_GEN, !active);
-			cout << partSys->getForceGenerator("wind")->getActive();
-			break;
+		case ' ': explosion = partSys->createExplosion(explosion); break;
+
+		case '+': case '-': partSys->changeKSpring(key); break;
+
+		case 'Z': partSys->setWindActive(); break;
+
 		default:
 			break;
 	}

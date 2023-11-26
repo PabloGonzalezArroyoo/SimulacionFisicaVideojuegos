@@ -14,6 +14,6 @@ public:
 	virtual void updateForce(Particle* particle);
 
 	inline void setK(double _k) { k = _k; }
-
+	inline double getK() { return k; }
 };
 

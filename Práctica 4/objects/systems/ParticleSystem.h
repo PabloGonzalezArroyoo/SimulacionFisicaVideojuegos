@@ -33,7 +33,7 @@ enum ForceType {
 	EXPLOSION
 };
 
-enum SpringGen {
+enum SpringType {
 	GRAVITY_GEN,
 	WIND_GEN,
 	STATIC_SPRING
@@ -45,6 +45,7 @@ private:
 	PracticeType practiceType = SPRINGS_P4;
 	ParticlesType particlesType = GeneratorsType;
 	ForceType forcesType = EXPLOSION;
+	SpringType springType = STATIC_SPRING;
 
 	// Listas de objetos
 	list<Particle*> _particles;
@@ -72,15 +73,17 @@ public:
 	void createWindOrTornadoParticles();
 
 	// Explosión
-	void createExplosion(bool expl);
+	bool createExplosion(bool expl);
 	void createParticleSpheres(int n, int rad);
 	
+	// Cambio en spring
+	void changeKSpring(char t);
+
 	// Getters
 	ParticleGenerator* getParticleGenerator(string name);
 	ForceGenerator* getForceGenerator(string name);
 
 	// Setters
-	inline void setSpringK(SpringGen gen, float _k) { static_cast<SpringForceGenerator*>(_forceGenerators[gen])->setK(_k); }
-	inline void setWindActive(SpringGen gen, bool a) { _forceGenerators[gen]->setActive(a); }
+	void setWindActive();
 };
 

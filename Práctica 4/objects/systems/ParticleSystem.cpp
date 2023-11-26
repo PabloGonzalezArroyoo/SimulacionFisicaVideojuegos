@@ -82,10 +82,9 @@ ParticleSystem::ParticleSystem() {
 		// Registro
 		_forceRegistry = new ParticleForceRegistry();
 
-		// Generadores
+		// Generadores básicos
 		GravityForceGenerator* gfc = new GravityForceGenerator(Vector3(0, -10, 0));
 		WindForceGenerator* wfg = new WindForceGenerator(Vector3(0), Vector3(100, 0, 0), 400, colors[GREEN], 20); wfg->setActive(false);
-		AnchoredSpringForceGenerator* spg = new AnchoredSpringForceGenerator(Vector3(0), 20, 10);
 		
 		// Partícula
 		Particle* pt = new Particle(Vector3(0, 50, 0), Vector3(0), NONE, colors[YELLOW], CreateShape(PxSphereGeometry(3)), 60);
@@ -93,11 +92,15 @@ ParticleSystem::ParticleSystem() {
 		// Añadir registros, generadores y partícula a la estructura
 		_forceRegistry->addRegistry(gfc, pt);
 		_forceRegistry->addRegistry(wfg, pt);
-		_forceRegistry->addRegistry(spg, pt);
 		_forceGenerators.push_back(gfc);
 		_forceGenerators.push_back(wfg);
-		_forceGenerators.push_back(spg);
 		_particles.push_back(pt);
+
+		if (springType == STATIC_SPRING) {
+			AnchoredSpringForceGenerator* spg = new AnchoredSpringForceGenerator(Vector3(0), 20, 10);
+			_forceRegistry->addRegistry(spg, pt);
+			_forceGenerators.push_back(spg);
+		}
 		#pragma endregion
 	}
 }
@@ -280,12 +283,13 @@ void ParticleSystem::createParticleSpheres(int n, int rad) {
 }
 
 // Control del input de las explosiones
-void ParticleSystem::createExplosion(bool expl) {
+bool ParticleSystem::createExplosion(bool expl) {
 	if (forcesType == EXPLOSION) {
 		for (Particle* p : _particles) {
 			if (expl) {
 				_forceRegistry->addRegistry(_forceGenerators[EXPLOSION], p);
 				//_forceRegistry->addRegistry(_forceGenerators[GRAVITY_DOWN], p);
+				return false;
 			}
 			else {
 				p->reset();
@@ -294,4 +298,22 @@ void ParticleSystem::createExplosion(bool expl) {
 			}
 		}
 	}
+
+	return true;
+}
+
+// Activa el generador de viento (práctica 4)
+void ParticleSystem::setWindActive() {
+	bool active = _forceGenerators[WIND_GEN]->getActive();
+	_forceGenerators[WIND_GEN]->setActive(!active);
+	!active ? cout << "Viento activado" : cout << "Viento desactivado";
+	cout << "\n";
+}
+
+// Cambia la k del muelle
+void ParticleSystem::changeKSpring(char t) {
+	SpringForceGenerator* spg = static_cast<SpringForceGenerator*>(_forceGenerators[springType]);
+	t == '+' ? spg->setK(spg->getK() + 1) : spg->setK(spg->getK() - 1);
+	cout << "k: " << spg->getK();
+	t == '+' ? cout << " (+)\n" : cout << " (-)\n";
 }
