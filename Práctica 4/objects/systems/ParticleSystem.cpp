@@ -129,8 +129,7 @@ ParticleSystem::ParticleSystem() {
 			Particle* pt3 = new Particle(Vector3(0,  60, 0), Vector3(0), NONE, colors[BLUE],  CreateShape(PxSphereGeometry(3)), 60);
 			Particle* pt4 = new Particle(Vector3(0,  30, 0), Vector3(0), NONE, colors[RED] ,  CreateShape(PxSphereGeometry(3)), 60);
 
-			// Generadores
-			// Muelles
+			// Generadores de muelles
 			AnchoredSpringForceGenerator* spg = new AnchoredSpringForceGenerator(Vector3(0, 150, 0), 20, 10);
 			SpringForceGenerator* sfg2_1 = new SpringForceGenerator(Vector3(0), 20, 10, pt1);
 			SpringForceGenerator* sfg2_3 = new SpringForceGenerator(Vector3(0), 20, 10, pt3);
@@ -152,10 +151,46 @@ ParticleSystem::ParticleSystem() {
 			_forceRegistry->addRegistry(gfc, pt3);
 			_forceRegistry->addRegistry(gfc, pt4);
 
+			// Añadir a la estructura
+			_forceGenerators.push_back(spg);
+			_forceGenerators.push_back(sfg2_1);
+			_forceGenerators.push_back(sfg2_3);
+			_forceGenerators.push_back(sfg3_2);
+			_forceGenerators.push_back(sfg3_4);
+			_forceGenerators.push_back(sfg4_3);
+
 			// Partículas
 			_particles.push_back(pt2);
 			_particles.push_back(pt3);
 			_particles.push_back(pt4);
+		}
+		else if (springType == BUOYANCY_SPRING) {
+			// ¿ Fg > E ?
+			BuoyancyForceGenerator* bfc1 = new BuoyancyForceGenerator(Vector3(0), 10, 30, 1000);
+
+			// ¿ Fg = E ? (to-do)
+			Particle* pt2 = new Particle(Vector3(0, 50, -50), Vector3(0), NONE, colors[RED], CreateShape(PxSphereGeometry(3)), 60);
+			BuoyancyForceGenerator* bfc2 = new BuoyancyForceGenerator(Vector3(0, 0, -50), 10, 30, 1000);
+
+			// ¿ Fg < E ? (to-do)
+			Particle* pt3 = new Particle(Vector3(0, 50, -100), Vector3(0), NONE, colors[GREEN], CreateShape(PxSphereGeometry(3)), 60);
+			BuoyancyForceGenerator* bfc3 = new BuoyancyForceGenerator(Vector3(0, 0, -100), 10, 30, 1000);
+
+			// Añadir gravedad y flotación
+			_forceRegistry->addRegistry(bfc1, pt1);
+			_forceRegistry->addRegistry(gfc, pt2);
+			_forceRegistry->addRegistry(bfc2, pt2);
+			_forceRegistry->addRegistry(gfc, pt3);
+			_forceRegistry->addRegistry(bfc3, pt3);
+
+			// Añadir a la estructura
+			_forceGenerators.push_back(bfc1);
+			_forceGenerators.push_back(bfc2);
+			_forceGenerators.push_back(bfc3);
+
+			// Partículas
+			_particles.push_back(pt2);
+			_particles.push_back(pt3);
 		}
 		#pragma endregion
 	}

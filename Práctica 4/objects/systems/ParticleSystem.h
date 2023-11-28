@@ -8,6 +8,7 @@
 #include "../generators/TornadoForceGenerator.h"
 #include "../generators/ExplosionForceGenerator.h"
 #include "../generators/AnchoredSpringForceGenerator.h"
+#include "../generators/BuoyancyForceGenerator.h"
 #include <list>
 #include "ParticleForceRegistry.h"
 
@@ -37,7 +38,8 @@ enum SpringType {
 	GRAVITY_GEN,
 	WIND_GEN,
 	STATIC_SPRING,
-	PARTICLES_SPRING, PARTICLES_SPRING2,
+	PARTICLES_SPRING, PARTICLES_SPRING2, PARTICLES_SPRING3, PARTICLES_SPRING4, PARTICLES_SPRING5,
+	BUOYANCY_SPRING
 };
 
 class ParticleSystem {
@@ -46,7 +48,7 @@ private:
 	PracticeType practiceType = SPRINGS_P4;
 	ParticlesType particlesType = GeneratorsType;
 	ForceType forcesType = EXPLOSION;
-	SpringType springType = PARTICLES_SPRING2;
+	SpringType springType = BUOYANCY_SPRING;
 
 	// Listas de objetos
 	list<Particle*> _particles;
