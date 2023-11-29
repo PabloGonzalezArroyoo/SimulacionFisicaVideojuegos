@@ -77,6 +77,7 @@ ParticleSystem::ParticleSystem() {
 		#pragma endregion
 	}
 
+	// TO-DO: PASAR TODO A MÉTODOS INVOCABLES POR TECLAS SEPARANDO LAS GENERACIONES EN MÉTODOS Y ADECUANDO EN CADA UNO LA GENERACIÓN
 	else if (practiceType == SPRINGS_P4) {
 		#pragma region Muelles (Práctica 4)
 		// Registro
@@ -84,23 +85,34 @@ ParticleSystem::ParticleSystem() {
 
 		// Generadores básicos
 		GravityForceGenerator* gfc = new GravityForceGenerator(Vector3(0, -10, 0));
-		WindForceGenerator* wfg = new WindForceGenerator(Vector3(0), Vector3(100, 0, 0), 400, colors[GREEN], 20); wfg->setActive(false);
+		WindForceGenerator* wfg = new WindForceGenerator(Vector3(0), Vector3(30, 0, 0), 400, colors[GREEN], 20); wfg->setActive(false);
 		
 		// Partícula
-		Particle* pt1 = new Particle(Vector3(0, 50, 0), Vector3(0), NONE, colors[YELLOW], CreateShape(PxSphereGeometry(3)), 60);
+		Particle* pt1 = new Particle(Vector3(0), Vector3(0), NONE, colors[YELLOW], CreateShape(PxSphereGeometry(3)), 1);
+		Particle* pt2 = new Particle(Vector3(0), Vector3(0), NONE, colors[YELLOW], CreateShape(PxSphereGeometry(3)), 1);
+		Particle* pt3 = new Particle(Vector3(0), Vector3(0), NONE, colors[YELLOW], CreateShape(PxSphereGeometry(3)), 1);
+		Particle* pt4 = new Particle(Vector3(0), Vector3(0), NONE, colors[YELLOW], CreateShape(PxSphereGeometry(3)), 1);
 
 		// Añadir registros, generadores y partícula a la estructura
-		_forceRegistry->addRegistry(gfc, pt1);
-		_forceRegistry->addRegistry(wfg, pt1);
 		_forceGenerators.push_back(gfc);
 		_forceGenerators.push_back(wfg);
 		_particles.push_back(pt1);
+		_particles.push_back(pt2);
+		_particles.push_back(pt3);
+		_particles.push_back(pt4);
 
 		if (springType == STATIC_SPRING) {
 			// Generador de muelle estático
-			AnchoredSpringForceGenerator* spg = new AnchoredSpringForceGenerator(Vector3(0), 20, 10);
+			pt1->setPos(Vector3(0, 45, 0));
+			pt2->setPos(Vector3(0, 45, 5));
+			pt3->setPos(Vector3(0, 45, -5));
+			AnchoredSpringForceGenerator* spg = new AnchoredSpringForceGenerator(Vector3(0, 50, 0), 4, 20);
 			_forceRegistry->addRegistry(spg, pt1);
+			_forceRegistry->addRegistry(spg, pt2);
+			_forceRegistry->addRegistry(spg, pt3);
 			_forceRegistry->addRegistry(gfc, pt1);
+			_forceRegistry->addRegistry(gfc, pt2);
+			_forceRegistry->addRegistry(gfc, pt3);
 			_forceGenerators.push_back(spg);
 		}
 		else if (springType == PARTICLES_SPRING) {
@@ -108,51 +120,62 @@ ParticleSystem::ParticleSystem() {
 			gfc->setActive(false);
 
 			// Partícula
-			pt1->setPos(Vector3(100, 50, 0));
-			Particle* pt2 = new Particle(Vector3(0, 50, 100), Vector3(0), NONE, colors[RED], CreateShape(PxSphereGeometry(3)), 60);
+			pt1->setPos(Vector3(50, 25, 0));
+			pt2->setPos(Vector3(-50, 25, 0));
+			pt3->setPos(Vector3(0, 50, 0));
+			pt4->setPos(Vector3(0, 0, 0));
 
 			// Generadores
-			SpringForceGenerator* sfg1 = new SpringForceGenerator(Vector3(0), 20, 10, pt2);
-			SpringForceGenerator* sfg2 = new SpringForceGenerator(Vector3(0), 20, 10, pt1);
+			SpringForceGenerator* sfg1 = new SpringForceGenerator(Vector3(0), 4, 20, pt2);
+			SpringForceGenerator* sfg2 = new SpringForceGenerator(Vector3(0), 4, 20, pt1);
+			SpringForceGenerator* sfg3 = new SpringForceGenerator(Vector3(0), 4, 20, pt4);
+			SpringForceGenerator* sfg4 = new SpringForceGenerator(Vector3(0), 4, 20, pt3);
 			
 			// Añadir a la estructura
 			_forceRegistry->addRegistry(sfg1, pt1);
 			_forceRegistry->addRegistry(sfg2, pt2);
+			_forceRegistry->addRegistry(sfg3, pt3);
+			_forceRegistry->addRegistry(sfg4, pt4);
 			_forceGenerators.push_back(sfg1);
 			_forceGenerators.push_back(sfg2);
-			_particles.push_back(pt2);
+			_forceGenerators.push_back(sfg3);
+			_forceGenerators.push_back(sfg4);
 		}
 		else if (springType == PARTICLES_SPRING2) {
 			// Partícula
-			pt1->setPos(				 Vector3(0, 120, 0));
-			Particle* pt2 = new Particle(Vector3(0,  90, 0), Vector3(0), NONE, colors[BLUE],  CreateShape(PxSphereGeometry(3)), 60);
-			Particle* pt3 = new Particle(Vector3(0,  60, 0), Vector3(0), NONE, colors[BLUE],  CreateShape(PxSphereGeometry(3)), 60);
-			Particle* pt4 = new Particle(Vector3(0,  30, 0), Vector3(0), NONE, colors[RED] ,  CreateShape(PxSphereGeometry(3)), 60);
+			pt1->setPos(Vector3(0, 120, 0));
+			pt2->setPos(Vector3(0, 90, 0));
+			pt3->setPos(Vector3(0, 60, 0));
+			pt4->setPos(Vector3(0, 30, 0));
 
 			// Generadores de muelles
-			AnchoredSpringForceGenerator* spg = new AnchoredSpringForceGenerator(Vector3(0, 150, 0), 20, 10);
-			SpringForceGenerator* sfg2_1 = new SpringForceGenerator(Vector3(0), 20, 10, pt1);
-			SpringForceGenerator* sfg2_3 = new SpringForceGenerator(Vector3(0), 20, 10, pt3);
-			SpringForceGenerator* sfg3_2 = new SpringForceGenerator(Vector3(0), 20, 10, pt2);
-			SpringForceGenerator* sfg3_4 = new SpringForceGenerator(Vector3(0), 20, 10, pt4);
-			SpringForceGenerator* sfg4_3 = new SpringForceGenerator(Vector3(0), 20, 10, pt3);
+			AnchoredSpringForceGenerator* spg = new AnchoredSpringForceGenerator(Vector3(0, 150, 0), 4, 20);
+			SpringForceGenerator* sfg1_2 = new SpringForceGenerator(Vector3(0), 4, 20, pt2);
+			SpringForceGenerator* sfg2_1 = new SpringForceGenerator(Vector3(0), 4, 20, pt1);
+			SpringForceGenerator* sfg2_3 = new SpringForceGenerator(Vector3(0), 4, 20, pt3);
+			SpringForceGenerator* sfg3_2 = new SpringForceGenerator(Vector3(0), 4, 20, pt2);
+			SpringForceGenerator* sfg3_4 = new SpringForceGenerator(Vector3(0), 4, 20, pt4);
+			SpringForceGenerator* sfg4_3 = new SpringForceGenerator(Vector3(0), 4, 20, pt3);
 
 			// Conectar muelles
 			_forceRegistry->addRegistry(spg, pt1);
+			_forceRegistry->addRegistry(sfg1_2, pt1);
 			_forceRegistry->addRegistry(sfg2_1, pt2);
 			_forceRegistry->addRegistry(sfg2_3, pt2);
 			_forceRegistry->addRegistry(sfg3_2, pt3);
 			_forceRegistry->addRegistry(sfg3_4, pt3);
 			_forceRegistry->addRegistry(sfg4_3, pt4);
 
-			// Fuerza de la gravedad
+			// Fuerza de la gravedad y viento
 			_forceRegistry->addRegistry(gfc, pt1);
 			_forceRegistry->addRegistry(gfc, pt2);
 			_forceRegistry->addRegistry(gfc, pt3);
 			_forceRegistry->addRegistry(gfc, pt4);
+			_forceRegistry->addRegistry(wfg, pt4);
 
 			// Añadir a la estructura
 			_forceGenerators.push_back(spg);
+			_forceGenerators.push_back(sfg1_2);
 			_forceGenerators.push_back(sfg2_1);
 			_forceGenerators.push_back(sfg2_3);
 			_forceGenerators.push_back(sfg3_2);
@@ -406,14 +429,17 @@ void ParticleSystem::changeKSpring(char t) {
 	SpringForceGenerator* spg1;
 	if (springType == STATIC_SPRING) {
 		spg1 = static_cast<SpringForceGenerator*>(_forceGenerators[springType]);
-		t == '+' ? spg1->setK(spg1->getK() + 1) : spg1->setK(spg1->getK() - 1);
+		if (spg1->getK() > 1) 
+			t == '+' ? spg1->setK(spg1->getK() + 1) : spg1->setK(spg1->getK() - 1);
 	}
 	else if (springType == PARTICLES_SPRING) {
 		spg1 = static_cast<SpringForceGenerator*>(_forceGenerators[springType - 1]);
 		SpringForceGenerator* spg2 = static_cast<SpringForceGenerator*>(_forceGenerators[springType]);
-		int sign = t == '+' ? 1 : -1;
-		spg1->setK(spg1->getK() + (1 * sign));
-		spg2->setK(spg2->getK() + (1 * sign));
+		if (spg1->getK() > 1) {
+			int sign = t == '+' ? 1 : -1;
+			spg1->setK(spg1->getK() + (1 * sign));
+			spg2->setK(spg2->getK() + (1 * sign));
+		}
 	}
 	
 	cout << "k: " << spg1->getK();

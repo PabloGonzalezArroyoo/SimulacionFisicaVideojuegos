@@ -48,7 +48,7 @@ private:
 	PracticeType practiceType = SPRINGS_P4;
 	ParticlesType particlesType = GeneratorsType;
 	ForceType forcesType = EXPLOSION;
-	SpringType springType = BUOYANCY_SPRING;
+	SpringType springType = PARTICLES_SPRING2;
 
 	// Listas de objetos
 	list<Particle*> _particles;
