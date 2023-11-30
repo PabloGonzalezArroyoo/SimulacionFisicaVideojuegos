@@ -10,7 +10,7 @@ private:
 	
 public:
 	BuoyancyForceGenerator(Vector3 pos, float h, float v, float d);
-	//virtual ~BuoyancyForceGenerator();
+	virtual ~BuoyancyForceGenerator();
 
 	virtual void updateForce(Particle* particle);
 

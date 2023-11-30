@@ -31,4 +31,8 @@ public:
 			else ++it;
 		}
 	}
+
+	inline void deleteForceRegistry(ForceGenerator* fg) {
+		erase(fg);
+	}
 };

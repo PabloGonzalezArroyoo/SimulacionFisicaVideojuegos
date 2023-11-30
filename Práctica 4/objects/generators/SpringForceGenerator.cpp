@@ -1,7 +1,7 @@
 #include "SpringForceGenerator.h"
 
-SpringForceGenerator::SpringForceGenerator(Vector3 pos, double _k, double rl, Particle* oth) : ForceGenerator(pos), k(_k), resisting_length(rl),
-	other(oth) {}
+SpringForceGenerator::SpringForceGenerator(Vector3 pos, double _k, double rl, Particle* oth, bool el) : ForceGenerator(pos), k(_k),
+	resisting_length(rl), other(oth), elastic(false) {}
 
 void SpringForceGenerator::updateForce(Particle* particle) {
 	// particle -> particula a la que se le añade la fuerza

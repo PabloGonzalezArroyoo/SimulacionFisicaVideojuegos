@@ -83,138 +83,14 @@ ParticleSystem::ParticleSystem() {
 		// Registro
 		_forceRegistry = new ParticleForceRegistry();
 
-		// Generadores básicos
-		GravityForceGenerator* gfc = new GravityForceGenerator(Vector3(0, -10, 0));
-		WindForceGenerator* wfg = new WindForceGenerator(Vector3(0), Vector3(30, 0, 0), 400, colors[GREEN], 20); wfg->setActive(false);
-		
-		// Partícula
-		Particle* pt1 = new Particle(Vector3(0), Vector3(0), NONE, colors[YELLOW], CreateShape(PxSphereGeometry(3)), 1);
-		Particle* pt2 = new Particle(Vector3(0), Vector3(0), NONE, colors[YELLOW], CreateShape(PxSphereGeometry(3)), 1);
-		Particle* pt3 = new Particle(Vector3(0), Vector3(0), NONE, colors[YELLOW], CreateShape(PxSphereGeometry(3)), 1);
-		Particle* pt4 = new Particle(Vector3(0), Vector3(0), NONE, colors[YELLOW], CreateShape(PxSphereGeometry(3)), 1);
+		// Generadores siempre existentes
+		gfc = new GravityForceGenerator(Vector3(0, -10, 0));
+		wfg = new WindForceGenerator(Vector3(0), Vector3(30, 10, 0), 400, colors[GREEN], 20); wfg->setActive(false);
 
-		// Añadir registros, generadores y partícula a la estructura
-		_forceGenerators.push_back(gfc);
-		_forceGenerators.push_back(wfg);
-		_particles.push_back(pt1);
-		_particles.push_back(pt2);
-		_particles.push_back(pt3);
-		_particles.push_back(pt4);
-
-		if (springType == STATIC_SPRING) {
-			// Generador de muelle estático
-			pt1->setPos(Vector3(0, 45, 0));
-			pt2->setPos(Vector3(0, 45, 5));
-			pt3->setPos(Vector3(0, 45, -5));
-			AnchoredSpringForceGenerator* spg = new AnchoredSpringForceGenerator(Vector3(0, 50, 0), 4, 20);
-			_forceRegistry->addRegistry(spg, pt1);
-			_forceRegistry->addRegistry(spg, pt2);
-			_forceRegistry->addRegistry(spg, pt3);
-			_forceRegistry->addRegistry(gfc, pt1);
-			_forceRegistry->addRegistry(gfc, pt2);
-			_forceRegistry->addRegistry(gfc, pt3);
-			_forceGenerators.push_back(spg);
-		}
-		else if (springType == PARTICLES_SPRING) {
-			// Desactivar gravedad
-			gfc->setActive(false);
-
-			// Partícula
-			pt1->setPos(Vector3(50, 25, 0));
-			pt2->setPos(Vector3(-50, 25, 0));
-			pt3->setPos(Vector3(0, 50, 0));
-			pt4->setPos(Vector3(0, 0, 0));
-
-			// Generadores
-			SpringForceGenerator* sfg1 = new SpringForceGenerator(Vector3(0), 4, 20, pt2);
-			SpringForceGenerator* sfg2 = new SpringForceGenerator(Vector3(0), 4, 20, pt1);
-			SpringForceGenerator* sfg3 = new SpringForceGenerator(Vector3(0), 4, 20, pt4);
-			SpringForceGenerator* sfg4 = new SpringForceGenerator(Vector3(0), 4, 20, pt3);
-			
-			// Añadir a la estructura
-			_forceRegistry->addRegistry(sfg1, pt1);
-			_forceRegistry->addRegistry(sfg2, pt2);
-			_forceRegistry->addRegistry(sfg3, pt3);
-			_forceRegistry->addRegistry(sfg4, pt4);
-			_forceGenerators.push_back(sfg1);
-			_forceGenerators.push_back(sfg2);
-			_forceGenerators.push_back(sfg3);
-			_forceGenerators.push_back(sfg4);
-		}
-		else if (springType == PARTICLES_SPRING2) {
-			// Partícula
-			pt1->setPos(Vector3(0, 120, 0));
-			pt2->setPos(Vector3(0, 90, 0));
-			pt3->setPos(Vector3(0, 60, 0));
-			pt4->setPos(Vector3(0, 30, 0));
-
-			// Generadores de muelles
-			AnchoredSpringForceGenerator* spg = new AnchoredSpringForceGenerator(Vector3(0, 150, 0), 4, 20);
-			SpringForceGenerator* sfg1_2 = new SpringForceGenerator(Vector3(0), 4, 20, pt2);
-			SpringForceGenerator* sfg2_1 = new SpringForceGenerator(Vector3(0), 4, 20, pt1);
-			SpringForceGenerator* sfg2_3 = new SpringForceGenerator(Vector3(0), 4, 20, pt3);
-			SpringForceGenerator* sfg3_2 = new SpringForceGenerator(Vector3(0), 4, 20, pt2);
-			SpringForceGenerator* sfg3_4 = new SpringForceGenerator(Vector3(0), 4, 20, pt4);
-			SpringForceGenerator* sfg4_3 = new SpringForceGenerator(Vector3(0), 4, 20, pt3);
-
-			// Conectar muelles
-			_forceRegistry->addRegistry(spg, pt1);
-			_forceRegistry->addRegistry(sfg1_2, pt1);
-			_forceRegistry->addRegistry(sfg2_1, pt2);
-			_forceRegistry->addRegistry(sfg2_3, pt2);
-			_forceRegistry->addRegistry(sfg3_2, pt3);
-			_forceRegistry->addRegistry(sfg3_4, pt3);
-			_forceRegistry->addRegistry(sfg4_3, pt4);
-
-			// Fuerza de la gravedad y viento
-			_forceRegistry->addRegistry(gfc, pt1);
-			_forceRegistry->addRegistry(gfc, pt2);
-			_forceRegistry->addRegistry(gfc, pt3);
-			_forceRegistry->addRegistry(gfc, pt4);
-			_forceRegistry->addRegistry(wfg, pt4);
-
-			// Añadir a la estructura
-			_forceGenerators.push_back(spg);
-			_forceGenerators.push_back(sfg1_2);
-			_forceGenerators.push_back(sfg2_1);
-			_forceGenerators.push_back(sfg2_3);
-			_forceGenerators.push_back(sfg3_2);
-			_forceGenerators.push_back(sfg3_4);
-			_forceGenerators.push_back(sfg4_3);
-
-			// Partículas
-			_particles.push_back(pt2);
-			_particles.push_back(pt3);
-			_particles.push_back(pt4);
-		}
-		else if (springType == BUOYANCY_SPRING) {
-			// ¿ Fg > E ?
-			BuoyancyForceGenerator* bfc1 = new BuoyancyForceGenerator(Vector3(0), 10, 30, 1000);
-
-			// ¿ Fg = E ? (to-do)
-			Particle* pt2 = new Particle(Vector3(0, 50, -50), Vector3(0), NONE, colors[RED], CreateShape(PxSphereGeometry(3)), 60);
-			BuoyancyForceGenerator* bfc2 = new BuoyancyForceGenerator(Vector3(0, 0, -50), 10, 30, 1000);
-
-			// ¿ Fg < E ? (to-do)
-			Particle* pt3 = new Particle(Vector3(0, 50, -100), Vector3(0), NONE, colors[GREEN], CreateShape(PxSphereGeometry(3)), 60);
-			BuoyancyForceGenerator* bfc3 = new BuoyancyForceGenerator(Vector3(0, 0, -100), 10, 30, 1000);
-
-			// Añadir gravedad y flotación
-			_forceRegistry->addRegistry(bfc1, pt1);
-			_forceRegistry->addRegistry(gfc, pt2);
-			_forceRegistry->addRegistry(bfc2, pt2);
-			_forceRegistry->addRegistry(gfc, pt3);
-			_forceRegistry->addRegistry(bfc3, pt3);
-
-			// Añadir a la estructura
-			_forceGenerators.push_back(bfc1);
-			_forceGenerators.push_back(bfc2);
-			_forceGenerators.push_back(bfc3);
-
-			// Partículas
-			_particles.push_back(pt2);
-			_particles.push_back(pt3);
-		}
+		//if (springType == STATIC_SPRING) showAnchoredSpring();
+		//else if (springType == PARTICLES_SPRING) showParticlesSpring();
+		//else if (springType == PARTICLES_SPRING2) showSlinkySpring();
+		//else if (springType == BUOYANCY_SPRING) showBuoyancySpring();
 		#pragma endregion
 	}
 }
@@ -317,6 +193,55 @@ void ParticleSystem::update(double t) {
 	_particlesToDelete.clear();
 }
 
+// KeyPress
+void ParticleSystem::keyPress(char c) {
+
+	switch (c) {
+		case '+': case '-': changeKSpring(c); break;
+
+		case 'T':
+			if (springType != STATIC_SPRING) {
+				resetScene();
+				showAnchoredSpring();
+				cout << "MUELLE ESTATICO ACTIVADO" << "\n";
+			}
+			break;
+		case 'P':
+			if (springType != PARTICLES_SPRING) {
+				resetScene();
+				showParticlesSpring();
+				cout << "MUELLE ENTRE PARTICULAS ACTIVADO" << "\n";
+			}
+			break;
+		case 'E': 
+			if (springType != ELASTIC_BAND_SPRING) {
+				resetScene();
+				showParticlesSpring(true);
+				cout << "MUELLE DE GOMA ELASTICA ACTIVADO" << "\n";
+			}
+			break;
+		case 'L': 
+			if (springType != SLINKY_SPRING) {
+				resetScene();
+				showSlinkySpring();
+				cout << "MUELLE SLINKY ACTIVADO" << "\n";
+			}
+			break;
+		case 'B': 
+			if (springType != BUOYANCY_SPRING) {
+				resetScene();
+				showBuoyancySpring();
+				cout << "MUELLE DE FLOTACION ACTIVADO" << "\n";
+			}
+			break;
+		
+		case 'Z': setWindActive(); break;
+
+		default:
+			break;
+	}
+}
+
 // Buscar y devolver un generador de partículas con el nombre recibido
 ParticleGenerator* ParticleSystem::getParticleGenerator(string name) {
 	auto it = _particle_generators.begin();
@@ -339,6 +264,224 @@ ForceGenerator* ParticleSystem::getForceGenerator(string name) {
 	}
 
 	return (*it);
+}
+
+// Cambia la k del muelle
+void ParticleSystem::changeKSpring(char t) {
+	SpringForceGenerator* spg1 = nullptr;
+
+	auto it = _forceGenerators.begin();
+	while (it != _forceGenerators.end()) {
+		ForceGenerator* fg = *it;
+		if (fg->getName() != "wind" && fg->getName() != "gravity") {
+			spg1 = static_cast<SpringForceGenerator*>(fg);
+			if (spg1->getK() > 1) {
+				int sign = t == '+' ? 1 : -1;
+				spg1->setK(spg1->getK() + (1 * sign));
+			}
+		}
+	}
+
+	cout << "k: " << spg1->getK();
+	t == '+' ? cout << " (+)\n" : cout << " (-)\n";
+}
+
+// Resetea todas las estructuras para poder generar más cosas
+void ParticleSystem::resetScene() {
+	// Resetear gravedad
+	gfc->setActive(true);
+
+	// Borrar partículas
+	for (auto it = _particles.begin(); it != _particles.end(); it++) _particlesToDelete.push_back(it);
+
+	// Borrar generadores
+	if (!_forceGenerators.empty()) {
+		for (auto it = _forceGenerators.begin(); it != _forceGenerators.end(); it++) {
+			if (*it != gfc && *it != wfg) {
+				delete* it;
+				_forceRegistry->deleteForceRegistry(*it);
+			}
+		}
+		_forceGenerators.clear();
+		_forceGenerators.push_back(gfc);
+		_forceGenerators.push_back(wfg);
+	}
+}
+
+// MUELLE ESTÁTICO
+void ParticleSystem::showAnchoredSpring() {
+	// Partículas
+	Particle* pt1 = new Particle(Vector3(0, 45,  0), Vector3(0), NONE, colors[YELLOW], CreateShape(PxSphereGeometry(3)), 1);
+	Particle* pt2 = new Particle(Vector3(0, 45,  5), Vector3(0), NONE, colors[YELLOW], CreateShape(PxSphereGeometry(3)), 1);
+	Particle* pt3 = new Particle(Vector3(0, 45, -5), Vector3(0), NONE, colors[YELLOW], CreateShape(PxSphereGeometry(3)), 1);
+
+	// Generadores
+	AnchoredSpringForceGenerator* spg = new AnchoredSpringForceGenerator(Vector3(0, 50, 0), 4, 20);
+
+	// Añadir a la estructura
+	_forceRegistry->addRegistry(gfc, pt1);
+	_forceRegistry->addRegistry(gfc, pt2);
+	_forceRegistry->addRegistry(gfc, pt3);
+	_forceRegistry->addRegistry(wfg, pt1);
+	_forceRegistry->addRegistry(wfg, pt2);
+	_forceRegistry->addRegistry(wfg, pt3);
+	_forceRegistry->addRegistry(spg, pt1);
+	_forceRegistry->addRegistry(spg, pt2);
+	_forceRegistry->addRegistry(spg, pt3);
+
+	_forceGenerators.push_back(gfc);
+	_forceGenerators.push_back(wfg);
+	_forceGenerators.push_back(spg);
+
+	_particles.push_back(pt1);
+	_particles.push_back(pt2);
+	_particles.push_back(pt3);
+
+	// Asignar estado
+	springType = STATIC_SPRING;
+}
+
+// MUELLE ENTRE PARTÍCULAS
+void ParticleSystem::showParticlesSpring(bool el) {
+	// Desactivar gravedad
+	gfc->setActive(false);
+
+	// Partícula
+	Particle* pt1 = new Particle(Vector3( 50, 25,  0), Vector3(0), NONE, colors[YELLOW], CreateShape(PxSphereGeometry(3)), 1);
+	Particle* pt2 = new Particle(Vector3(-50, 25,  5), Vector3(0), NONE, colors[YELLOW], CreateShape(PxSphereGeometry(3)), 1);
+	Particle* pt3 = new Particle(Vector3(  0, 50, -5), Vector3(0), NONE, colors[YELLOW], CreateShape(PxSphereGeometry(3)), 1);
+	Particle* pt4 = new Particle(Vector3(  0, 0,  -5), Vector3(0), NONE, colors[YELLOW], CreateShape(PxSphereGeometry(3)), 1);
+
+	// Generadores
+	SpringForceGenerator* sfg1 = new SpringForceGenerator(Vector3(0), 4, 20, pt2, el);
+	SpringForceGenerator* sfg2 = new SpringForceGenerator(Vector3(0), 4, 20, pt1, el);
+	SpringForceGenerator* sfg3 = new SpringForceGenerator(Vector3(0), 4, 20, pt4, el);
+	SpringForceGenerator* sfg4 = new SpringForceGenerator(Vector3(0), 4, 20, pt3, el);
+
+	// Añadir a la estructura
+	_forceRegistry->addRegistry(wfg, pt1);
+	_forceRegistry->addRegistry(wfg, pt2);
+	_forceRegistry->addRegistry(wfg, pt3);
+	_forceRegistry->addRegistry(wfg, pt4);
+	_forceRegistry->addRegistry(sfg1, pt1);
+	_forceRegistry->addRegistry(sfg2, pt2);
+	_forceRegistry->addRegistry(sfg3, pt3);
+	_forceRegistry->addRegistry(sfg4, pt4);
+
+	_forceGenerators.push_back(gfc);
+	_forceGenerators.push_back(wfg);
+	_forceGenerators.push_back(sfg1);
+	_forceGenerators.push_back(sfg2);
+	_forceGenerators.push_back(sfg3);
+	_forceGenerators.push_back(sfg4);
+
+	_particles.push_back(pt1);
+	_particles.push_back(pt2);
+	_particles.push_back(pt3);
+	_particles.push_back(pt4);
+
+	// Asignar estado
+	springType = PARTICLES_SPRING;
+}
+
+// MUELLE SLINKY
+void ParticleSystem::showSlinkySpring() {
+	// Partícula
+	Particle* pt1 = new Particle(Vector3(0, 120, 0), Vector3(0), NONE,    colors[RED], CreateShape(PxSphereGeometry(3)), 1);
+	Particle* pt2 = new Particle(Vector3(0,  90, 0), Vector3(0), NONE,  colors[GREEN], CreateShape(PxSphereGeometry(3)), 1);
+	Particle* pt3 = new Particle(Vector3(0,  60, 0), Vector3(0), NONE,   colors[BLUE], CreateShape(PxSphereGeometry(3)), 1);
+	Particle* pt4 = new Particle(Vector3(0,  30, 0), Vector3(0), NONE, colors[YELLOW], CreateShape(PxSphereGeometry(3)), 1);
+
+	// Generadores de muelles
+	AnchoredSpringForceGenerator* spg = new AnchoredSpringForceGenerator(Vector3(0, 150, 0), 4, 20);
+	SpringForceGenerator* sfg1_2 = new SpringForceGenerator(Vector3(0), 4, 20, pt2);
+	SpringForceGenerator* sfg2_1 = new SpringForceGenerator(Vector3(0), 4, 20, pt1);
+	SpringForceGenerator* sfg2_3 = new SpringForceGenerator(Vector3(0), 4, 20, pt3);
+	SpringForceGenerator* sfg3_2 = new SpringForceGenerator(Vector3(0), 4, 20, pt2);
+	SpringForceGenerator* sfg3_4 = new SpringForceGenerator(Vector3(0), 4, 20, pt4);
+	SpringForceGenerator* sfg4_3 = new SpringForceGenerator(Vector3(0), 4, 20, pt3);
+
+	// Conectar muelles
+	_forceRegistry->addRegistry(spg, pt1);
+	_forceRegistry->addRegistry(sfg1_2, pt1);
+	_forceRegistry->addRegistry(sfg2_1, pt2);
+	_forceRegistry->addRegistry(sfg2_3, pt2);
+	_forceRegistry->addRegistry(sfg3_2, pt3);
+	_forceRegistry->addRegistry(sfg3_4, pt3);
+	_forceRegistry->addRegistry(sfg4_3, pt4);
+
+	// Fuerza de la gravedad y viento
+	_forceRegistry->addRegistry(gfc, pt1);
+	_forceRegistry->addRegistry(gfc, pt2);
+	_forceRegistry->addRegistry(gfc, pt3);
+	_forceRegistry->addRegistry(gfc, pt4);
+	_forceRegistry->addRegistry(wfg, pt4);
+
+	// Añadir a la estructura
+	_forceGenerators.push_back(gfc);
+	_forceGenerators.push_back(wfg);
+	_forceGenerators.push_back(spg);
+	_forceGenerators.push_back(sfg1_2);
+	_forceGenerators.push_back(sfg2_1);
+	_forceGenerators.push_back(sfg2_3);
+	_forceGenerators.push_back(sfg3_2);
+	_forceGenerators.push_back(sfg3_4);
+	_forceGenerators.push_back(sfg4_3);
+
+	_particles.push_back(pt1);
+	_particles.push_back(pt2);
+	_particles.push_back(pt3);
+	_particles.push_back(pt4);
+
+	// Asignar estado
+	springType = SLINKY_SPRING;
+}
+
+// MUELLE DE FLOTACIÓN
+void ParticleSystem::showBuoyancySpring() {
+	// Partículas
+	Particle* pt1 = new Particle(Vector3(0, 50,	   0), Vector3(0), NONE, colors[YELLOW], CreateShape(PxSphereGeometry(3)), 1);
+	Particle* pt2 = new Particle(Vector3(0, 50,  -50), Vector3(0), NONE, colors[YELLOW], CreateShape(PxSphereGeometry(3)), 1);
+	Particle* pt3 = new Particle(Vector3(0, 50, -100), Vector3(0), NONE, colors[YELLOW], CreateShape(PxSphereGeometry(3)), 1);
+
+	// ¿ Fg > E ?
+	BuoyancyForceGenerator* bfc1 = new BuoyancyForceGenerator(Vector3(0), 10, 30, 1000);
+
+	// ¿ Fg = E ? (to-do)
+	BuoyancyForceGenerator* bfc2 = new BuoyancyForceGenerator(Vector3(0, 0, -50), 10, 30, 1000);
+
+	// ¿ Fg < E ? (to-do)
+	BuoyancyForceGenerator* bfc3 = new BuoyancyForceGenerator(Vector3(0, 0, -100), 10, 30, 1000);
+
+	// Añadir gravedad y flotación
+	_forceRegistry->addRegistry(gfc, pt1);
+	_forceRegistry->addRegistry(bfc1, pt1);
+	_forceRegistry->addRegistry(gfc, pt2);
+	_forceRegistry->addRegistry(bfc2, pt2);
+	_forceRegistry->addRegistry(gfc, pt3);
+	_forceRegistry->addRegistry(bfc3, pt3);
+
+	// Añadir a la estructura
+	_forceGenerators.push_back(gfc);
+	_forceGenerators.push_back(bfc1);
+	_forceGenerators.push_back(bfc2);
+	_forceGenerators.push_back(bfc3);
+
+	// Partículas
+	_particles.push_back(pt1);
+	_particles.push_back(pt2);
+	_particles.push_back(pt3);
+
+	// Asignar estado
+	springType = BUOYANCY_SPRING;
+}
+
+// Activa el generador de viento (práctica 4)
+void ParticleSystem::setWindActive() {
+	bool active = wfg->getActive();
+	wfg->setActive(!active);
+	!active ? cout << "Viento activado" : cout << "Viento desactivado";
+	cout << "\n";
 }
 
 // Crea todas las fuerzas y las añade a al vector de estas
@@ -391,7 +534,7 @@ void ParticleSystem::createParticleSpheres(int n, int rad) {
 		else if (i < n * 3 / 5) p = new Particle(Vector3(x, y + rad * 4, z), Vector3(0), NONE, colors[rand() % 4], CreateShape(PxSphereGeometry(2)), rand() % 1000);
 		else if (i < n * 4 / 5) p = new Particle(Vector3(x, y - rad * 4, z), Vector3(0), NONE, colors[rand() % 4], CreateShape(PxSphereGeometry(2)), rand() % 1000);
 		else if (i < n) p = new Particle(Vector3(x - rad * 4, y, z), Vector3(0), NONE, colors[rand() % 4], CreateShape(PxSphereGeometry(2)), rand() % 1000);
-		
+
 		_particles.push_back(p);
 	}
 }
@@ -414,34 +557,4 @@ bool ParticleSystem::createExplosion(bool expl) {
 	}
 
 	return true;
-}
-
-// Activa el generador de viento (práctica 4)
-void ParticleSystem::setWindActive() {
-	bool active = _forceGenerators[WIND_GEN]->getActive();
-	_forceGenerators[WIND_GEN]->setActive(!active);
-	!active ? cout << "Viento activado" : cout << "Viento desactivado";
-	cout << "\n";
-}
-
-// Cambia la k del muelle
-void ParticleSystem::changeKSpring(char t) {
-	SpringForceGenerator* spg1;
-	if (springType == STATIC_SPRING) {
-		spg1 = static_cast<SpringForceGenerator*>(_forceGenerators[springType]);
-		if (spg1->getK() > 1) 
-			t == '+' ? spg1->setK(spg1->getK() + 1) : spg1->setK(spg1->getK() - 1);
-	}
-	else if (springType == PARTICLES_SPRING) {
-		spg1 = static_cast<SpringForceGenerator*>(_forceGenerators[springType - 1]);
-		SpringForceGenerator* spg2 = static_cast<SpringForceGenerator*>(_forceGenerators[springType]);
-		if (spg1->getK() > 1) {
-			int sign = t == '+' ? 1 : -1;
-			spg1->setK(spg1->getK() + (1 * sign));
-			spg2->setK(spg2->getK() + (1 * sign));
-		}
-	}
-	
-	cout << "k: " << spg1->getK();
-	t == '+' ? cout << " (+)\n" : cout << " (-)\n";
 }

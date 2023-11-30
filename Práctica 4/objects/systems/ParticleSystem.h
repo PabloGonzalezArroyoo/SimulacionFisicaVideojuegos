@@ -35,10 +35,11 @@ enum ForceType {
 };
 
 enum SpringType {
-	GRAVITY_GEN,
-	WIND_GEN,
+	NO_SPRING,
 	STATIC_SPRING,
-	PARTICLES_SPRING, PARTICLES_SPRING2, PARTICLES_SPRING3, PARTICLES_SPRING4, PARTICLES_SPRING5,
+	PARTICLES_SPRING,
+	ELASTIC_BAND_SPRING,
+	SLINKY_SPRING,
 	BUOYANCY_SPRING
 };
 
@@ -48,7 +49,7 @@ private:
 	PracticeType practiceType = SPRINGS_P4;
 	ParticlesType particlesType = GeneratorsType;
 	ForceType forcesType = EXPLOSION;
-	SpringType springType = PARTICLES_SPRING2;
+	SpringType springType = NO_SPRING;
 
 	// Listas de objetos
 	list<Particle*> _particles;
@@ -61,13 +62,18 @@ private:
 	ParticleForceRegistry* _forceRegistry = nullptr;
 	vector<ForceGenerator*> _forceGenerators;
 
+	// Generadores siempre existentes
+	GravityForceGenerator* gfc;
+	WindForceGenerator* wfg;
+
 public:
 	// Constructora y destructora
 	ParticleSystem();
 	~ParticleSystem();
 
-	// Update
+	// Update y keyPress
 	void update(double t);
+	void keyPress(char c);
 
 	// Fuerzas
 	void createForces();
@@ -81,6 +87,13 @@ public:
 	
 	// Cambio en spring
 	void changeKSpring(char t);
+
+	// Cambios de generadores
+	void showAnchoredSpring();
+	void showParticlesSpring(bool el = false);
+	void showSlinkySpring();
+	void showBuoyancySpring();
+	void resetScene();
 
 	// Getters
 	ParticleGenerator* getParticleGenerator(string name);

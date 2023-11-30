@@ -5,6 +5,10 @@ BuoyancyForceGenerator::BuoyancyForceGenerator(Vector3 pos, float h, float v, fl
 	liquidParticle = new Particle(pos, Vector3(0), NONE, colors[BLUE], CreateShape(PxBoxGeometry(h, h, h)));
 }
 
+BuoyancyForceGenerator::~BuoyancyForceGenerator() {
+	delete liquidParticle;
+}
+
 void BuoyancyForceGenerator::updateForce(Particle* particle) {
 	float h = particle->getPos().y;
 	float h0 = liquidParticle->getPos().y;

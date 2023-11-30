@@ -6,9 +6,10 @@ class SpringForceGenerator : public ForceGenerator {
 protected:
 	double k, resisting_length;
 	Particle* other;
+	bool elastic;
 
 public:
-	SpringForceGenerator(Vector3 pos, double _k, double rl, Particle* oth);
+	SpringForceGenerator(Vector3 pos, double _k, double rl, Particle* oth, bool el = false);
 	//virtual ~SpringForceGenerator();
 
 	virtual void updateForce(Particle* particle);

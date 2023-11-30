@@ -116,7 +116,9 @@ void keyPress(unsigned char key, const PxTransform& camera)
 {
 	PX_UNUSED(camera);
 
-	switch(toupper(key)) {
+	partSys->keyPress(toupper(key));
+
+	/*switch(toupper(key)) {
 		case ' ': explosion = partSys->createExplosion(explosion); break;
 
 		case '+': case '-': partSys->changeKSpring(key); break;
@@ -125,7 +127,7 @@ void keyPress(unsigned char key, const PxTransform& camera)
 
 		default:
 			break;
-	}
+	}*/
 }
 
 void onCollision(physx::PxActor* actor1, physx::PxActor* actor2)
