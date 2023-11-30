@@ -14,5 +14,7 @@ public:
 
 	virtual void updateForce(Particle* particle);
 
+	void setVolume(float v) { volume = v; }
+	float getVolume() { return volume; }
 };
 

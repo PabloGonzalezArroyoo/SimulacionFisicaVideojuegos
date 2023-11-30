@@ -233,6 +233,9 @@ void ParticleSystem::keyPress(char c) {
 				cout << "MUELLE DE FLOTACION ACTIVADO" << "\n";
 			}
 			break;
+
+		case 'M': case 'N': if (springType == BUOYANCY_SPRING) changeMass(c); break;
+		case '.': case ',': if (springType == BUOYANCY_SPRING) changeVolume(c);break;
 		
 		case 'V': setWindActive(); break;
 
@@ -286,6 +289,28 @@ void ParticleSystem::changeKSpring(char t) {
 		cout << "k: " << spg1->getK();
 		t == '+' ? cout << " (+)\n" : cout << " (-)\n";
 	}
+}
+
+// Cambia la masa de la partícula
+void ParticleSystem::changeMass(char t) {
+	auto it = _particles.begin(); it++;
+	Particle* p = (*it);
+
+	int sign = t == 'M' ? 1 : -1;
+	p->setMass(p->getMass() + (100 * sign));
+
+	cout << "m: " << p->getMass();
+	t == 'M' ? cout << " (+)\n" : cout << " (-)\n";
+}
+
+// Cambia el volumen del generador
+void ParticleSystem::changeVolume(char t) {
+
+	int sign = t == ',' ? 1 : -1;
+	bfg->setVolume(bfg->getVolume() + (10 * sign));
+
+	cout << "v: " << bfg->getVolume();
+	t == '.' ? cout << " (+)\n" : cout << " (-)\n";
 }
 
 // Resetea todas las estructuras para poder generar más cosas
@@ -444,27 +469,27 @@ void ParticleSystem::showBuoyancySpring() {
 	Particle* pt2 = new Particle(Vector3(0, 50,  -50), Vector3(0), NONE,  colors[GREEN], CreateShape(PxSphereGeometry(3)), 5000);
 	Particle* pt3 = new Particle(Vector3(0, 50, -100), Vector3(0), NONE,    colors[RED], CreateShape(PxSphereGeometry(3)), 1000);
 
-	// ¿ Fg > E ?
+	// Fg > E
 	BuoyancyForceGenerator* bfc1 = new BuoyancyForceGenerator(Vector3(0), 10, 30, 1000);
 
-	// ¿ Fg = E ? (to-do)
-	BuoyancyForceGenerator* bfc2 = new BuoyancyForceGenerator(Vector3(0, 0, -50), 10, 30, 1000);
+	// Fg = E
+	bfg = new BuoyancyForceGenerator(Vector3(0, 0, -50), 10, 30, 1000);
 
-	// ¿ Fg < E ? (to-do)
+	// Fg < E
 	BuoyancyForceGenerator* bfc3 = new BuoyancyForceGenerator(Vector3(0, 0, -100), 10, 30, 1000);
 
 	// Añadir gravedad y flotación
 	_forceRegistry->addRegistry(gfc, pt1);
 	_forceRegistry->addRegistry(bfc1, pt1);
 	_forceRegistry->addRegistry(gfc, pt2);
-	_forceRegistry->addRegistry(bfc2, pt2);
+	_forceRegistry->addRegistry(bfg, pt2);
 	_forceRegistry->addRegistry(gfc, pt3);
 	_forceRegistry->addRegistry(bfc3, pt3);
 
 	// Añadir a la estructura
 	_forceGenerators.push_back(gfc);
 	_forceGenerators.push_back(bfc1);
-	_forceGenerators.push_back(bfc2);
+	_forceGenerators.push_back(bfg);
 	_forceGenerators.push_back(bfc3);
 
 	// Partículas

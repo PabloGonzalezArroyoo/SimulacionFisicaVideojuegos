@@ -65,6 +65,7 @@ private:
 	// Generadores siempre existentes
 	GravityForceGenerator* gfc;
 	WindForceGenerator* wfg;
+	BuoyancyForceGenerator* bfg;
 
 public:
 	// Constructora y destructora
@@ -87,6 +88,8 @@ public:
 	
 	// Cambio en spring
 	void changeKSpring(char t);
+	void changeMass(char t);
+	void changeVolume(char t);
 
 	// Cambios de generadores
 	void showAnchoredSpring();
