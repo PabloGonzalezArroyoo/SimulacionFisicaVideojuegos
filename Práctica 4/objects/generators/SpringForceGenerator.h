@@ -10,7 +10,6 @@ protected:
 
 public:
 	SpringForceGenerator(Vector3 pos, double _k, double rl, Particle* oth, bool el = false);
-	//virtual ~SpringForceGenerator();
 
 	virtual void updateForce(Particle* particle);
 

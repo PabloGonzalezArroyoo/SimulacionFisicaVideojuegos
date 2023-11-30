@@ -2,7 +2,8 @@
 
 BuoyancyForceGenerator::BuoyancyForceGenerator(Vector3 pos, float h, float v, float d) : ForceGenerator(pos), height(h), volume(v),
 	liquidDensity(d) {
-	liquidParticle = new Particle(pos, Vector3(0), NONE, colors[BLUE], CreateShape(PxBoxGeometry(h, h, h)));
+	name = "buoyancy";
+	liquidParticle = new Particle(pos, Vector3(0), NONE, colors[BLUE], CreateShape(PxBoxGeometry(h, h / 10, h)));
 }
 
 BuoyancyForceGenerator::~BuoyancyForceGenerator() {
