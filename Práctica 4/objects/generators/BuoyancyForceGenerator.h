@@ -16,5 +16,7 @@ public:
 
 	void setVolume(float v) { volume = v; }
 	float getVolume() { return volume; }
+	void setHeight(float h) { height = h; }
+	float getHeight() { return height; }
 };
 

@@ -293,24 +293,32 @@ void ParticleSystem::changeKSpring(char t) {
 
 // Cambia la masa de la partícula
 void ParticleSystem::changeMass(char t) {
-	auto it = _particles.begin(); it++;
-	Particle* p = (*it);
+	Particle* p = (*_particles.begin());
 
 	int sign = t == 'M' ? 1 : -1;
-	p->setMass(p->getMass() + (100 * sign));
-
-	cout << "m: " << p->getMass();
-	t == 'M' ? cout << " (+)\n" : cout << " (-)\n";
+	if (p->getMass() + (100 * sign) > 0) {
+		p->setMass(p->getMass() + (100 * sign));
+		cout << "m: " << p->getMass();
+		t == 'M' ? cout << " (+)\n" : cout << " (-)\n";
+	}
 }
 
 // Cambia el volumen del generador
 void ParticleSystem::changeVolume(char t) {
+	float volume = bfg->getVolume();
+	int sign = t == '.' ? 1 : -1;
 
-	int sign = t == ',' ? 1 : -1;
-	bfg->setVolume(bfg->getVolume() + (10 * sign));
+	if (bfg->getVolume() + sign > 0) {
+		volume += sign;
+		bfg->setVolume(volume);
 
-	cout << "v: " << bfg->getVolume();
-	t == '.' ? cout << " (+)\n" : cout << " (-)\n";
+		Particle* p = (*_particles.begin());
+		p->changeShape(SQUARE, Vector3(volume / 9, volume / 9, volume / 9));
+		bfg->setHeight(volume / 9);
+
+		cout << "v: " << bfg->getVolume();
+		t == '.' ? cout << " (+)\n" : cout << " (-)\n";
+	}
 }
 
 // Resetea todas las estructuras para poder generar más cosas
@@ -465,37 +473,21 @@ void ParticleSystem::showSlinkySpring() {
 // MUELLE DE FLOTACIÓN
 void ParticleSystem::showBuoyancySpring() {
 	// Partículas
-	Particle* pt1 = new Particle(Vector3(0, 50,	   0), Vector3(0), NONE, colors[YELLOW], CreateShape(PxSphereGeometry(3)), 100000);
-	Particle* pt2 = new Particle(Vector3(0, 50,  -50), Vector3(0), NONE,  colors[GREEN], CreateShape(PxSphereGeometry(3)), 5000);
-	Particle* pt3 = new Particle(Vector3(0, 50, -100), Vector3(0), NONE,    colors[RED], CreateShape(PxSphereGeometry(3)), 1000);
+	Particle* pt1 = new Particle(Vector3(0), Vector3(0), NONE, colors[YELLOW], CreateShape(PxBoxGeometry(3, 3, 3)), 200);
 
-	// Fg > E
-	BuoyancyForceGenerator* bfc1 = new BuoyancyForceGenerator(Vector3(0), 10, 30, 1000);
-
-	// Fg = E
-	bfg = new BuoyancyForceGenerator(Vector3(0, 0, -50), 10, 30, 1000);
-
-	// Fg < E
-	BuoyancyForceGenerator* bfc3 = new BuoyancyForceGenerator(Vector3(0, 0, -100), 10, 30, 1000);
+	// Generador
+	bfg = new BuoyancyForceGenerator(Vector3(0), 3, 27, 50);
 
 	// Añadir gravedad y flotación
 	_forceRegistry->addRegistry(gfc, pt1);
-	_forceRegistry->addRegistry(bfc1, pt1);
-	_forceRegistry->addRegistry(gfc, pt2);
-	_forceRegistry->addRegistry(bfg, pt2);
-	_forceRegistry->addRegistry(gfc, pt3);
-	_forceRegistry->addRegistry(bfc3, pt3);
+	_forceRegistry->addRegistry(bfg, pt1);
 
 	// Añadir a la estructura
 	_forceGenerators.push_back(gfc);
-	_forceGenerators.push_back(bfc1);
 	_forceGenerators.push_back(bfg);
-	_forceGenerators.push_back(bfc3);
 
 	// Partículas
 	_particles.push_back(pt1);
-	_particles.push_back(pt2);
-	_particles.push_back(pt3);
 
 	// Asignar estado
 	springType = BUOYANCY_SPRING;

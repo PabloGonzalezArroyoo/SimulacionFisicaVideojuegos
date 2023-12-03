@@ -60,6 +60,18 @@ void Particle::reset() {
 	setVelocity(Vector3(0));
 }
 
+// Cambia la forma de la partícula
+void Particle::changeShape(ParticleShape sp, Vector3 dims) {
+	shape->release();
+	renderItem->release();
+
+	sp == CIRCLE ?
+		shape = CreateShape(PxSphereGeometry(dims.x)) :
+		shape = CreateShape(PxBoxGeometry(dims.x, dims.y, dims.z));
+
+	renderItem = new RenderItem(shape, &pos, color);
+}
+
 // Clona la partícula actual modificando velocidad, aceleración y tiempo de vida
 Particle* Particle::clone(ElimState mode, Vector3 newRanVel, Vector3 newPos, float newLifeTime) const {
 	Particle* p = new Particle(newPos, newRanVel, mode, color, shape, mass);

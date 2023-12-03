@@ -10,6 +10,7 @@ using namespace physx;
 
 enum Colors { RED, BLUE, YELLOW, GREEN };
 enum ElimState { TIME, BOUNDARIES, BOTH, NONE };
+enum ParticleShape { CIRCLE, SQUARE };
 
 const std::vector<Vector4> colors = {
 	Vector4(125, 0, 0, 1),
@@ -54,6 +55,9 @@ public:
 	// Fuerzas
 	inline void clearForce() { force *= 0.0; }
 	inline void addForce(const Vector3& f) { force += f; }
+
+	// Cambios
+	void changeShape(ParticleShape sp, Vector3 dims);
 
 	// Getters y setters
 	void setProperties(float m, Vector3 v, Vector4 c, PxShape* s, float d = 0.998);
