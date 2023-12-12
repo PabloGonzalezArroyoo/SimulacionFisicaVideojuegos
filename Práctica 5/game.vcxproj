@@ -268,6 +268,7 @@
     <ClCompile Include="objects\generators\Particles\UniformParticleGenerator.cpp" />
     <ClCompile Include="objects\physicObjects\Firework.cpp" />
     <ClCompile Include="objects\physicObjects\Particle.cpp" />
+    <ClCompile Include="objects\physicObjects\RigidBody.cpp" />
     <ClCompile Include="objects\systems\ParticleSystem.cpp" />
     <ClCompile Include="objects\systems\RigidBodiesSystem.cpp" />
     <ClCompile Include="RenderUtils.cpp" />
@@ -291,6 +292,7 @@
     <ClInclude Include="objects\generators\Particles\UniformParticleGenerator.h" />
     <ClInclude Include="objects\physicObjects\Firework.h" />
     <ClInclude Include="objects\physicObjects\Particle.h" />
+    <ClInclude Include="objects\physicObjects\RigidBody.h" />
     <ClInclude Include="objects\systems\ParticleForceRegistry.h" />
     <ClInclude Include="objects\systems\ParticleSystem.h" />
     <ClInclude Include="objects\systems\RigidBodiesSystem.h" />

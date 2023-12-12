@@ -66,7 +66,7 @@ void initPhysics(bool interactive)
 	// Sistema de partículas
 	// partSys = new ParticleSystem();
 	// Sistema de sólidos rígidos
-	rbSys = new RigidBodiesSystem();
+	rbSys = new RigidBodiesSystem(gPhysics, gScene);
 }
 
 

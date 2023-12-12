@@ -55,6 +55,9 @@
     <ClCompile Include="objects\generators\particles\ParticleGenerator.cpp">
       <Filter>objects\generators\particles</Filter>
     </ClCompile>
+    <ClCompile Include="objects\physicObjects\RigidBody.cpp">
+      <Filter>objects\physicObjects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="core.hpp" />
@@ -116,6 +119,9 @@
     </ClInclude>
     <ClInclude Include="objects\generators\particles\ParticleGenerator.h">
       <Filter>objects\generators\particles</Filter>
+    </ClInclude>
+    <ClInclude Include="objects\physicObjects\RigidBody.h">
+      <Filter>objects\physicObjects</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

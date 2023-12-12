@@ -1,13 +1,14 @@
 #pragma once
 
-#include "../generators/rigids/GaussianRigidsGenerator.h"
+//#include "../generators/rigids/GaussianRigidsGenerator.h"
+#include "../physicObjects/RigidBody.h"
 
 class RigidBodiesSystem {
 private:
 
 public:
 	// Constructora y destructora
-	RigidBodiesSystem();
+	RigidBodiesSystem(PxPhysics* gPhysics, PxScene* gScene);
 	~RigidBodiesSystem();
 
 	virtual void update(double t);
