@@ -1,10 +1,16 @@
 #pragma once
 
-//#include "../generators/rigids/GaussianRigidsGenerator.h"
+#include "../generators/rigids/GaussianRigidGenerator.h"
 #include "../physicObjects/RigidBody.h"
 
 class RigidBodiesSystem {
 private:
+	// Listas de objetos
+	list<RigidBody*> _rigidBodies;
+	list<RigidGenerator*> _rigid_generators;
+
+	// Vector de objetos a destruir
+	vector<list<RigidBody*>::iterator> _rigidsToDelete;
 
 public:
 	// Constructora y destructora

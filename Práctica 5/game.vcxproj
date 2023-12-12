@@ -266,6 +266,7 @@
     <ClCompile Include="objects\generators\Particles\GaussianParticleGenerator.cpp" />
     <ClCompile Include="objects\generators\particles\ParticleGenerator.cpp" />
     <ClCompile Include="objects\generators\Particles\UniformParticleGenerator.cpp" />
+    <ClCompile Include="objects\generators\rigids\GaussianRigidGenerator.cpp" />
     <ClCompile Include="objects\physicObjects\Firework.cpp" />
     <ClCompile Include="objects\physicObjects\Particle.cpp" />
     <ClCompile Include="objects\physicObjects\RigidBody.cpp" />
@@ -290,6 +291,8 @@
     <ClInclude Include="objects\generators\Particles\GaussianParticleGenerator.h" />
     <ClInclude Include="objects\generators\particles\ParticleGenerator.h" />
     <ClInclude Include="objects\generators\Particles\UniformParticleGenerator.h" />
+    <ClInclude Include="objects\generators\rigids\GaussianRigidGenerator.h" />
+    <ClInclude Include="objects\generators\rigids\RigidGenerator.h" />
     <ClInclude Include="objects\physicObjects\Firework.h" />
     <ClInclude Include="objects\physicObjects\Particle.h" />
     <ClInclude Include="objects\physicObjects\RigidBody.h" />
