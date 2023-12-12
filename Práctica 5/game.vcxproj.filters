@@ -1,0 +1,147 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="Render\Camera.cpp">
+      <Filter>Render</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Render.cpp">
+      <Filter>Render</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderUtils.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="callbacks.cpp" />
+    <ClCompile Include="objects\physicObjects\Particle.cpp">
+      <Filter>objects\physicObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="objects\systems\ParticleSystem.cpp">
+      <Filter>objects\systems</Filter>
+    </ClCompile>
+    <ClCompile Include="objects\physicObjects\Firework.cpp">
+      <Filter>objects\physicObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="objects\systems\RigidBodiesSystem.cpp">
+      <Filter>objects\systems</Filter>
+    </ClCompile>
+    <ClCompile Include="objects\generators\Particles\FireworkGenerator.cpp">
+      <Filter>objects\generators\particles</Filter>
+    </ClCompile>
+    <ClCompile Include="objects\generators\Particles\GaussianParticleGenerator.cpp">
+      <Filter>objects\generators\particles</Filter>
+    </ClCompile>
+    <ClCompile Include="objects\generators\Particles\UniformParticleGenerator.cpp">
+      <Filter>objects\generators\particles</Filter>
+    </ClCompile>
+    <ClCompile Include="objects\generators\forces\AnchoredSpringForceGenerator.cpp">
+      <Filter>objects\generators\forces</Filter>
+    </ClCompile>
+    <ClCompile Include="objects\generators\forces\BuoyancyForceGenerator.cpp">
+      <Filter>objects\generators\forces</Filter>
+    </ClCompile>
+    <ClCompile Include="objects\generators\forces\ExplosionForceGenerator.cpp">
+      <Filter>objects\generators\forces</Filter>
+    </ClCompile>
+    <ClCompile Include="objects\generators\forces\GravityForceGenerator.cpp">
+      <Filter>objects\generators\forces</Filter>
+    </ClCompile>
+    <ClCompile Include="objects\generators\forces\SpringForceGenerator.cpp">
+      <Filter>objects\generators\forces</Filter>
+    </ClCompile>
+    <ClCompile Include="objects\generators\forces\TornadoForceGenerator.cpp">
+      <Filter>objects\generators\forces</Filter>
+    </ClCompile>
+    <ClCompile Include="objects\generators\forces\WindForceGenerator.cpp">
+      <Filter>objects\generators\forces</Filter>
+    </ClCompile>
+    <ClCompile Include="objects\generators\particles\ParticleGenerator.cpp">
+      <Filter>objects\generators\particles</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="core.hpp" />
+    <ClInclude Include="Render\Camera.h">
+      <Filter>Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Render.h">
+      <Filter>Render</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderUtils.hpp" />
+    <ClInclude Include="callbacks.hpp" />
+    <ClInclude Include="objects\physicObjects\Particle.h">
+      <Filter>objects\physicObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="objects\systems\ParticleSystem.h">
+      <Filter>objects\systems</Filter>
+    </ClInclude>
+    <ClInclude Include="objects\physicObjects\Firework.h">
+      <Filter>objects\physicObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="objects\systems\ParticleForceRegistry.h">
+      <Filter>objects\systems</Filter>
+    </ClInclude>
+    <ClInclude Include="objects\systems\RigidBodiesSystem.h">
+      <Filter>objects\systems</Filter>
+    </ClInclude>
+    <ClInclude Include="objects\generators\Particles\FireworkGenerator.h">
+      <Filter>objects\generators\particles</Filter>
+    </ClInclude>
+    <ClInclude Include="objects\generators\Particles\GaussianParticleGenerator.h">
+      <Filter>objects\generators\particles</Filter>
+    </ClInclude>
+    <ClInclude Include="objects\generators\Particles\UniformParticleGenerator.h">
+      <Filter>objects\generators\particles</Filter>
+    </ClInclude>
+    <ClInclude Include="objects\generators\forces\AnchoredSpringForceGenerator.h">
+      <Filter>objects\generators\forces</Filter>
+    </ClInclude>
+    <ClInclude Include="objects\generators\forces\BuoyancyForceGenerator.h">
+      <Filter>objects\generators\forces</Filter>
+    </ClInclude>
+    <ClInclude Include="objects\generators\forces\ExplosionForceGenerator.h">
+      <Filter>objects\generators\forces</Filter>
+    </ClInclude>
+    <ClInclude Include="objects\generators\forces\ForceGenerator.h">
+      <Filter>objects\generators\forces</Filter>
+    </ClInclude>
+    <ClInclude Include="objects\generators\forces\GravityForceGenerator.h">
+      <Filter>objects\generators\forces</Filter>
+    </ClInclude>
+    <ClInclude Include="objects\generators\forces\SpringForceGenerator.h">
+      <Filter>objects\generators\forces</Filter>
+    </ClInclude>
+    <ClInclude Include="objects\generators\forces\TornadoForceGenerator.h">
+      <Filter>objects\generators\forces</Filter>
+    </ClInclude>
+    <ClInclude Include="objects\generators\forces\WindForceGenerator.h">
+      <Filter>objects\generators\forces</Filter>
+    </ClInclude>
+    <ClInclude Include="objects\generators\particles\ParticleGenerator.h">
+      <Filter>objects\generators\particles</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Render">
+      <UniqueIdentifier>{d04b4f9f-5a69-465e-8070-25c6d0bcd3c2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="objects">
+      <UniqueIdentifier>{f1e4e7c5-514c-45a5-8d25-c602350484f5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="objects\physicObjects">
+      <UniqueIdentifier>{b5e5d126-6983-4e2d-8dda-981a68c1c36a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="objects\generators">
+      <UniqueIdentifier>{aea78d70-47db-4183-a7b8-26876e16a963}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="objects\systems">
+      <UniqueIdentifier>{730126ad-570b-4f34-93cb-71821070abee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="objects\generators\particles">
+      <UniqueIdentifier>{27ab70f2-10cc-4b37-ae27-6c91c3f08be5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="objects\generators\forces">
+      <UniqueIdentifier>{03e701ad-b069-4344-8053-355934d2df12}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="objects\generators\rigids">
+      <UniqueIdentifier>{032e5b52-4eab-4823-bbde-ce84ca257b9f}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
