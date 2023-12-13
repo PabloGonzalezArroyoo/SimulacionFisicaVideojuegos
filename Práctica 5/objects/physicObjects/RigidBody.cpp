@@ -1,8 +1,8 @@
 #include "RigidBody.h"
 
 // Constructora
-RigidBody::RigidBody(PxPhysics* p, PxScene* sc, PxTransform* t, PxShape* sp, RElimState st, Vector4 c, bool d) : gPhysics(p),
-	gScene(sc), tr(t), shape(sp), state(st), color(c), dynamic(d), iniPos(tr->p) {
+RigidBody::RigidBody(PxPhysics* p, PxScene* sc, PxTransform* t, PxShape* sp, ElimState st, Vector4 c, bool d) : gPhysics(p),
+	Actor(t, sp, st, c), gScene(sc), dynamic(d) {
 	if (dynamic) {
 		dnRigid = gPhysics->createRigidDynamic(*tr);
 		dnRigid->attachShape(*shape);
@@ -17,33 +17,22 @@ RigidBody::RigidBody(PxPhysics* p, PxScene* sc, PxTransform* t, PxShape* sp, REl
 	}
 }
 
-// Destructora
 RigidBody::~RigidBody() {
-	renderItem->release();
-	renderItem = nullptr;
-};
+	if (dnRigid != nullptr) dnRigid->release();
+	if (stRigid != nullptr) stRigid->release();
+}
 
 // Update
 bool RigidBody::integrate(double t) {
 
 	// Eliminar tras lifeTime segundos
-	if (state == R_TIME && (startTime + lifeTime < GetLastTime())) return false;
+	if (state == TIME && (startTime + lifeTime < GetLastTime())) return false;
 	// Eliminar si ha sobrepasado el límite
-	else if (state == R_BOUNDARIES && !insideLimit()) return false;
+	else if (state == BOUNDARIES && !insideLimit()) return false;
 	// Eliminar tras lifeTime segundos o si ha sobrepasado el límite
-	else if (state == R_BOTH && (startTime + lifeTime < GetLastTime() || !insideLimit())) return false;
+	else if (state == BOTH && (startTime + lifeTime < GetLastTime() || !insideLimit())) return false;
 
 	return true;
-}
-
-// Comprueba si está dentro de los límites
-bool RigidBody::insideLimit() {
-	return tr->p.y < limits.y + iniPos.y
-		&& tr->p.y > -limits.y + iniPos.y
-		&& tr->p.x < limits.x + iniPos.x
-		&& tr->p.x > -limits.x + iniPos.x
-		&& tr->p.z < limits.z + iniPos.z
-		&& tr->p.z > -limits.z + iniPos.z;
 }
 
 // Clona la partícula actual

@@ -10,7 +10,7 @@ protected:
 	normal_distribution<float>* vZ;
 
 	// Posición
-	normal_distribution<float>* pX;
+	normal_distribution<float>* pX = nullptr;
 	normal_distribution<float>* pY;
 	normal_distribution<float>* pZ;
 

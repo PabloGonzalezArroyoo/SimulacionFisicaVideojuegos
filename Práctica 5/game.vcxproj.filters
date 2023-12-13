@@ -132,6 +132,9 @@
     <ClInclude Include="objects\generators\rigids\RigidGenerator.h">
       <Filter>objects\generators\rigids</Filter>
     </ClInclude>
+    <ClInclude Include="objects\physicObjects\Actor.h">
+      <Filter>objects\physicObjects</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Render">
