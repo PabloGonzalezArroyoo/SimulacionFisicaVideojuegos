@@ -42,3 +42,12 @@ RigidBody* RigidBody::clone() const {
 	rb->setBoundaries(limits);
 	return rb;
 }
+
+// Clona la partícula actual
+RigidBody* RigidBody::clone(PxTransform* t, Vector3 v) const {
+	RigidBody* rb = new RigidBody(gPhysics, gScene, t, shape, state, color, dynamic);
+	rb->setVelocity(v);
+	rb->setLifeTime(lifeTime);
+	rb->setBoundaries(limits);
+	return rb;
+}

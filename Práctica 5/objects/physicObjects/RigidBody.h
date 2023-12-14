@@ -23,8 +23,10 @@ public:
 
 	// Clonar
 	RigidBody* clone() const;
+	RigidBody* clone(PxTransform* t, Vector3 v = Vector3(0)) const;
 
 	// Getters y setters
 	inline Vector3 getVelocity() { return dnRigid != nullptr ? dnRigid->getLinearVelocity() : Vector3(0); }
+	inline void setVelocity(Vector3 v) { if (dnRigid != nullptr) dnRigid->setLinearVelocity(Vector3(v)); }
 };
 

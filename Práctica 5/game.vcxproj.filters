@@ -61,6 +61,9 @@
     <ClCompile Include="objects\generators\rigids\GaussianRigidGenerator.cpp">
       <Filter>objects\generators\rigids</Filter>
     </ClCompile>
+    <ClCompile Include="objects\generators\rigids\UniformRigidGenerator.cpp">
+      <Filter>objects\generators\rigids</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="core.hpp" />
@@ -134,6 +137,9 @@
     </ClInclude>
     <ClInclude Include="objects\physicObjects\Actor.h">
       <Filter>objects\physicObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="objects\generators\rigids\UniformRigidGenerator.h">
+      <Filter>objects\generators\rigids</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

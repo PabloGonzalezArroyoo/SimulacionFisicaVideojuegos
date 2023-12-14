@@ -42,7 +42,7 @@ public:
 	// Constructora y destructora
 	Actor(PxTransform* t, PxShape* s, ElimState st, Vector4 c) : iniPos(tr->p), tr(t), shape(s), state(st), color(c) {
 		startTime = GetLastTime();
-		renderItem = new RenderItem(shape, tr, color);
+		//renderItem = new RenderItem(shape, tr, color);
 	}
 	~Actor() {
 		renderItem->release();
