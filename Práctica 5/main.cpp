@@ -12,7 +12,7 @@
 #include <iostream>
 
 #include "objects/systems/ParticleSystem.h"
-#include "objects/systems/RigidBodiesSystem.h"
+#include "objects/systems/ActorSystem.h"
 
 std::string display_text = "Practica 5";
 
@@ -37,7 +37,7 @@ ContactReportCallback gContactReportCallback;
 // VARIABLES PROPIAS
 ParticleSystem* partSys = nullptr;
 bool explosion = true;
-RigidBodiesSystem* rbSys = nullptr;
+ActorSystem* rbSys = nullptr;
 
 // Initialize physics engine
 void initPhysics(bool interactive)
@@ -66,7 +66,7 @@ void initPhysics(bool interactive)
 	// Sistema de partículas
 	// partSys = new ParticleSystem();
 	// Sistema de sólidos rígidos
-	rbSys = new RigidBodiesSystem(gPhysics, gScene);
+	rbSys = new ActorSystem(gPhysics, gScene);
 }
 
 

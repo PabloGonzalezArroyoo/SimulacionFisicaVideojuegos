@@ -2,7 +2,7 @@
 
 #include "RigidGenerator.h"
 
-class GaussianRigidGenerator : public RigidGenerator {
+class GaussianGenerator : public ActorGenerator {
 protected:
 	// Velocidad
 	normal_distribution<float>* vX;
@@ -16,10 +16,10 @@ protected:
 
 public:
 	// Constructora y destructora
-	GaussianRigidGenerator(string n, RigidBody* m, Vector3 iniPos, Vector3 var = Vector3(0), float f = 0, bool st = true, Vector3 stOffset = Vector3(0));
-	virtual ~GaussianRigidGenerator();
+	GaussianGenerator(string n, Actor* m, Vector3 iniPos, Vector3 var = Vector3(0), float f = 0, bool st = true, Vector3 stOffset = Vector3(0));
+	virtual ~GaussianGenerator();
 
 	// Método abstracto
-	virtual list<RigidBody*> generateParticles(double t);
+	virtual list<Actor*> generateParticles(double t);
 };
 

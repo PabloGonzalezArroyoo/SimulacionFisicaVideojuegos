@@ -1,8 +1,8 @@
-#include "GaussianRigidGenerator.h"
+#include "GaussianGenerator.h"
 
 // Constructora - Setea la partícula modelo y las distribuciones según proceda
-GaussianRigidGenerator::GaussianRigidGenerator(string n, RigidBody* rb, Vector3 iniPos, Vector3 var, float f, bool st,
-	Vector3 stOffset) : RigidGenerator(n, rb, iniPos, var, f, st, stOffset) {
+GaussianGenerator::GaussianGenerator(string n, Actor* rb, Vector3 iniPos, Vector3 var, float f, bool st,
+	Vector3 stOffset) : ActorGenerator(n, rb, iniPos, var, f, st, stOffset) {
 
 	// Partícula modelo
 	rb->setPos(iniPos);
@@ -21,16 +21,16 @@ GaussianRigidGenerator::GaussianRigidGenerator(string n, RigidBody* rb, Vector3 
 }
 
 // Destructora
-GaussianRigidGenerator::~GaussianRigidGenerator() {
+GaussianGenerator::~GaussianGenerator() {
 	delete vX, vY, vZ;
 	if (pX != nullptr) delete pX, pY, pZ;
 	delete model;
 }
 
 // Genera partículas que se devuelven en la lista
-list<RigidBody*> GaussianRigidGenerator::generateParticles(double t) {
+list<Actor*> GaussianGenerator::generateParticles(double t) {
 	// Lista de partículas
-	list<RigidBody*> rigidBodies;
+	list<Actor*> actors;
 
 	// Generar según un aleatorio
 	cont += t;
@@ -43,16 +43,16 @@ list<RigidBody*> GaussianRigidGenerator::generateParticles(double t) {
 		ElimState st = model->getState();
 		if (!staticGenerator) {
 			PxTransform* tr = new PxTransform(Vector3((*pX)(gen), (*pY)(gen), (*pZ)(gen)));
-			if (st == BOUNDARIES) rigidBodies.push_back(model->clone(tr, vel));
-			else rigidBodies.push_back(model->clone(tr, vel));
+			if (st == BOUNDARIES) actors.push_back(model->clone(tr, vel));
+			else actors.push_back(model->clone(tr, vel));
 		}
 		else {
-			if (st == BOUNDARIES) rigidBodies.push_back(model->clone(model->getTransform(), vel));
-			else rigidBodies.push_back(model->clone(model->getTransform(), vel));
+			if (st == BOUNDARIES) actors.push_back(model->clone(model->getTransform(), vel));
+			else actors.push_back(model->clone(model->getTransform(), vel));
 		}
 
 		cont = 0;
 	}
 
-	return rigidBodies;
+	return actors;
 }

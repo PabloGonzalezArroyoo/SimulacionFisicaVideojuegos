@@ -2,7 +2,7 @@
 
 #include "RigidGenerator.h"
 
-class UniformRigidGenerator : public RigidGenerator {
+class UniformGenerator : public ActorGenerator {
 protected:
 	// Velocidad
 	uniform_real_distribution<float>* vX;
@@ -16,10 +16,10 @@ protected:
 
 public:
 	// Constructora y destructora
-	UniformRigidGenerator(string n, RigidBody* m, Vector3 iniPos, Vector3 var = Vector3(0), float f = 0, bool st = true, Vector3 stOffset = Vector3(0));
-	virtual ~UniformRigidGenerator();
+	UniformGenerator(string n, Actor* m, Vector3 iniPos, Vector3 var = Vector3(0), float f = 0, bool st = true, Vector3 stOffset = Vector3(0));
+	virtual ~UniformGenerator();
 
 	// Método abstracto
-	virtual list<RigidBody*> generateParticles(double t);
+	virtual list<Actor*> generateParticles(double t);
 };
 

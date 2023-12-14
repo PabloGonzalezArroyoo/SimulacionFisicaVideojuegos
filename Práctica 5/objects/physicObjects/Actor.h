@@ -50,6 +50,7 @@ public:
 	}
 
 	virtual bool integrate(double t) = 0;
+	virtual void addForce(const Vector3& f) = 0;
 
 	// Comprueba si está dentro de los límites
 	bool insideLimit() {
@@ -74,6 +75,9 @@ public:
 		renderItem = new RenderItem(shape, tr, color);
 	}
 
+	virtual Actor* clone() const = 0;
+	virtual Actor* clone(PxTransform* t, Vector3 v = Vector3(0)) const = 0;
+
 	// Getters
 	inline Vector3 getPos() { return Vector3(tr->p.x, tr->p.y, tr->p.z); }
 	inline Vector3 getIniPos() { return iniPos; }
@@ -82,6 +86,8 @@ public:
 	inline Vector4 getColor() { return color; }
 	inline PxShape* getShape() { return shape; }
 	inline float getLifeTime() { return lifeTime; }
+	virtual Vector3 getVelocity() = 0;
+	virtual float getMass() = 0;
 
 	// Setters
 	void setInvisible() { renderItem->release(); }

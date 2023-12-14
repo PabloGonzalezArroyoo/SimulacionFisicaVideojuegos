@@ -4,13 +4,9 @@
 #include "../generators/particles/GaussianParticleGenerator.h"
 #include "../generators/particles/UniformParticleGenerator.h"
 #include "../generators/particles/FireworkGenerator.h"
-#include "../generators/forces/GravityForceGenerator.h"
-#include "../generators/forces/TornadoForceGenerator.h"
-#include "../generators/forces/ExplosionForceGenerator.h"
-#include "../generators/forces/AnchoredSpringForceGenerator.h"
-#include "../generators/forces/BuoyancyForceGenerator.h"
+#include "../generators/forces/ForceGenerator.h"
 #include <list>
-#include "ParticleForceRegistry.h"
+#include "ForceRegistry.h"
 
 using namespace std;
 

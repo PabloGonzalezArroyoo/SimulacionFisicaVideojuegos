@@ -18,17 +18,18 @@ public:
 
 	// Clonar partícula
 	virtual Particle* clone() const;
-	virtual Particle* clone(ElimState mode, Vector3 newRanVel, Vector3 newPos, float newLifeTime = 0) const;
+	Particle* clone(ElimState mode, Vector3 newRanVel, Vector3 newPos, float newLifeTime = 0) const;
+	virtual Particle* clone(PxTransform* t, Vector3 v = Vector3(0)) const { return nullptr; };
 
 	// Fuerzas
 	inline void clearForce() { force *= 0.0; }
-	inline void addForce(const Vector3& f) { force += f; }
+	virtual void addForce(const Vector3& f) { force += f; }
 
 	#pragma region getters&setters
 	inline void setMass(float m) { mass = m; invMass = 1 / m; }
 	inline void setVelocity(Vector3 v) { vel = v; }
-	inline float getMass() { return mass; }
+	virtual float getMass() { return mass; }
 	inline float getInvMass() { return invMass; }
-	inline Vector3 getVelocity() { return vel; }
+	virtual Vector3 getVelocity() { return vel; }
 	#pragma endregion
 };

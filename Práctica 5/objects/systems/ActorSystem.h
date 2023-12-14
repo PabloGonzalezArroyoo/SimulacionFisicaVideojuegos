@@ -1,10 +1,12 @@
 #pragma once
 
-#include "../generators/rigids/GaussianRigidGenerator.h"
-#include "../generators/rigids/UniformRigidGenerator.h"
+#include "../generators/rigids/GaussianGenerator.h"
+#include "../generators/rigids/UniformGenerator.h"
 #include "../physicObjects/RigidBody.h"
+#include "../generators/forces/ForceGenerator.h"
+#include "ForceRegistry.h"
 
-class RigidBodiesSystem {
+class ActorSystem {
 private:
 	// Físicas
 	PxPhysics* gPhysics;
@@ -14,16 +16,16 @@ private:
 	RigidBody* floor;
 
 	// Listas de objetos
-	list<RigidBody*> _rigidBodies;
-	list<RigidGenerator*> _rigid_generators;
+	list<Actor*> _actors;
+	list<ActorGenerator*> _actor_generators;
 
 	// Vector de objetos a destruir
-	vector<list<RigidBody*>::iterator> _rigidsToDelete;
+	vector<list<Actor*>::iterator> _actorsToDelete;
 
 public:
 	// Constructora y destructora
-	RigidBodiesSystem(PxPhysics* gPhysics, PxScene* gScene);
-	~RigidBodiesSystem();
+	ActorSystem(PxPhysics* gPhysics, PxScene* gScene);
+	~ActorSystem();
 
 	virtual void update(double t);
 	virtual void keyPress(char c);

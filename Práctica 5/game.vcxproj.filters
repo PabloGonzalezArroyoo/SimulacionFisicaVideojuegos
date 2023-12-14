@@ -19,7 +19,7 @@
     <ClCompile Include="objects\physicObjects\Firework.cpp">
       <Filter>objects\physicObjects</Filter>
     </ClCompile>
-    <ClCompile Include="objects\systems\RigidBodiesSystem.cpp">
+    <ClCompile Include="objects\systems\ActorSystem.cpp">
       <Filter>objects\systems</Filter>
     </ClCompile>
     <ClCompile Include="objects\generators\Particles\FireworkGenerator.cpp">
@@ -31,37 +31,16 @@
     <ClCompile Include="objects\generators\Particles\UniformParticleGenerator.cpp">
       <Filter>objects\generators\particles</Filter>
     </ClCompile>
-    <ClCompile Include="objects\generators\forces\AnchoredSpringForceGenerator.cpp">
-      <Filter>objects\generators\forces</Filter>
-    </ClCompile>
-    <ClCompile Include="objects\generators\forces\BuoyancyForceGenerator.cpp">
-      <Filter>objects\generators\forces</Filter>
-    </ClCompile>
-    <ClCompile Include="objects\generators\forces\ExplosionForceGenerator.cpp">
-      <Filter>objects\generators\forces</Filter>
-    </ClCompile>
-    <ClCompile Include="objects\generators\forces\GravityForceGenerator.cpp">
-      <Filter>objects\generators\forces</Filter>
-    </ClCompile>
-    <ClCompile Include="objects\generators\forces\SpringForceGenerator.cpp">
-      <Filter>objects\generators\forces</Filter>
-    </ClCompile>
-    <ClCompile Include="objects\generators\forces\TornadoForceGenerator.cpp">
-      <Filter>objects\generators\forces</Filter>
-    </ClCompile>
-    <ClCompile Include="objects\generators\forces\WindForceGenerator.cpp">
-      <Filter>objects\generators\forces</Filter>
-    </ClCompile>
     <ClCompile Include="objects\generators\particles\ParticleGenerator.cpp">
       <Filter>objects\generators\particles</Filter>
     </ClCompile>
     <ClCompile Include="objects\physicObjects\RigidBody.cpp">
       <Filter>objects\physicObjects</Filter>
     </ClCompile>
-    <ClCompile Include="objects\generators\rigids\GaussianRigidGenerator.cpp">
+    <ClCompile Include="objects\generators\rigids\GaussianGenerator.cpp">
       <Filter>objects\generators\rigids</Filter>
     </ClCompile>
-    <ClCompile Include="objects\generators\rigids\UniformRigidGenerator.cpp">
+    <ClCompile Include="objects\generators\rigids\UniformGenerator.cpp">
       <Filter>objects\generators\rigids</Filter>
     </ClCompile>
   </ItemGroup>
@@ -84,10 +63,10 @@
     <ClInclude Include="objects\physicObjects\Firework.h">
       <Filter>objects\physicObjects</Filter>
     </ClInclude>
-    <ClInclude Include="objects\systems\ParticleForceRegistry.h">
+    <ClInclude Include="objects\systems\ForceRegistry.h">
       <Filter>objects\systems</Filter>
     </ClInclude>
-    <ClInclude Include="objects\systems\RigidBodiesSystem.h">
+    <ClInclude Include="objects\systems\ActorSystem.h">
       <Filter>objects\systems</Filter>
     </ClInclude>
     <ClInclude Include="objects\generators\Particles\FireworkGenerator.h">
@@ -99,37 +78,13 @@
     <ClInclude Include="objects\generators\Particles\UniformParticleGenerator.h">
       <Filter>objects\generators\particles</Filter>
     </ClInclude>
-    <ClInclude Include="objects\generators\forces\AnchoredSpringForceGenerator.h">
-      <Filter>objects\generators\forces</Filter>
-    </ClInclude>
-    <ClInclude Include="objects\generators\forces\BuoyancyForceGenerator.h">
-      <Filter>objects\generators\forces</Filter>
-    </ClInclude>
-    <ClInclude Include="objects\generators\forces\ExplosionForceGenerator.h">
-      <Filter>objects\generators\forces</Filter>
-    </ClInclude>
-    <ClInclude Include="objects\generators\forces\ForceGenerator.h">
-      <Filter>objects\generators\forces</Filter>
-    </ClInclude>
-    <ClInclude Include="objects\generators\forces\GravityForceGenerator.h">
-      <Filter>objects\generators\forces</Filter>
-    </ClInclude>
-    <ClInclude Include="objects\generators\forces\SpringForceGenerator.h">
-      <Filter>objects\generators\forces</Filter>
-    </ClInclude>
-    <ClInclude Include="objects\generators\forces\TornadoForceGenerator.h">
-      <Filter>objects\generators\forces</Filter>
-    </ClInclude>
-    <ClInclude Include="objects\generators\forces\WindForceGenerator.h">
-      <Filter>objects\generators\forces</Filter>
-    </ClInclude>
     <ClInclude Include="objects\generators\particles\ParticleGenerator.h">
       <Filter>objects\generators\particles</Filter>
     </ClInclude>
     <ClInclude Include="objects\physicObjects\RigidBody.h">
       <Filter>objects\physicObjects</Filter>
     </ClInclude>
-    <ClInclude Include="objects\generators\rigids\GaussianRigidGenerator.h">
+    <ClInclude Include="objects\generators\rigids\GaussianGenerator.h">
       <Filter>objects\generators\rigids</Filter>
     </ClInclude>
     <ClInclude Include="objects\generators\rigids\RigidGenerator.h">
@@ -138,8 +93,11 @@
     <ClInclude Include="objects\physicObjects\Actor.h">
       <Filter>objects\physicObjects</Filter>
     </ClInclude>
-    <ClInclude Include="objects\generators\rigids\UniformRigidGenerator.h">
+    <ClInclude Include="objects\generators\rigids\UniformGenerator.h">
       <Filter>objects\generators\rigids</Filter>
+    </ClInclude>
+    <ClInclude Include="objects\generators\forces\ForceGenerator.h">
+      <Filter>objects\generators</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -160,9 +118,6 @@
     </Filter>
     <Filter Include="objects\generators\particles">
       <UniqueIdentifier>{27ab70f2-10cc-4b37-ae27-6c91c3f08be5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="objects\generators\forces">
-      <UniqueIdentifier>{03e701ad-b069-4344-8053-355934d2df12}</UniqueIdentifier>
     </Filter>
     <Filter Include="objects\generators\rigids">
       <UniqueIdentifier>{032e5b52-4eab-4823-bbde-ce84ca257b9f}</UniqueIdentifier>
