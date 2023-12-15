@@ -31,5 +31,6 @@ public:
 	virtual float getMass() { return mass; }
 	inline float getInvMass() { return invMass; }
 	virtual Vector3 getVelocity() { return vel; }
+	virtual Vector3 getPos() { return tr->p; }
 	#pragma endregion
 };

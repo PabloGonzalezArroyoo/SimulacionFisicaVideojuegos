@@ -192,6 +192,21 @@ public:
 		other = new Particle(pos, Vector3(0), NONE, colors[BLUE], CreateShape(PxBoxGeometry(3, 3, 3)), 1e6);
 	}
 
+	virtual void updateForce(Actor* actor) {
+		// actor -> particula a la que se le añade la fuerza
+		if (active) {
+			Vector3 relativePosVector = pos - actor->getPos();
+			if (elastic && relativePosVector.magnitude() < resisting_length)
+				return;
+
+			double length = relativePosVector.normalize();
+			float deltaX = length - resisting_length;
+
+			Vector3 force = relativePosVector * deltaX * k;
+			actor->addForce(force);
+		}
+	}
+
 	~AnchoredSpringForceGenerator() { delete other; }
 };
 #pragma endregion

@@ -1,3 +1,4 @@
+ï»¿
 #pragma once
 
 #include <list>
@@ -28,10 +29,12 @@ public:
 		name(n), tr(PxTransform(pos)), model(rb), meanVel(0), frecuency(f), cont(0), meanVar(var),
 		staticGenerator(st), staticOffset(stOffset),
 		gen(default_random_engine(chrono::system_clock::now().time_since_epoch().count()))
-	{ srand((unsigned)time); };
+	{
+		srand((unsigned)time);
+	};
 	virtual ~ActorGenerator() {};
 
-	// Método abstracto
+	// Mï¿½todo abstracto
 	virtual list<Actor*> generateParticles(double t) = 0;
 
 	// Getters y setters

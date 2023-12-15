@@ -87,9 +87,6 @@
     <ClInclude Include="objects\generators\rigids\GaussianGenerator.h">
       <Filter>objects\generators\rigids</Filter>
     </ClInclude>
-    <ClInclude Include="objects\generators\rigids\RigidGenerator.h">
-      <Filter>objects\generators\rigids</Filter>
-    </ClInclude>
     <ClInclude Include="objects\physicObjects\Actor.h">
       <Filter>objects\physicObjects</Filter>
     </ClInclude>
@@ -98,6 +95,9 @@
     </ClInclude>
     <ClInclude Include="objects\generators\forces\ForceGenerator.h">
       <Filter>objects\generators</Filter>
+    </ClInclude>
+    <ClInclude Include="objects\generators\rigids\ActorGenerator.h">
+      <Filter>objects\generators\rigids</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

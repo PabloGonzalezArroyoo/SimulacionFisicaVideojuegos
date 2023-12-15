@@ -278,8 +278,8 @@
     <ClInclude Include="objects\generators\Particles\GaussianParticleGenerator.h" />
     <ClInclude Include="objects\generators\particles\ParticleGenerator.h" />
     <ClInclude Include="objects\generators\Particles\UniformParticleGenerator.h" />
+    <ClInclude Include="objects\generators\rigids\ActorGenerator.h" />
     <ClInclude Include="objects\generators\rigids\GaussianGenerator.h" />
-    <ClInclude Include="objects\generators\rigids\RigidGenerator.h" />
     <ClInclude Include="objects\generators\rigids\UniformGenerator.h" />
     <ClInclude Include="objects\physicObjects\Actor.h" />
     <ClInclude Include="objects\physicObjects\Firework.h" />

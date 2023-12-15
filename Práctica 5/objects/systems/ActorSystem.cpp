@@ -114,24 +114,24 @@ void ActorSystem::keyPress(char t) {
 			createExplosion(100, 40, state);
 			state == A_EXPLOSION ? state = A_NONE : state = A_EXPLOSION;
 			break;
-		case 'Z':
+		/*case 'Z':
 			resetScene();
 			state = A_ANCHORED;
 			createAnchored();
-			break;
+			break;*/
 		case 'X':
 			resetScene();
 			state = A_SPRING;
 			createSpring(false);
 			break;
-		case 'C':
+		/*case 'C':
 			resetScene();
 			state = A_SLINKY;
 			createSlinky();
-			break;
+			break;*/
 		case 'V':
 			resetScene();
-			state = A_BOUYANCY;
+			state = A_BUOYANCY;
 			createBuoyancy();
 			break;
 		default: break;
@@ -280,12 +280,12 @@ void ActorSystem::createAnchored() {
 		CreateShape(PxBoxGeometry(2, 2, 2)), NONE, colors[GREEN]);
 	RigidBody* rb3 = new RigidBody(gPhysics, gScene, new PxTransform(Vector3(0, 45, -5)),
 		CreateShape(PxBoxGeometry(2, 2, 2)), NONE, colors[RED]);
-	_actors.push_back(rb1);
-	_actors.push_back(rb2);
-	_actors.push_back(rb3);
+	_actors.push_back(rb1); rb1->disableGravity();
+	_actors.push_back(rb2); rb2->disableGravity();
+	_actors.push_back(rb3); rb3->disableGravity();
 
 	// Generadores
-	AnchoredSpringForceGenerator* spg = new AnchoredSpringForceGenerator(Vector3(0, 50, 0), 4, 20);
+	AnchoredSpringForceGenerator* spg = new AnchoredSpringForceGenerator(Vector3(0, 50, 0), 1, 200);
 	WindForceGenerator* wfg = new WindForceGenerator(Vector3(0), Vector3(10), 400, colors[GREEN], 10);
 	_force_generators.push_back(spg);
 	_force_generators.push_back(wfg);

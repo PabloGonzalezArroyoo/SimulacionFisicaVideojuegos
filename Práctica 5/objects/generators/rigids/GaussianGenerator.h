@@ -1,6 +1,6 @@
 #pragma once
 
-#include "RigidGenerator.h"
+#include "ActorGenerator.h"
 
 class GaussianGenerator : public ActorGenerator {
 protected:

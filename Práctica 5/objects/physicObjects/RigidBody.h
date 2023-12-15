@@ -24,6 +24,12 @@ public:
 		if (dnRigid != nullptr) dnRigid->addForce(f); }
 	virtual void clearForce() { if (dnRigid != nullptr) dnRigid->clearForce(); }
 
+	void disableGravity() {
+		if (dnRigid != nullptr) {
+			dnRigid->setActorFlag(PxActorFlag::eDISABLE_GRAVITY, true);
+		}
+	}
+
 	// Clonar
 	RigidBody* clone() const;
 	RigidBody* clone(PxTransform* t, Vector3 v = Vector3(0)) const;
@@ -33,5 +39,6 @@ public:
 	inline Vector3 getVelocity() { return dnRigid != nullptr ? dnRigid->getLinearVelocity() : Vector3(0); }
 	inline void setVelocity(Vector3 v) { if (dnRigid != nullptr) dnRigid->setLinearVelocity(Vector3(v)); }
 	virtual void setMass(float m) { if (dnRigid != nullptr) dnRigid->setMass(m); }
+	virtual Vector3 getPos() { return tr->p; }
 };
 
