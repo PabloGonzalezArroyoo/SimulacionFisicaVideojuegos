@@ -37,18 +37,28 @@ list<Actor*> UniformGenerator::generateParticles(double t) {
 	if (cont > frecuency) {
 		// Variables aleatorias
 		Vector3 vel = Vector3((*vX)(gen), (*vY)(gen), (*vZ)(gen));
-		//int lifeTime = rand() % 10 + 3;
+		int lifeTime = rand() % 10 + 3;
 
 		// Crear partícula
 		ElimState st = model->getState();
 		if (!staticGenerator) {
 			PxTransform* tr = new PxTransform(Vector3((*pX)(gen), (*pY)(gen), (*pZ)(gen)));
 			if (st == BOUNDARIES) actors.push_back(model->clone(tr, vel));
+			else if (st == TIME) {
+				Actor* ac = model->clone(tr, vel);
+				ac->setLifeTime(lifeTime);
+				actors.push_back(ac);
+			}
 			else actors.push_back(model->clone(tr, vel));
 		}
 		else {
-			if (st == BOUNDARIES) actors.push_back(model->clone(model->getTransform(), vel));
-			else actors.push_back(model->clone(model->getTransform(), vel));
+			if (st == BOUNDARIES) actors.push_back(model->clone(new PxTransform(*model->getTransform()), vel));
+			else if (st == TIME) {
+				Actor* ac = model->clone(new PxTransform(*model->getTransform()), vel);
+				ac->setLifeTime(lifeTime);
+				actors.push_back(ac);
+			}
+			else actors.push_back(model->clone(new PxTransform(*model->getTransform()), vel));
 		}
 
 		cont = 0;

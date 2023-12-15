@@ -55,7 +55,7 @@ private:
 	vector<list<Particle*>::iterator> _particlesToDelete;
 
 	// Fuerzas
-	ParticleForceRegistry* _forceRegistry = nullptr;
+	ForceRegistry* _forceRegistry = nullptr;
 	vector<ForceGenerator*> _forceGenerators;
 
 	// Generadores siempre existentes

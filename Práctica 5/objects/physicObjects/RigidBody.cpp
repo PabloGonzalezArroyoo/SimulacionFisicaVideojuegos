@@ -24,6 +24,13 @@ RigidBody::~RigidBody() {
 
 // Update
 bool RigidBody::integrate(double t) {
+	// Actualizar posición
+	Vector3 vel = getVelocity();
+	vel *= powf(damping, t);
+	tr->p += vel * t;
+
+	// Borrar fuerza 
+	//clearForce();
 
 	// Eliminar tras lifeTime segundos
 	if (state == TIME && (startTime + lifeTime < GetLastTime())) return false;

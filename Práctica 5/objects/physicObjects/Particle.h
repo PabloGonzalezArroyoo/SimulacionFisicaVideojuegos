@@ -22,8 +22,8 @@ public:
 	virtual Particle* clone(PxTransform* t, Vector3 v = Vector3(0)) const { return nullptr; };
 
 	// Fuerzas
-	inline void clearForce() { force *= 0.0; }
-	virtual void addForce(const Vector3& f) { force += f; }
+	virtual inline void clearForce() { force *= 0.0; }
+	virtual inline void addForce(const Vector3& f) { force += f; }
 
 	#pragma region getters&setters
 	inline void setMass(float m) { mass = m; invMass = 1 / m; }

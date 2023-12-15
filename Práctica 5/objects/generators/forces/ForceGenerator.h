@@ -69,7 +69,7 @@ public:
 		vel(v), size(s), k1(_k1), k2(_k2) {
 		name = "wind";
 		pos = p;
-		//if (txt) new Particle(p, Vector3(0), BOUNDARIES, c, CreateShape(PxBoxGeometry(s, 1, s)));
+		if (txt) renderItem = new RenderItem(CreateShape(PxBoxGeometry(s, 1, s)), new PxTransform(p), c);
 	}
 
 	virtual void updateForce(Actor* actor) {
@@ -82,8 +82,6 @@ public:
 	virtual bool insideLimit(Vector3 p) {
 		return p.x < pos.x + size
 			&& p.x > pos.x - size
-			&& p.y < pos.y + size * 2
-			&& p.y > pos.y - size
 			&& p.z < pos.z + size
 			&& p.z > pos.z - size;
 	}
@@ -106,8 +104,8 @@ public:
 
 	virtual void updateForce(Actor* actor) {
 		if (active && fabs(actor->getMass()) > 1e-10 && insideLimit(actor->getPos())) {
-			Vector3 pPos = actor->getPos();
-			Vector3 vel = k * Vector3(pos.z - pPos.z, 50 - pPos.y + pos.y, pPos.x - pos.x);
+			Vector3 diff = actor->getPos() - pos;
+			Vector3 vel = k * Vector3(-diff.z, 50 - diff.y, diff.x);
 			actor->addForce(vel);
 
 			//WindForceGenerator::updateForce(actor);
@@ -130,7 +128,9 @@ private:
 
 public:
 	ExplosionForceGenerator(Vector3 p, float r, float _k, float _tau) : ForceGenerator(Vector3(0)), radius(r),
-		k(_k), tau(1 / _tau) { }
+		k(_k), tau(1 / _tau) {
+		name = "explosion";
+	}
 
 	virtual void updateForce(Actor* actor) {
 		if (active && fabs(actor->getMass()) > 1e-10) {

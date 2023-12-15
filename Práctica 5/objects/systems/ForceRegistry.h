@@ -3,7 +3,7 @@
 #include <map>
 #include "../generators/forces/ForceGenerator.h"
 
-class ParticleForceRegistry : public multimap<ForceGenerator*, Actor*> {
+class ForceRegistry : public multimap<ForceGenerator*, Actor*> {
 private:
 
 public:
@@ -25,7 +25,7 @@ public:
 		insert({ fg, a });
 	}
 
-	inline void deleteParticleRegistry(Actor* p) {
+	inline void deleteActorRegistry(Actor* p) {
 		for (auto it = begin(); it != end();) {
 			if (it->second == p) it = erase(it);
 			else ++it;

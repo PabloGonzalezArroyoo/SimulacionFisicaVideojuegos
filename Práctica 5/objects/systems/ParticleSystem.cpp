@@ -57,7 +57,7 @@ ParticleSystem::ParticleSystem() {
 	else if (practiceType == FORCES_P3) {
 		#pragma region Fuerzas (Práctica 3)
 		// Contenedor de fuerzas y fuerzas
-		_forceRegistry = new ParticleForceRegistry();
+		_forceRegistry = new ForceRegistry();
 		createForces();
 
 		if (particlesType == GeneratorsType) {
@@ -80,7 +80,7 @@ ParticleSystem::ParticleSystem() {
 	else if (practiceType == SPRINGS_P4) {
 		#pragma region Muelles (Práctica 4)
 		// Registro
-		_forceRegistry = new ParticleForceRegistry();
+		_forceRegistry = new ForceRegistry();
 
 		// Generadores siempre existentes
 		gfc = new GravityForceGenerator(Vector3(0, -10, 0));
@@ -185,7 +185,7 @@ void ParticleSystem::update(double t) {
 		}
 		
 		// Borrar
-		_forceRegistry->deleteParticleRegistry(p);
+		_forceRegistry->deleteActorRegistry(p);
 		_particles.erase(_particlesToDelete[i]);
 		delete p;
 	}
@@ -567,7 +567,7 @@ bool ParticleSystem::createExplosion(bool expl) {
 			}
 			else {
 				p->reset();
-				_forceRegistry->deleteParticleRegistry(p);
+				_forceRegistry->deleteActorRegistry(p);
 				_forceRegistry->updateTime(0);
 			}
 		}

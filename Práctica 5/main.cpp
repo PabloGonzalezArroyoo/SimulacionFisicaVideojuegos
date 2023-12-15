@@ -36,7 +36,6 @@ ContactReportCallback gContactReportCallback;
 
 // VARIABLES PROPIAS
 ParticleSystem* partSys = nullptr;
-bool explosion = true;
 ActorSystem* rbSys = nullptr;
 
 // Initialize physics engine

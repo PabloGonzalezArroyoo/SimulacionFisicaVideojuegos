@@ -47,10 +47,12 @@ public:
 	~Actor() {
 		renderItem->release();
 		renderItem = nullptr;
+		delete tr;
 	}
 
 	virtual bool integrate(double t) = 0;
 	virtual void addForce(const Vector3& f) = 0;
+	virtual void clearForce() = 0;
 
 	// Comprueba si está dentro de los límites
 	bool insideLimit() {
@@ -96,4 +98,5 @@ public:
 	inline void setLifeTime(float l) { lifeTime = l; }
 	inline void setBoundaries(Vector3 lmt) { limits = lmt; }
 	inline void setPos(Vector3 p) { tr->p = p; }
+	virtual void setMass(float m) = 0;
 };

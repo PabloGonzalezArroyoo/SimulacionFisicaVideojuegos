@@ -15,8 +15,9 @@ protected:
 	bool staticGenerator;
 
 	// Variables
-	Vector3 iniPos, meanVel, meanVar, staticOffset;
+	Vector3 meanVel, meanVar, staticOffset;
 	float frecuency, cont;
+	PxTransform tr;
 
 	// Generador de aleatorios
 	default_random_engine gen;
@@ -24,8 +25,9 @@ protected:
 public:
 	// rb->getVelocity()
 	ActorGenerator(string n, Actor* rb, Vector3 pos, Vector3 var, float f, bool st = true, Vector3 stOffset = Vector3(0)) :
-		name(n), iniPos(pos), model(rb), meanVel(0), frecuency(f), cont(0), meanVar(var), staticGenerator(st),
-		staticOffset(stOffset), gen(default_random_engine(chrono::system_clock::now().time_since_epoch().count()))
+		name(n), tr(PxTransform(pos)), model(rb), meanVel(0), frecuency(f), cont(0), meanVar(var),
+		staticGenerator(st), staticOffset(stOffset),
+		gen(default_random_engine(chrono::system_clock::now().time_since_epoch().count()))
 	{ srand((unsigned)time); };
 	virtual ~ActorGenerator() {};
 

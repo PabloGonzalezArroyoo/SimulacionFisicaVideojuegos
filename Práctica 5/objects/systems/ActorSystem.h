@@ -6,18 +6,29 @@
 #include "../generators/forces/ForceGenerator.h"
 #include "ForceRegistry.h"
 
+enum State {
+	A_NONE,
+	A_GRAVITY,
+	A_GAUSSIAN, A_UNIFORM,
+	A_WIND, A_TORNADO,
+	A_EXPLOSION
+};
+
 class ActorSystem {
 private:
 	// Físicas
 	PxPhysics* gPhysics;
 	PxScene* gScene;
 
-	int rigidCounter = 0, rigidLimit = 20;
-	RigidBody* floor;
+	int rigidCounter, rigidLimit = -1;
+	RigidBody* floor = nullptr;
+	State state;
 
-	// Listas de objetos
+	// Listas de objetos, generadores y fuerzas
 	list<Actor*> _actors;
 	list<ActorGenerator*> _actor_generators;
+	list<ForceGenerator*> _force_generators;
+	ForceRegistry* _forceRegistry = nullptr;
 
 	// Vector de objetos a destruir
 	vector<list<Actor*>::iterator> _actorsToDelete;
@@ -29,8 +40,24 @@ public:
 
 	virtual void update(double t);
 	virtual void keyPress(char c);
+	void attachForces(list<Actor*>& l);
 
+	// Crear generadores y fuerzas
 	void resetScene();
-	void createGaussian(bool st);
-	void createUniform(bool st);
+	void createGravity(int acts, int rad);
+	void createGaussian(bool st, Vector3 pos = Vector3(0), Vector3 var = Vector3(20), float spTime = 0, Vector3 offset = Vector3(50));
+	void createUniform(bool st, Vector3 pos = Vector3(0), Vector3 var = Vector3(20), float spTime = 0, Vector3 offset = Vector3(50));
+	void createWind();
+	void createTornado();
+	void createExplosion(int acts, int rad, State st);
+	void createSphere(int acts, int rad);
+
+	ForceGenerator* getGenerator(string name);
+	inline void addFloor() {
+		if (floor == nullptr) floor = new RigidBody(gPhysics, gScene, new PxTransform(Vector3(-20)),
+			CreateShape(PxBoxGeometry(400, 2, 400)), NONE, colors[BLUE], false);
+	}
+	inline void deleteFloor() {
+		if (floor != nullptr) { delete floor; floor = nullptr; }
+	}
 };
