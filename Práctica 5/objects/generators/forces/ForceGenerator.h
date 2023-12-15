@@ -1,6 +1,7 @@
 #pragma once
 
-#include "../../physicObjects/Actor.h"
+#include "../../physicObjects/Particle.h"
+#include "../../physicObjects/RigidBody.h"
 #include <numbers>
 
 using namespace std;
@@ -188,7 +189,7 @@ class AnchoredSpringForceGenerator : public SpringForceGenerator {
 public:
 	AnchoredSpringForceGenerator(Vector3 pos, double _k, double rl) : SpringForceGenerator(pos, _k, rl, nullptr) {
 		name = "anchoredSpring";
-		//other = new Particle(pos, Vector3(0), NONE, colors[BLUE], CreateShape(PxBoxGeometry(3, 3, 3)), 1e6);
+		other = new Particle(pos, Vector3(0), NONE, colors[BLUE], CreateShape(PxBoxGeometry(3, 3, 3)), 1e6);
 	}
 
 	~AnchoredSpringForceGenerator() { delete other; }
@@ -206,7 +207,7 @@ public:
 	BuoyancyForceGenerator(Vector3 pos, float h, float v, float d) : ForceGenerator(pos), height(h), volume(v),
 		liquidDensity(d) {
 		name = "buoyancy";
-		//liquidParticle = new Particle(pos, Vector3(0), NONE, colors[BLUE], CreateShape(PxBoxGeometry(h * 10, h / 10, h * 10)));
+		liquidParticle = new Particle(pos, Vector3(0), NONE, colors[BLUE], CreateShape(PxBoxGeometry(h * 10, h / 10, h * 10)));
 	}
 	virtual ~BuoyancyForceGenerator() { delete liquidParticle; }
 

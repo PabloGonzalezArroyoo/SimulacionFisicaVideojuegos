@@ -11,7 +11,8 @@ enum State {
 	A_GRAVITY,
 	A_GAUSSIAN, A_UNIFORM,
 	A_WIND, A_TORNADO,
-	A_EXPLOSION
+	A_EXPLOSION,
+	A_ANCHORED, A_SPRING, A_SLINKY, A_BOUYANCY
 };
 
 class ActorSystem {
@@ -51,6 +52,10 @@ public:
 	void createTornado();
 	void createExplosion(int acts, int rad, State st);
 	void createSphere(int acts, int rad);
+	void createAnchored();
+	void createSpring(bool el);
+	void createSlinky();
+	void createBuoyancy();
 
 	ForceGenerator* getGenerator(string name);
 	inline void addFloor() {

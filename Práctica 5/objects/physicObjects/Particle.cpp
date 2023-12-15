@@ -6,6 +6,7 @@ Particle::Particle(Vector3 p, Vector3 vel, ElimState st, Vector4 col, PxShape* s
 
 	setMass(m);
 	setVelocity(vel);
+	renderItem = new RenderItem(shape, tr, color);
 }
 
 // Update

@@ -81,7 +81,8 @@ public:
 	virtual Actor* clone(PxTransform* t, Vector3 v = Vector3(0)) const = 0;
 
 	// Getters
-	inline Vector3 getPos() { return Vector3(tr->p.x, tr->p.y, tr->p.z); }
+	inline Vector3 getPos() { 
+		return Vector3(tr->p.x, tr->p.y, tr->p.z); }
 	inline Vector3 getIniPos() { return iniPos; }
 	inline PxTransform* getTransform() { return tr; }
 	inline ElimState getState() { return state; }
