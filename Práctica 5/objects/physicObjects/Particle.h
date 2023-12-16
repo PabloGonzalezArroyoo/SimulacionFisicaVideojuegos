@@ -11,6 +11,7 @@ protected:
 public:
 	// Constructoras y destructora
 	Particle(Vector3 p, Vector3 vel, ElimState st, Vector4 col, PxShape* shp, float m = 10);
+	virtual ~Particle();
 
 	// Actualizar
 	virtual bool integrate(double t);
@@ -19,7 +20,7 @@ public:
 	// Clonar partícula
 	virtual Particle* clone() const;
 	Particle* clone(ElimState mode, Vector3 newRanVel, Vector3 newPos, float newLifeTime = 0) const;
-	virtual Particle* clone(PxTransform* t, Vector3 v = Vector3(0)) const { return nullptr; };
+	virtual Particle* clone(PxTransform t, Vector3 v = Vector3(0)) const;
 
 	// Fuerzas
 	virtual inline void clearForce() { force *= 0.0; }
@@ -31,6 +32,5 @@ public:
 	virtual float getMass() { return mass; }
 	inline float getInvMass() { return invMass; }
 	virtual Vector3 getVelocity() { return vel; }
-	virtual Vector3 getPos() { return tr->p; }
 	#pragma endregion
 };

@@ -1,7 +1,7 @@
 #pragma once
 
-#include "../../physicObjects/Particle.h"
-#include "../../physicObjects/RigidBody.h"
+#include "../physicObjects/Particle.h"
+#include "../physicObjects/RigidBody.h"
 #include <numbers>
 
 using namespace std;

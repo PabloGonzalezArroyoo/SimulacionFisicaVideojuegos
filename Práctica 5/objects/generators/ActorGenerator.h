@@ -4,7 +4,7 @@
 #include <list>
 #include <random>
 #include <chrono>
-#include "../../physicObjects/Actor.h"
+#include "../physicObjects/Actor.h"
 
 using namespace std;
 

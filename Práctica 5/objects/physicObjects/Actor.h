@@ -27,7 +27,7 @@ protected:
 	Vector4 color;
 
 	// Properties
-	PxTransform* tr;
+	PxTransform tr;
 	float damping = 0.0998;
 	Vector3 iniPos;
 
@@ -40,15 +40,11 @@ protected:
 
 public:
 	// Constructora y destructora
-	Actor(PxTransform* t, PxShape* s, ElimState st, Vector4 c) : iniPos(tr->p), tr(t), shape(s), state(st), color(c) {
+	Actor(PxTransform t, PxShape* s, ElimState st, Vector4 c) : tr(t), iniPos(tr.p), shape(s), state(st), color(c) {
 		startTime = GetLastTime();
 		//renderItem = new RenderItem(shape, tr, color);
 	}
-	~Actor() {
-		renderItem->release();
-		renderItem = nullptr;
-		delete tr;
-	}
+	virtual ~Actor() {};
 
 	virtual bool integrate(double t) = 0;
 	virtual void addForce(const Vector3& f) = 0;
@@ -56,14 +52,14 @@ public:
 
 	// Comprueba si está dentro de los límites
 	bool insideLimit() {
-		return tr->p.y < limits.y + iniPos.y
-			&& tr->p.y > -limits.y + iniPos.y
-			&& tr->p.x < limits.x + iniPos.x
-			&& tr->p.x > -limits.x + iniPos.x
-			&& tr->p.z < limits.z + iniPos.z
-			&& tr->p.z > -limits.z + iniPos.z;
+		return tr.p.y < limits.y + iniPos.y
+			&& tr.p.y > -limits.y + iniPos.y
+			&& tr.p.x < limits.x + iniPos.x
+			&& tr.p.x > -limits.x + iniPos.x
+			&& tr.p.z < limits.z + iniPos.z
+			&& tr.p.z > -limits.z + iniPos.z;
 	}
-	void reset();
+	virtual void reset() {};
 
 	// Cambia la forma de la partícula
 	void changeShape(ParticleShape sp, Vector3 dims) {
@@ -74,16 +70,16 @@ public:
 			shape = CreateShape(PxSphereGeometry(dims.x)) :
 			shape = CreateShape(PxBoxGeometry(dims.x, dims.y, dims.z));
 
-		renderItem = new RenderItem(shape, tr, color);
+		renderItem = new RenderItem(shape, &tr, color);
 	}
 
 	virtual Actor* clone() const = 0;
-	virtual Actor* clone(PxTransform* t, Vector3 v = Vector3(0)) const = 0;
+	virtual Actor* clone(PxTransform t, Vector3 v = Vector3(0)) const = 0;
 
 	// Getters
-	virtual Vector3 getPos() = 0;
+	virtual Vector3 getPos() { return tr.p; }
 	inline Vector3 getIniPos() { return iniPos; }
-	inline PxTransform* getTransform() { return tr; }
+	inline PxTransform getTransform() { return tr; }
 	inline ElimState getState() { return state; }
 	inline Vector4 getColor() { return color; }
 	inline PxShape* getShape() { return shape; }
@@ -97,6 +93,6 @@ public:
 	inline void setShape(PxShape* s) { shape = s; }
 	inline void setLifeTime(float l) { lifeTime = l; }
 	inline void setBoundaries(Vector3 lmt) { limits = lmt; }
-	inline void setPos(Vector3 p) { tr->p = p; }
+	inline void setPos(Vector3 p) { tr.p = p; }
 	virtual void setMass(float m) = 0;
 };

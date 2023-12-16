@@ -58,13 +58,15 @@ void ActorSystem::update(double t) {
 	}
 	
 	// Actualizar fuerzas
-	_forceRegistry->updateForces();
-	_forceRegistry->updateTime(t);
+	if (_forceRegistry != nullptr) {
+		_forceRegistry->updateForces();
+		_forceRegistry->updateTime(t);
+	}
 
 	// Eliminar las partículas guardadas en el vector de eliminación, borrándo también memoria
 	for (int i = 0; i < _actorsToDelete.size(); i++) {
 		Actor* p = *_actorsToDelete[i];
-		_forceRegistry->deleteActorRegistry(p);
+		if (_forceRegistry != nullptr) _forceRegistry->deleteActorRegistry(p);
 		_actors.erase(_actorsToDelete[i]);
 		delete p;
 	}
@@ -114,25 +116,29 @@ void ActorSystem::keyPress(char t) {
 			createExplosion(100, 40, state);
 			state == A_EXPLOSION ? state = A_NONE : state = A_EXPLOSION;
 			break;
-		/*case 'Z':
+		case 'Z':
 			resetScene();
 			state = A_ANCHORED;
 			createAnchored();
-			break;*/
+			break;
 		case 'X':
 			resetScene();
 			state = A_SPRING;
 			createSpring(false);
 			break;
-		/*case 'C':
+		case 'C':
 			resetScene();
 			state = A_SLINKY;
 			createSlinky();
-			break;*/
+			break;
 		case 'V':
 			resetScene();
 			state = A_BUOYANCY;
 			createBuoyancy();
+			break;
+		case 'P':
+			resetScene();
+			createParticleGaussian();
 			break;
 		default: break;
 	}
@@ -151,7 +157,13 @@ void ActorSystem::resetScene() {
 	if (rigidLimit != -1) rigidCounter = 0;
 
 	// Borrar rígidos
-	for (auto it = _actors.begin(); it != _actors.end(); it++) _actorsToDelete.push_back(it);
+	for (auto it = _actors.begin(); it != _actors.end(); it++) {
+			Actor* p = *it;
+			if (_forceRegistry != nullptr) _forceRegistry->deleteActorRegistry(p);
+			delete p;
+	}
+	_actors.clear();
+	_actorsToDelete.clear();
 
 	// Borrar generadores de actores
 	for (auto it = _actor_generators.begin(); it != _actor_generators.end(); it++) delete* it;
@@ -175,8 +187,8 @@ void ActorSystem::createGravity(int acts, int rad) {
 		float angle = (i * 2 * pi) / acts;
 		float x = std::cos(angle) * rad;
 		float y = std::sin(angle) * rad;
-		RigidBody* rig = new RigidBody(gPhysics, gScene, new PxTransform(Vector3(x, 30, y)), CreateShape(PxBoxGeometry(2, 2, 2)),
-			NONE, colors[YELLOW]);
+		RigidBody* rig = new RigidBody(gPhysics, gScene, PxTransform(Vector3(x, 30, y)), CreateShape(PxBoxGeometry(2, 2, 2)),
+			NONE, colors[YELLOW], 1);
 		_actors.push_back(rig);
 	}
 }
@@ -184,8 +196,8 @@ void ActorSystem::createGravity(int acts, int rad) {
 // Crear prueba de generador gausiano
 void ActorSystem::createGaussian(bool st, Vector3 pos, Vector3 var, float spTime, Vector3 offset) {
 	addFloor();
-	RigidBody* rig = new RigidBody(gPhysics, gScene, new PxTransform(Vector3(0)), CreateShape(PxBoxGeometry(2, 2, 2)),
-		BOUNDARIES, colors[YELLOW]);
+	RigidBody* rig = new RigidBody(gPhysics, gScene, PxTransform(Vector3(0)), CreateShape(PxBoxGeometry(2, 2, 2)),
+		BOUNDARIES, colors[YELLOW], 1);
 	
 	st ? rig->setBoundaries(Vector3(600)) : rig->setBoundaries(Vector3(200));
 
@@ -200,8 +212,8 @@ void ActorSystem::createGaussian(bool st, Vector3 pos, Vector3 var, float spTime
 // Crear prueba de generador uniforme
 void ActorSystem::createUniform(bool st, Vector3 pos, Vector3 var, float spTime, Vector3 offset) {
 	addFloor();
-	RigidBody* rig = new RigidBody(gPhysics, gScene, new PxTransform(Vector3(0)), CreateShape(PxBoxGeometry(2, 2, 2)),
-		BOUNDARIES, colors[YELLOW]);
+	RigidBody* rig = new RigidBody(gPhysics, gScene, PxTransform(Vector3(0)), CreateShape(PxBoxGeometry(2, 2, 2)),
+		BOUNDARIES, colors[YELLOW], 1);
 	
 	st ? rig->setBoundaries(Vector3(600)) : rig->setBoundaries(Vector3(200));
 
@@ -255,8 +267,8 @@ void ActorSystem::createSphere(int acts, int rad) {
 		float y = rad * sin(theta * pi / 180.0f) * sin(phi * pi / 180.0f);
 		float z = rad * cos(theta * pi / 180.0f);
 
-		RigidBody* rig = new RigidBody(gPhysics, gScene, new PxTransform(Vector3(x, y + 30, z)),
-			CreateShape(PxBoxGeometry(2, 2, 2)), BOUNDARIES, colors[YELLOW]);
+		RigidBody* rig = new RigidBody(gPhysics, gScene, PxTransform(Vector3(x, y + 30, z)),
+			CreateShape(PxBoxGeometry(2, 2, 2)), BOUNDARIES, colors[YELLOW], 1);
 		rig->setBoundaries(Vector3(800));
 		_actors.push_back(rig);
 	}
@@ -264,6 +276,7 @@ void ActorSystem::createSphere(int acts, int rad) {
 
 // Crear prueba de explosion
 void ActorSystem::createExplosion(int acts, int rad, State st) {
+	addFloor();
 	if (state != A_EXPLOSION) createSphere(acts, rad);
 	else {
 		ExplosionForceGenerator* efg = new ExplosionForceGenerator(Vector3(0), 100, 400000, 0.1);
@@ -274,26 +287,24 @@ void ActorSystem::createExplosion(int acts, int rad, State st) {
 
 void ActorSystem::createAnchored() {
 	deleteFloor();
-	RigidBody* rb1 = new RigidBody(gPhysics, gScene, new PxTransform(Vector3(0, 45, 0)),
-		CreateShape(PxBoxGeometry(2, 2, 2)), NONE, colors[YELLOW]);
-	RigidBody* rb2 = new RigidBody(gPhysics, gScene, new PxTransform(Vector3(0, 45, 5)),
-		CreateShape(PxBoxGeometry(2, 2, 2)), NONE, colors[GREEN]);
-	RigidBody* rb3 = new RigidBody(gPhysics, gScene, new PxTransform(Vector3(0, 45, -5)),
-		CreateShape(PxBoxGeometry(2, 2, 2)), NONE, colors[RED]);
-	_actors.push_back(rb1); rb1->disableGravity();
-	_actors.push_back(rb2); rb2->disableGravity();
-	_actors.push_back(rb3); rb3->disableGravity();
+	RigidBody* rb1 = new RigidBody(gPhysics, gScene, PxTransform(Vector3(0, 45, 0)),
+		CreateShape(PxBoxGeometry(2, 2, 2)), NONE, colors[YELLOW], 1);
+	RigidBody* rb2 = new RigidBody(gPhysics, gScene, PxTransform(Vector3(0, 45, 5)),
+		CreateShape(PxBoxGeometry(2, 2, 2)), NONE, colors[GREEN], 1);
+	RigidBody* rb3 = new RigidBody(gPhysics, gScene, PxTransform(Vector3(0, 45, -5)),
+		CreateShape(PxBoxGeometry(2, 2, 2)), NONE, colors[RED], 1);
+	_actors.push_back(rb1);
+	_actors.push_back(rb2);
+	_actors.push_back(rb3);
 
 	// Generadores
-	AnchoredSpringForceGenerator* spg = new AnchoredSpringForceGenerator(Vector3(0, 50, 0), 1, 200);
+	AnchoredSpringForceGenerator* spg = new AnchoredSpringForceGenerator(Vector3(0, 50, 0), 1, 20);
 	WindForceGenerator* wfg = new WindForceGenerator(Vector3(0), Vector3(10), 400, colors[GREEN], 10);
 	_force_generators.push_back(spg);
 	_force_generators.push_back(wfg);
+	wfg->setActive(false);
 
 	// Añadir a la estructura
-	_forceRegistry->addRegistry(wfg, rb1);
-	_forceRegistry->addRegistry(wfg, rb2);
-	_forceRegistry->addRegistry(wfg, rb3);
 	_forceRegistry->addRegistry(spg, rb1);
 	_forceRegistry->addRegistry(spg, rb2);
 	_forceRegistry->addRegistry(spg, rb3);
@@ -301,24 +312,24 @@ void ActorSystem::createAnchored() {
 
 void ActorSystem::createSpring(bool el) {
 	deleteFloor();
-	RigidBody* rb1 = new RigidBody(gPhysics, gScene, new PxTransform(Vector3( 50, 25, 0)),
-		CreateShape(PxBoxGeometry(2, 2, 2)), NONE, colors[YELLOW]);
-	RigidBody* rb2 = new RigidBody(gPhysics, gScene, new PxTransform(Vector3(-50, 25, 5)),
-		CreateShape(PxBoxGeometry(2, 2, 2)), NONE, colors[GREEN]);
-	RigidBody* rb3 = new RigidBody(gPhysics, gScene, new PxTransform(Vector3(  0, 50, -5)),
-		CreateShape(PxBoxGeometry(2, 2, 2)), NONE, colors[RED]);
-	RigidBody* rb4 = new RigidBody(gPhysics, gScene, new PxTransform(Vector3(  0, 0,  -5)),
-		CreateShape(PxBoxGeometry(2, 2, 2)), NONE, colors[RED]);
+	RigidBody* rb1 = new RigidBody(gPhysics, gScene, PxTransform(Vector3( 50, 25, 0)),
+		CreateShape(PxBoxGeometry(2, 2, 2)), NONE, colors[YELLOW], 1);
+	RigidBody* rb2 = new RigidBody(gPhysics, gScene, PxTransform(Vector3(-50, 25, 5)),
+		CreateShape(PxBoxGeometry(2, 2, 2)), NONE, colors[GREEN], 1);
+	RigidBody* rb3 = new RigidBody(gPhysics, gScene, PxTransform(Vector3(  0, 50, -5)),
+		CreateShape(PxBoxGeometry(2, 2, 2)), NONE, colors[RED], 1);
+	RigidBody* rb4 = new RigidBody(gPhysics, gScene, PxTransform(Vector3(  0, 0,  -5)),
+		CreateShape(PxBoxGeometry(2, 2, 2)), NONE, colors[RED], 1);
 	_actors.push_back(rb1);
 	_actors.push_back(rb2);
 	_actors.push_back(rb3);
 	_actors.push_back(rb4);
 
 	// Generadores
-	SpringForceGenerator* sfg1 = new SpringForceGenerator(Vector3(0, 25, 0), 4, 10, rb2, el);
-	SpringForceGenerator* sfg2 = new SpringForceGenerator(Vector3(0, 25, 0), 4, 10, rb1, el);
-	SpringForceGenerator* sfg3 = new SpringForceGenerator(Vector3(0, 25, 0), 4, 10, rb4, el);
-	SpringForceGenerator* sfg4 = new SpringForceGenerator(Vector3(0, 25, 0), 4, 10, rb3, el);
+	SpringForceGenerator* sfg1 = new SpringForceGenerator(Vector3(0, 25, 0), 1, 10, rb2, el);
+	SpringForceGenerator* sfg2 = new SpringForceGenerator(Vector3(0, 25, 0), 1, 10, rb1, el);
+	SpringForceGenerator* sfg3 = new SpringForceGenerator(Vector3(0, 25, 0), 1, 10, rb4, el);
+	SpringForceGenerator* sfg4 = new SpringForceGenerator(Vector3(0, 25, 0), 1, 10, rb3, el);
 
 	// Añadir a la estructura
 	_forceRegistry->addRegistry(sfg1, rb1);
@@ -334,27 +345,27 @@ void ActorSystem::createSpring(bool el) {
 
 void ActorSystem::createSlinky() {
 	deleteFloor();
-	RigidBody* rb1 = new RigidBody(gPhysics, gScene, new PxTransform(Vector3(50, 25, 0)),
-		CreateShape(PxBoxGeometry(2, 2, 2)), NONE, colors[YELLOW]);
-	RigidBody* rb2 = new RigidBody(gPhysics, gScene, new PxTransform(Vector3(-50, 25, 5)),
-		CreateShape(PxBoxGeometry(2, 2, 2)), NONE, colors[GREEN]);
-	RigidBody* rb3 = new RigidBody(gPhysics, gScene, new PxTransform(Vector3(0, 50, -5)),
-		CreateShape(PxBoxGeometry(2, 2, 2)), NONE, colors[RED]);
-	RigidBody* rb4 = new RigidBody(gPhysics, gScene, new PxTransform(Vector3(0, 0, -5)),
-		CreateShape(PxBoxGeometry(2, 2, 2)), NONE, colors[RED]);
+	RigidBody* rb1 = new RigidBody(gPhysics, gScene, PxTransform(Vector3(0, 120, 0)),
+		CreateShape(PxBoxGeometry(2, 2, 2)), NONE, colors[YELLOW], 1);
+	RigidBody* rb2 = new RigidBody(gPhysics, gScene, PxTransform(Vector3(0, 90, 0)),
+		CreateShape(PxBoxGeometry(2, 2, 2)), NONE, colors[GREEN], 1);
+	RigidBody* rb3 = new RigidBody(gPhysics, gScene, PxTransform(Vector3(0, 60, 0)),
+		CreateShape(PxBoxGeometry(2, 2, 2)), NONE, colors[RED], 1);
+	RigidBody* rb4 = new RigidBody(gPhysics, gScene, PxTransform(Vector3(0, 30, 0)),
+		CreateShape(PxBoxGeometry(2, 2, 2)), NONE, colors[RED], 1);
 	_actors.push_back(rb1);
 	_actors.push_back(rb2);
 	_actors.push_back(rb3);
 	_actors.push_back(rb4);
 
 	// Generadores de muelles
-	AnchoredSpringForceGenerator* spg = new AnchoredSpringForceGenerator(Vector3(0, 150, 0), 4, 20);
-	SpringForceGenerator* sfg1_2 = new SpringForceGenerator(Vector3(0), 4, 20, rb2);
-	SpringForceGenerator* sfg2_1 = new SpringForceGenerator(Vector3(0), 4, 20, rb1);
-	SpringForceGenerator* sfg2_3 = new SpringForceGenerator(Vector3(0), 4, 20, rb3);
-	SpringForceGenerator* sfg3_2 = new SpringForceGenerator(Vector3(0), 4, 20, rb2);
-	SpringForceGenerator* sfg3_4 = new SpringForceGenerator(Vector3(0), 4, 20, rb4);
-	SpringForceGenerator* sfg4_3 = new SpringForceGenerator(Vector3(0), 4, 20, rb3);
+	AnchoredSpringForceGenerator* spg = new AnchoredSpringForceGenerator(Vector3(0, 150, 0), 1, 20);
+	SpringForceGenerator* sfg1_2 = new SpringForceGenerator(Vector3(0), 1, 20, rb2);
+	SpringForceGenerator* sfg2_1 = new SpringForceGenerator(Vector3(0), 1, 20, rb1);
+	SpringForceGenerator* sfg2_3 = new SpringForceGenerator(Vector3(0), 1, 20, rb3);
+	SpringForceGenerator* sfg3_2 = new SpringForceGenerator(Vector3(0), 1, 20, rb2);
+	SpringForceGenerator* sfg3_4 = new SpringForceGenerator(Vector3(0), 1, 20, rb4);
+	SpringForceGenerator* sfg4_3 = new SpringForceGenerator(Vector3(0), 1, 20, rb3);
 
 	// Conectar muelles
 	_forceRegistry->addRegistry(spg,	rb1);
@@ -377,18 +388,27 @@ void ActorSystem::createSlinky() {
 
 void ActorSystem::createBuoyancy() {
 	deleteFloor();
-	RigidBody* rb1 = new RigidBody(gPhysics, gScene, new PxTransform(Vector3(50, 25, 0)),
-		CreateShape(PxBoxGeometry(2, 2, 2)), NONE, colors[YELLOW]);
+	RigidBody* rb1 = new RigidBody(gPhysics, gScene, PxTransform(Vector3(0, 25, 0)),
+		CreateShape(PxBoxGeometry(2, 2, 2)), NONE, colors[YELLOW], 1);
 	_actors.push_back(rb1);
 
 	// Generador
-	BuoyancyForceGenerator* bfg = new BuoyancyForceGenerator(Vector3(0), 3, 27, 50);
+	BuoyancyForceGenerator* bfg = new BuoyancyForceGenerator(Vector3(0), rb1->getSize().y, rb1->getVolume(),
+		rb1->getMass() / rb1->getVolume());
 
 	// Añadir flotación
 	_forceRegistry->addRegistry(bfg, rb1);
 
 	// Añadir a la estructura
 	_force_generators.push_back(bfg);
+}
+
+void ActorSystem::createParticleGaussian() {
+	// Generador de partículas amarillas redondas
+	Actor* model = new Particle(Vector3(0), Vector3(50), TIME, colors[YELLOW], CreateShape(PxSphereGeometry(3)));
+	//model->setBoundaries(Vector3(100));
+	ActorGenerator* ptGen = new GaussianGenerator("Gaussian", model, model->getPos(), Vector3(35), 0);
+	_actor_generators.push_back(ptGen);
 }
 
 // Obtener un generador por su nombre

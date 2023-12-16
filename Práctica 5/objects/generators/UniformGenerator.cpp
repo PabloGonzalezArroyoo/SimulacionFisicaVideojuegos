@@ -1,34 +1,34 @@
-#include "GaussianGenerator.h"
+#include "UniformGenerator.h"
 
 // Constructora - Setea la partícula modelo y las distribuciones según proceda
-GaussianGenerator::GaussianGenerator(string n, Actor* rb, Vector3 iniPos, Vector3 var, float f, bool st,
+UniformGenerator::UniformGenerator(string n, Actor* rb, Vector3 iniPos, Vector3 var, float f, bool st,
 	Vector3 stOffset) : ActorGenerator(n, rb, iniPos, var, f, st, stOffset) {
 
 	// Partícula modelo
 	rb->setPos(iniPos);
 
 	// Distribuciones de velocidad
-	vX = new normal_distribution<float>(rb->getVelocity().x, var.x);
-	vY = new normal_distribution<float>(rb->getVelocity().y, var.y);
-	vZ = new normal_distribution<float>(rb->getVelocity().z, var.z);
+	vX = new uniform_real_distribution<float>(rb->getVelocity().x - var.x, rb->getVelocity().x + var.x);
+	vY = new uniform_real_distribution<float>(rb->getVelocity().y - var.y, rb->getVelocity().y + var.y);
+	vZ = new uniform_real_distribution<float>(rb->getVelocity().z - var.z, rb->getVelocity().z + var.z);
 
 	// Distribuciones de posición
 	if (!st) {
-		pX = new normal_distribution<float>(iniPos.x, stOffset.x);
-		pY = new normal_distribution<float>(iniPos.y, stOffset.y);
-		pZ = new normal_distribution<float>(iniPos.z, stOffset.z);
+		pX = new uniform_real_distribution<float>(iniPos.x - stOffset.x, iniPos.x + stOffset.x);
+		pY = new uniform_real_distribution<float>(iniPos.y - stOffset.y, iniPos.y + stOffset.y);
+		pZ = new uniform_real_distribution<float>(iniPos.z - stOffset.z, iniPos.z + stOffset.z);
 	}
 }
 
 // Destructora
-GaussianGenerator::~GaussianGenerator() {
+UniformGenerator::~UniformGenerator() {
 	delete vX, vY, vZ;
 	if (pX != nullptr) delete pX, pY, pZ;
 	delete model;
 }
 
 // Genera partículas que se devuelven en la lista
-list<Actor*> GaussianGenerator::generateParticles(double t) {
+list<Actor*> UniformGenerator::generateParticles(double t) {
 	// Lista de partículas
 	list<Actor*> actors;
 
@@ -42,7 +42,7 @@ list<Actor*> GaussianGenerator::generateParticles(double t) {
 		// Crear partícula
 		ElimState st = model->getState();
 		if (!staticGenerator) {
-			PxTransform* tr = new PxTransform(Vector3((*pX)(gen), (*pY)(gen), (*pZ)(gen)));
+			PxTransform tr = PxTransform(Vector3((*pX)(gen), (*pY)(gen), (*pZ)(gen)));
 			if (st == BOUNDARIES) actors.push_back(model->clone(tr, vel));
 			else if (st == TIME) {
 				Actor* ac = model->clone(tr, vel);
@@ -52,13 +52,13 @@ list<Actor*> GaussianGenerator::generateParticles(double t) {
 			else actors.push_back(model->clone(tr, vel));
 		}
 		else {
-			if (st == BOUNDARIES) actors.push_back(model->clone(new PxTransform(*model->getTransform()), vel));
+			if (st == BOUNDARIES) actors.push_back(model->clone(model->getTransform(), vel));
 			else if (st == TIME) {
-				Actor* ac = model->clone(new PxTransform(*model->getTransform()), vel);
+				Actor* ac = model->clone(model->getTransform(), vel);
 				ac->setLifeTime(lifeTime);
 				actors.push_back(ac);
 			}
-			else actors.push_back(model->clone(new PxTransform(*model->getTransform()), vel));
+			else actors.push_back(model->clone(model->getTransform(), vel));
 		}
 
 		cont = 0;

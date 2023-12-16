@@ -2,22 +2,28 @@
 
 // Constructora - Crea una particula definiendo todas sus propiedades
 Particle::Particle(Vector3 p, Vector3 vel, ElimState st, Vector4 col, PxShape* shp, float m) : 
-	Actor(&PxTransform(p), shp, st, col), force(Vector3(0)) {
+	Actor(PxTransform(p), shp, st, col), force(Vector3(0)) {
 
 	setMass(m);
 	setVelocity(vel);
-	renderItem = new RenderItem(shape, tr, color);
+	renderItem = new RenderItem(shape, &tr, color);
+}
+
+Particle::~Particle() {
+	renderItem->release();
+	renderItem = nullptr;
 }
 
 // Update
 bool Particle::integrate(double t) {
 	// Calcular aceleración y velocidad
+	addForce(vel);
 	Vector3 resulting_accel = force * getInvMass();
 	vel += resulting_accel * t;
 	vel *= powf(damping, t);
 
 	// Actualizar posición
-	tr->p += vel * t;
+	tr.p += vel * t;
 
 	// Borrar fuerza 
 	clearForce();
@@ -49,7 +55,14 @@ Particle* Particle::clone(ElimState mode, Vector3 newRanVel, Vector3 newPos, flo
 
 // Clona la partícula actual
 Particle* Particle::clone() const {
-	Particle* p = new Particle(tr->p, vel, state, color, shape, mass);
+	Particle* p = new Particle(tr.p, vel, state, color, shape, mass);
+	p->setLifeTime(lifeTime);
+	p->setBoundaries(limits);
+	return p;
+}
+
+Particle* Particle::clone(PxTransform t, Vector3 v) const {
+	Particle* p = new Particle(tr.p, v, state, color, shape, mass);
 	p->setLifeTime(lifeTime);
 	p->setBoundaries(limits);
 	return p;

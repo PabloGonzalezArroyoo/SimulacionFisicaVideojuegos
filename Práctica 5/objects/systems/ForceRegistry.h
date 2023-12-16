@@ -1,7 +1,7 @@
 #pragma once
 
 #include <map>
-#include "../generators/forces/ForceGenerator.h"
+#include "../generators/ForceGenerator.h"
 
 class ForceRegistry : public multimap<ForceGenerator*, Actor*> {
 private:

@@ -1,16 +1,18 @@
 #include "RigidBody.h"
 
 // Constructora
-RigidBody::RigidBody(PxPhysics* p, PxScene* sc, PxTransform* t, PxShape* sp, ElimState st, Vector4 c, bool d) : gPhysics(p),
+RigidBody::RigidBody(PxPhysics* p, PxScene* sc, PxTransform t, PxShape* sp, ElimState st, Vector4 c, float m, bool d) : gPhysics(p),
 	Actor(t, sp, st, c), gScene(sc), dynamic(d) {
 	if (dynamic) {
-		dnRigid = gPhysics->createRigidDynamic(*tr);
+		dnRigid = gPhysics->createRigidDynamic(tr);
 		dnRigid->attachShape(*shape);
 		gScene->addActor(*dnRigid);
 		renderItem = new RenderItem(shape, dnRigid, color);
+		dnRigid->setMass(m);
+		PxRigidBodyExt::setMassAndUpdateInertia(*static_cast<PxRigidBody*>(dnRigid), getMass() / getVolume());
 	}
 	else {
-		stRigid = gPhysics->createRigidStatic(*tr);
+		stRigid = gPhysics->createRigidStatic(tr);
 		stRigid->attachShape(*shape);
 		gScene->addActor(*stRigid);
 		renderItem = new RenderItem(shape, stRigid, color);
@@ -20,6 +22,8 @@ RigidBody::RigidBody(PxPhysics* p, PxScene* sc, PxTransform* t, PxShape* sp, Eli
 RigidBody::~RigidBody() {
 	if (dnRigid != nullptr) dnRigid->release();
 	if (stRigid != nullptr) stRigid->release();
+	renderItem->release();
+	renderItem = nullptr;
 }
 
 // Update
@@ -27,7 +31,7 @@ bool RigidBody::integrate(double t) {
 	// Actualizar posición
 	Vector3 vel = getVelocity();
 	vel *= powf(damping, t);
-	tr->p += vel * t;
+	tr.p += vel * t;
 
 	// Borrar fuerza 
 	//clearForce();
@@ -51,7 +55,7 @@ RigidBody* RigidBody::clone() const {
 }
 
 // Clona la partícula actual
-RigidBody* RigidBody::clone(PxTransform* t, Vector3 v) const {
+RigidBody* RigidBody::clone(PxTransform t, Vector3 v) const {
 	RigidBody* rb = new RigidBody(gPhysics, gScene, t, shape, state, color, dynamic);
 	rb->setVelocity(v);
 	rb->setLifeTime(lifeTime);

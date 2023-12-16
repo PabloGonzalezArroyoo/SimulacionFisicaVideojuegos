@@ -1,10 +1,11 @@
 #pragma once
 
-#include "../generators/rigids/GaussianGenerator.h"
-#include "../generators/rigids/UniformGenerator.h"
+#include "../generators/GaussianGenerator.h"
+#include "../generators/UniformGenerator.h"
 #include "../physicObjects/RigidBody.h"
-#include "../generators/forces/ForceGenerator.h"
+#include "../generators/ForceGenerator.h"
 #include "ForceRegistry.h"
+#include <algorithm>
 
 enum State {
 	A_NONE,
@@ -56,13 +57,15 @@ public:
 	void createSpring(bool el);
 	void createSlinky();
 	void createBuoyancy();
+	void createParticleGaussian();
 
 	ForceGenerator* getGenerator(string name);
 	inline void addFloor() {
-		if (floor == nullptr) floor = new RigidBody(gPhysics, gScene, new PxTransform(Vector3(-20)),
-			CreateShape(PxBoxGeometry(400, 2, 400)), NONE, colors[BLUE], false);
+		if (floor == nullptr) floor = new RigidBody(gPhysics, gScene, PxTransform(Vector3(-20)),
+			CreateShape(PxBoxGeometry(400, 2, 400)), NONE, colors[BLUE], 1000, false);
 	}
 	inline void deleteFloor() {
 		if (floor != nullptr) { delete floor; floor = nullptr; }
 	}
+	bool checkIfDeletedIsIn(list<Actor*>::iterator& it);
 };

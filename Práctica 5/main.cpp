@@ -11,7 +11,6 @@
 
 #include <iostream>
 
-#include "objects/systems/ParticleSystem.h"
 #include "objects/systems/ActorSystem.h"
 
 std::string display_text = "Practica 5";
@@ -35,7 +34,6 @@ PxScene*				gScene      = NULL;
 ContactReportCallback gContactReportCallback;
 
 // VARIABLES PROPIAS
-ParticleSystem* partSys = nullptr;
 ActorSystem* rbSys = nullptr;
 
 // Initialize physics engine
@@ -62,8 +60,6 @@ void initPhysics(bool interactive)
 	sceneDesc.simulationEventCallback = &gContactReportCallback;
 	gScene = gPhysics->createScene(sceneDesc);
 
-	// Sistema de partículas
-	// partSys = new ParticleSystem();
 	// Sistema de sólidos rígidos
 	rbSys = new ActorSystem(gPhysics, gScene);
 }
@@ -79,8 +75,7 @@ void stepPhysics(bool interactive, double t)
 	PX_UNUSED(interactive);
 
 	gScene->simulate(t);
-	if (partSys != nullptr) partSys->update(t);
-	if (rbSys != nullptr) rbSys->update(t);
+	rbSys->update(t);
 	gScene->fetchResults(true);
 
 	//auto endTime = std::chrono::high_resolution_clock::now();
@@ -101,8 +96,7 @@ void cleanupPhysics(bool interactive)
 {
 	PX_UNUSED(interactive);
 
-	if (partSys != nullptr) delete partSys;
-	if (rbSys != nullptr) delete rbSys;
+	delete rbSys;
 
 	// Rigid Body ++++++++++++++++++++++++++++++++++++++++++
 	gScene->release();
@@ -121,8 +115,7 @@ void keyPress(unsigned char key, const PxTransform& camera)
 {
 	PX_UNUSED(camera);
 
-	if (partSys != nullptr) partSys->keyPress(toupper(key));
-	if (rbSys != nullptr) rbSys->keyPress(toupper(key));
+	rbSys->keyPress(toupper(key));
 }
 
 void onCollision(physx::PxActor* actor1, physx::PxActor* actor2)
