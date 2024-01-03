@@ -1,0 +1,127 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="Render\Camera.cpp">
+      <Filter>Render</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Render.cpp">
+      <Filter>Render</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderUtils.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="callbacks.cpp" />
+    <ClCompile Include="objects\physicObjects\Particle.cpp">
+      <Filter>objects\physicObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="objects\physicObjects\Firework.cpp">
+      <Filter>objects\physicObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="objects\systems\ActorSystem.cpp">
+      <Filter>objects\systems</Filter>
+    </ClCompile>
+    <ClCompile Include="objects\physicObjects\RigidBody.cpp">
+      <Filter>objects\physicObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="objects\generators\GaussianGenerator.cpp">
+      <Filter>objects\generators</Filter>
+    </ClCompile>
+    <ClCompile Include="objects\generators\UniformGenerator.cpp">
+      <Filter>objects\generators</Filter>
+    </ClCompile>
+    <ClCompile Include="structure\states\GameStateMachine.cpp">
+      <Filter>structure\state</Filter>
+    </ClCompile>
+    <ClCompile Include="structure\states\PlayState.cpp">
+      <Filter>structure\state</Filter>
+    </ClCompile>
+    <ClCompile Include="objects\systems\RigidBodySystem.cpp">
+      <Filter>objects\systems</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="core.hpp" />
+    <ClInclude Include="Render\Camera.h">
+      <Filter>Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Render.h">
+      <Filter>Render</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderUtils.hpp" />
+    <ClInclude Include="callbacks.hpp" />
+    <ClInclude Include="objects\physicObjects\Particle.h">
+      <Filter>objects\physicObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="objects\physicObjects\Firework.h">
+      <Filter>objects\physicObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="objects\systems\ForceRegistry.h">
+      <Filter>objects\systems</Filter>
+    </ClInclude>
+    <ClInclude Include="objects\systems\ActorSystem.h">
+      <Filter>objects\systems</Filter>
+    </ClInclude>
+    <ClInclude Include="objects\physicObjects\RigidBody.h">
+      <Filter>objects\physicObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="objects\physicObjects\Actor.h">
+      <Filter>objects\physicObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="objects\generators\ActorGenerator.h">
+      <Filter>objects\generators</Filter>
+    </ClInclude>
+    <ClInclude Include="objects\generators\ForceGenerator.h">
+      <Filter>objects\generators</Filter>
+    </ClInclude>
+    <ClInclude Include="objects\generators\GaussianGenerator.h">
+      <Filter>objects\generators</Filter>
+    </ClInclude>
+    <ClInclude Include="objects\generators\UniformGenerator.h">
+      <Filter>objects\generators</Filter>
+    </ClInclude>
+    <ClInclude Include="structure\states\GameState.h">
+      <Filter>structure\state</Filter>
+    </ClInclude>
+    <ClInclude Include="structure\states\GameStateMachine.h">
+      <Filter>structure\state</Filter>
+    </ClInclude>
+    <ClInclude Include="structure\ecs\Constants.h">
+      <Filter>structure\ecs</Filter>
+    </ClInclude>
+    <ClInclude Include="structure\states\PlayState.h">
+      <Filter>structure\state</Filter>
+    </ClInclude>
+    <ClInclude Include="structure\ecs\Manager.h">
+      <Filter>structure\ecs</Filter>
+    </ClInclude>
+    <ClInclude Include="structure\ecs\System.h">
+      <Filter>structure\ecs</Filter>
+    </ClInclude>
+    <ClInclude Include="objects\systems\RigidBodySystem.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Render">
+      <UniqueIdentifier>{d04b4f9f-5a69-465e-8070-25c6d0bcd3c2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="objects">
+      <UniqueIdentifier>{f1e4e7c5-514c-45a5-8d25-c602350484f5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="objects\physicObjects">
+      <UniqueIdentifier>{b5e5d126-6983-4e2d-8dda-981a68c1c36a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="objects\generators">
+      <UniqueIdentifier>{aea78d70-47db-4183-a7b8-26876e16a963}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="objects\systems">
+      <UniqueIdentifier>{730126ad-570b-4f34-93cb-71821070abee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="structure">
+      <UniqueIdentifier>{af3ab65d-ac37-4832-a662-ed206b742786}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="structure\state">
+      <UniqueIdentifier>{69ee220d-f0d0-473e-b6f3-f073196b1942}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="structure\ecs">
+      <UniqueIdentifier>{864d0b1e-5e53-4097-b789-417718d406d0}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
