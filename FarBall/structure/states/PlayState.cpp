@@ -1,9 +1,15 @@
 #include "PlayState.h"
 
-PlayState::PlayState(PxPhysics* ph, PxScene* sc) : GameState(ph, sc) {
-	rbSys = new RigidBodySystem();
+PlayState::PlayState(GameStateMachine* g, PxPhysics* ph, PxScene* sc) : GameState(g, ph, sc) {
+	// Crear manager del estado
+	mng = new Manager();
+
+	// Añadir sistema de rígidos
+	mng->addSystem<RigidBodySystem>();
+
+	addFloor();
 }
 
 void PlayState::update(double t) {
-	rbSys->update(t);
+	GameState::update(t);
 }

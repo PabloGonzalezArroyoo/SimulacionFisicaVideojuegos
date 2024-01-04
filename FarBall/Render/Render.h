@@ -48,6 +48,7 @@
 #include <string>
 
 extern std::string display_text;
+extern std::string title_text;
 
 namespace Snippets
 {

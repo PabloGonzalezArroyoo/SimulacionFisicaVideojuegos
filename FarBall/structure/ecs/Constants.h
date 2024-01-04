@@ -3,7 +3,7 @@ using namespace std;
 
 // Los distintos estados del juego
 enum STATE {
-	MAINMENU_STATE, PLAY_STATE, MULTI_PLAYER, PAUSE_STATE, GAMEOVER_STATE, WIN_STATE
+	MAINMENU_STATE, PLAY_STATE, PAUSE_STATE, GAMEOVER_STATE, WIN_STATE
 };
 
 // GRUPOS
@@ -35,6 +35,7 @@ using sysId_type = unsigned int;
 
 enum sysId : sysId_type {
 	_sys_RIGIDBODY,
+	_sys_TEXT,
 
 	//DO NOT REMOVE THIS
 	_LAST_SYS_ID

@@ -12,7 +12,7 @@
 #include <iostream>
 
 #include "structure/states/GameStateMachine.h"
-#include "structure/states/PlayState.h"
+#include "structure/states/MainMenuState.h"
 
 std::string display_text = "Practica 5";
 
@@ -62,7 +62,8 @@ void initPhysics(bool interactive)
 	gScene = gPhysics->createScene(sceneDesc);
 
 	// Sistema de sólidos rígidos
-	gsm = new GameStateMachine(new PlayState(gPhysics, gScene));
+	gsm = new GameStateMachine();
+	gsm->pushState(new MainMenuState(gsm, gPhysics, gScene));
 }
 
 
@@ -78,6 +79,7 @@ void stepPhysics(bool interactive, double t)
 	gScene->simulate(t);
 	gsm->currentState()->update(t);
 	gScene->fetchResults(true);
+	//gsm->currentState()->refresh(t);
 
 	//auto endTime = std::chrono::high_resolution_clock::now();
 	//std::chrono::duration<double> elapsedSeconds = endTime - startTime;

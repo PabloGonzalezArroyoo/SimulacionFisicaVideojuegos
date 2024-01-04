@@ -1,12 +1,10 @@
 #pragma once
 #include "../../structure/states/GameState.h"
-#include "../physicObjects/RigidBody.h"
 #include "../../structure/ecs/System.h"
 
-class RigidBodySystem : public System {
+class TextSystem : public System {
 private:
 	GameState* gst;
-	RigidBody* floor = nullptr;
 
 public:
 	constexpr static sysId_type id = _sys_RIGIDBODY;
@@ -15,4 +13,3 @@ public:
 
 	void update(double t);
 };
-
