@@ -1,16 +1,21 @@
 #pragma once
-#include "../ecs/Manager.h"
 #include "../../core.hpp"
 #include <PxPhysicsAPI.h>
+#include "../../objects/physicObjects/Actor.h"
+#include <list>
 
 using namespace physx;
+using namespace std;
 
 // Para evitar la dependencia circular
 class GameState {
 protected:
-	Manager* mng;
+	// Físicas
 	PxPhysics* gPhysics;
 	PxScene* gScene;
+
+	// Objetos
+	list<Actor*> objects;
 
 public:
 	// Constructoras
@@ -19,8 +24,7 @@ public:
 	virtual ~GameState() {}
 
 	// Métodos esenciales
-	inline virtual void update(double t) { mng->update(t); }
-	inline virtual void refresh() { mng->refresh(); }
-	virtual void keyPressed(int key) { }
-	virtual void keyReleased(int key) { }
+	inline virtual void update(double t) {}
+	virtual void keyPressed(int key) {}
+	virtual void keyReleased(int key) {}
 };

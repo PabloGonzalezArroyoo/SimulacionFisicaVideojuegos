@@ -286,8 +286,6 @@
     <ClInclude Include="Render\Camera.h" />
     <ClInclude Include="Render\Render.h" />
     <ClInclude Include="structure\ecs\Constants.h" />
-    <ClInclude Include="structure\ecs\Manager.h" />
-    <ClInclude Include="structure\ecs\System.h" />
     <ClInclude Include="structure\states\GameState.h" />
     <ClInclude Include="structure\states\GameStateMachine.h" />
     <ClInclude Include="structure\states\PlayState.h" />

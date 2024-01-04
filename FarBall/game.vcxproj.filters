@@ -90,12 +90,6 @@
     <ClInclude Include="structure\states\PlayState.h">
       <Filter>structure\state</Filter>
     </ClInclude>
-    <ClInclude Include="structure\ecs\Manager.h">
-      <Filter>structure\ecs</Filter>
-    </ClInclude>
-    <ClInclude Include="structure\ecs\System.h">
-      <Filter>structure\ecs</Filter>
-    </ClInclude>
     <ClInclude Include="objects\systems\RigidBodySystem.h" />
   </ItemGroup>
   <ItemGroup>
