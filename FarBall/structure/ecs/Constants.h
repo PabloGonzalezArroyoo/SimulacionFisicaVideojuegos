@@ -6,6 +6,10 @@ enum STATE {
 	MAINMENU_STATE, PLAY_STATE, PAUSE_STATE, GAMEOVER_STATE, WIN_STATE
 };
 
+enum Texts { 
+	NAME, TITLE, START, EXIT 
+};
+
 // GRUPOS
 using grpId_type = unsigned int;
 

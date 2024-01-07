@@ -14,7 +14,11 @@
 #include "structure/states/GameStateMachine.h"
 #include "structure/states/MainMenuState.h"
 
-std::string display_text = "Practica 5";
+vector<string> texts = {
+	"Proyecto Final - Pablo Gonzalez Arroyo",
+	"[ FARBALL ]",
+	"Press SPACE to play",
+};
 
 using namespace std;
 using namespace physx;

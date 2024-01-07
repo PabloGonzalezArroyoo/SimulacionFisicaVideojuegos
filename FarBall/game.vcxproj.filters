@@ -37,6 +37,12 @@
     <ClCompile Include="objects\systems\RigidBodySystem.cpp">
       <Filter>objects\systems</Filter>
     </ClCompile>
+    <ClCompile Include="structure\states\MainMenuState.cpp">
+      <Filter>structure\state</Filter>
+    </ClCompile>
+    <ClCompile Include="objects\systems\TextSystem.cpp">
+      <Filter>objects\systems</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="core.hpp" />
@@ -90,7 +96,21 @@
     <ClInclude Include="structure\states\PlayState.h">
       <Filter>structure\state</Filter>
     </ClInclude>
-    <ClInclude Include="objects\systems\RigidBodySystem.h" />
+    <ClInclude Include="structure\states\MainMenuState.h">
+      <Filter>structure\state</Filter>
+    </ClInclude>
+    <ClInclude Include="objects\systems\RigidBodySystem.h">
+      <Filter>objects\systems</Filter>
+    </ClInclude>
+    <ClInclude Include="objects\systems\TextSystem.h">
+      <Filter>objects\systems</Filter>
+    </ClInclude>
+    <ClInclude Include="structure\ecs\Manager.h">
+      <Filter>structure\ecs</Filter>
+    </ClInclude>
+    <ClInclude Include="structure\ecs\System.h">
+      <Filter>structure\ecs</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Render">

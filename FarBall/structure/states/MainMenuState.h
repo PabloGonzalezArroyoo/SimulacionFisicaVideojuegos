@@ -10,6 +10,6 @@ public:
 	MainMenuState(GameStateMachine* g, PxPhysics* ph, PxScene* sc);
 
 	// Sobrecarga del método update
-	// virtual void update(double t) {};
+	virtual void update(double t);
 	virtual void keyPressed(char key);
 };

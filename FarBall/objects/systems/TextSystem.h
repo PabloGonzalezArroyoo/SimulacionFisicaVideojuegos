@@ -4,12 +4,19 @@
 
 class TextSystem : public System {
 private:
-	GameState* gst;
+	STATE state;
+	float elapsedTime;
 
 public:
-	constexpr static sysId_type id = _sys_RIGIDBODY;
+	constexpr static sysId_type id = _sys_TEXT;
 
-	void initSystem();
-
+	// Métodos virtuales
 	void update(double t);
+
+	void flickerText(double t);
+	void removeTexts();
+
+	// Setters
+	inline void setState(STATE st) { state = st; }
+	
 };

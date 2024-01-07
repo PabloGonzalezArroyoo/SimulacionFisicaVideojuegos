@@ -46,9 +46,10 @@
 #error platform not supported.
 #endif
 #include <string>
+#include <vector>
 
-extern std::string display_text;
-extern std::string title_text;
+// MIS VARIABLES
+extern std::vector<std::string> texts;
 
 namespace Snippets
 {

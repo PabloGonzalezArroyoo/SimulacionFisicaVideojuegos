@@ -6,8 +6,6 @@ PlayState::PlayState(GameStateMachine* g, PxPhysics* ph, PxScene* sc) : GameStat
 
 	// Añadir sistema de rígidos
 	mng->addSystem<RigidBodySystem>();
-
-	addFloor();
 }
 
 void PlayState::update(double t) {

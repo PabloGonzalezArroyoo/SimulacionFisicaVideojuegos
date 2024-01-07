@@ -6,16 +6,17 @@ MainMenuState::MainMenuState(GameStateMachine* g, PxPhysics* ph, PxScene* sc) : 
 	mng = new Manager();
 
 	// Añadir sistema de rígidos
-	mng->addSystem<TextSystem>();
+	mng->addSystem<TextSystem>()->setState(MAINMENU_STATE);
 }
 
-//void MainMenuState::update(double t) {
-//	GameState::update(t);
-//}
+void MainMenuState::update(double t) {
+	GameState::update(t);
+}
 
 void MainMenuState::keyPressed(char key) {
 	switch (key) {
 		case ' ': 
+			mng->getSystem<TextSystem>()->removeTexts();
 			gsm->changeState(new PlayState(gsm, gPhysics, gScene));
 			break;
 		default: break;
