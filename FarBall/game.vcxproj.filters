@@ -16,9 +16,6 @@
     <ClCompile Include="objects\physicObjects\Firework.cpp">
       <Filter>objects\physicObjects</Filter>
     </ClCompile>
-    <ClCompile Include="objects\systems\ActorSystem.cpp">
-      <Filter>objects\systems</Filter>
-    </ClCompile>
     <ClCompile Include="objects\physicObjects\RigidBody.cpp">
       <Filter>objects\physicObjects</Filter>
     </ClCompile>
@@ -34,13 +31,19 @@
     <ClCompile Include="structure\states\PlayState.cpp">
       <Filter>structure\state</Filter>
     </ClCompile>
-    <ClCompile Include="objects\systems\RigidBodySystem.cpp">
-      <Filter>objects\systems</Filter>
-    </ClCompile>
     <ClCompile Include="structure\states\MainMenuState.cpp">
       <Filter>structure\state</Filter>
     </ClCompile>
     <ClCompile Include="objects\systems\TextSystem.cpp">
+      <Filter>objects\systems</Filter>
+    </ClCompile>
+    <ClCompile Include="objects\systems\FloorSystem.cpp">
+      <Filter>objects\systems</Filter>
+    </ClCompile>
+    <ClCompile Include="objects\gameObjects\Penguin.cpp">
+      <Filter>objects\gameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="objects\systems\PenguinSystem.cpp">
       <Filter>objects\systems</Filter>
     </ClCompile>
   </ItemGroup>
@@ -61,9 +64,6 @@
       <Filter>objects\physicObjects</Filter>
     </ClInclude>
     <ClInclude Include="objects\systems\ForceRegistry.h">
-      <Filter>objects\systems</Filter>
-    </ClInclude>
-    <ClInclude Include="objects\systems\ActorSystem.h">
       <Filter>objects\systems</Filter>
     </ClInclude>
     <ClInclude Include="objects\physicObjects\RigidBody.h">
@@ -99,9 +99,6 @@
     <ClInclude Include="structure\states\MainMenuState.h">
       <Filter>structure\state</Filter>
     </ClInclude>
-    <ClInclude Include="objects\systems\RigidBodySystem.h">
-      <Filter>objects\systems</Filter>
-    </ClInclude>
     <ClInclude Include="objects\systems\TextSystem.h">
       <Filter>objects\systems</Filter>
     </ClInclude>
@@ -110,6 +107,15 @@
     </ClInclude>
     <ClInclude Include="structure\ecs\System.h">
       <Filter>structure\ecs</Filter>
+    </ClInclude>
+    <ClInclude Include="objects\systems\FloorSystem.h">
+      <Filter>objects\systems</Filter>
+    </ClInclude>
+    <ClInclude Include="objects\gameObjects\Penguin.h">
+      <Filter>objects\gameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="objects\systems\PenguinSystem.h">
+      <Filter>objects\systems</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -136,6 +142,9 @@
     </Filter>
     <Filter Include="structure\ecs">
       <UniqueIdentifier>{864d0b1e-5e53-4097-b789-417718d406d0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="objects\gameObjects">
+      <UniqueIdentifier>{e1cf3977-6c8d-49b7-a7fa-0438f2b6a700}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -8,6 +8,7 @@ private:
 public:
 	// Constructora
 	MainMenuState(GameStateMachine* g, PxPhysics* ph, PxScene* sc);
+	~MainMenuState();
 
 	// Sobrecarga del método update
 	virtual void update(double t);

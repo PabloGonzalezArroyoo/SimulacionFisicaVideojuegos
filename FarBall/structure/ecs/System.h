@@ -9,8 +9,9 @@ public:
 	void setContext(Manager* _mngr) { mngr = _mngr; }
 	virtual void initSystem() {}
 	virtual void update(double t) {}
-	//virtual void receive(const Message& m) { }
+	virtual void receive(const Message& m) {}
 
 protected:
 	Manager* mngr;
+	STATE state;
 };

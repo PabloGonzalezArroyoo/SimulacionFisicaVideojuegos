@@ -18,6 +18,7 @@ vector<string> texts = {
 	"Proyecto Final - Pablo Gonzalez Arroyo",
 	"[ FARBALL ]",
 	"Press SPACE to play",
+	""
 };
 
 using namespace std;

@@ -291,8 +291,11 @@ void startRender(const PxVec3& cameraEye, const PxVec3& cameraDir, PxReal clipNe
 	drawText(texts[0], 5, 5);
 	glColor4f(0.0f, 1.0f, 0.0f, 1.0f);
 	for (int i = 1; i < texts.size(); i++) {
-		drawText(texts[i], glutGet(GLUT_WINDOW_WIDTH) / 2 - texts[i].length() * 5, 
-			2 * glutGet(GLUT_WINDOW_HEIGHT) / 3.25 - 30 * i);
+		if (i < 3) 
+			drawText(texts[i], glutGet(GLUT_WINDOW_WIDTH) / 2 - texts[i].length() * 5,
+				2 * glutGet(GLUT_WINDOW_HEIGHT) / 3.25 - 30 * i);
+		else 
+			drawText(texts[i], 5, glutGet(GLUT_WINDOW_HEIGHT) - 20);
 	}
 	glColor4f(0.0f, 1.0f, 0.0f, 1.0f);
 

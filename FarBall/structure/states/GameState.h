@@ -28,7 +28,7 @@ public:
 
 	// Métodos esenciales
 	inline virtual void update(double t) { mng->update(t); }
-	virtual void refresh() { mng->refresh(); } //mng->flushMessages();
+	virtual void refresh() { mng->refresh(); mng->flushMessages(); }
 	virtual void keyPressed(char key) {}
 	virtual void keyReleased(char key) {}
 };

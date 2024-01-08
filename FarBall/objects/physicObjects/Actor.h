@@ -96,7 +96,7 @@ public:
 	inline void setShape(PxShape* s) { shape = s; }
 	inline void setLifeTime(float l) { lifeTime = l; }
 	inline void setBoundaries(Vector3 lmt) { limits = lmt; }
-	inline void setPos(Vector3 p) { tr.p = p; }
+	virtual inline void setPos(Vector3 p) { tr.p = p; }
 	virtual void setMass(float m) = 0;
 	inline void setAlive(bool a) { alive = a; }
 };

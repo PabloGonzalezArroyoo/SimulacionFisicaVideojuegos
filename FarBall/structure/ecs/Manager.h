@@ -14,12 +14,14 @@ private:
 	array<list<Actor*>, maxGroupId> objects;
 	array<Actor*, maxHandlerId> handlers;
 	array<System*, maxSystemId> sys;
-	//vector<Message> msgs;
-	//vector<Message> aux_msgs;
+	vector<Message> msgs;
+	vector<Message> aux_msgs;
+	PxScene* gScene;
+	PxPhysics* gPhysics;
 
 public:
 	// Constructora y destructora
-	Manager() : objects(), handlers(), sys() {};
+	Manager(PxScene* gs, PxPhysics* ph) : objects(), handlers(), sys(), gScene(gs), gPhysics(ph) {};
 	virtual ~Manager() {
 		for (int i = 0; i < maxGroupId; i++) {
 			for (auto g : objects[i]) delete g;
@@ -100,6 +102,14 @@ public:
 		constexpr sysId_type sId = T::id;
 		return static_cast<T*>(sys[sId]);
 	}
+	
+	inline PxScene* getScene() {
+		return gScene;
+	}
+
+	inline PxPhysics* getPhysics() {
+		return gPhysics;
+	}
 
 	// ----- SETTERS -----
 	inline void setHandler(hdlrId_type hId, Actor* a) {
@@ -117,26 +127,26 @@ public:
 	}
 
 	// ----- MESSAGES -----
-	//inline void send(const Message& m, bool delay = false) {
-	//	if (!delay) {
-	//		for (System* s : sys) {
-	//			if (s != nullptr)
-	//				s->receive(m);
-	//		}
-	//	}
-	//	else {
-	//		msgs.emplace_back(m);
-	//	}
-	//}
+	inline void send(const Message& m, bool delay = false) {
+		if (!delay) {
+			for (System* s : sys) {
+				if (s != nullptr)
+					s->receive(m);
+			}
+		}
+		else {
+			msgs.emplace_back(m);
+		}
+	}
 
-	//inline void flushMessages() {
-	//	std::swap(msgs, aux_msgs);
-	//	for (auto& m : aux_msgs) {
-	//		for (System* s : sys) {
-	//			if (s != nullptr)
-	//				s->receive(m);
-	//		}
-	//	}
-	//	aux_msgs.clear();
-	//}
+	inline void flushMessages() {
+		std::swap(msgs, aux_msgs);
+		for (auto& m : aux_msgs) {
+			for (System* s : sys) {
+				if (s != nullptr)
+					s->receive(m);
+			}
+		}
+		aux_msgs.clear();
+	}
 };
