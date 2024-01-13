@@ -19,7 +19,7 @@ public:
 	virtual ~RigidBody();
 
 	// Actualizar
-	bool integrate(double t);
+	virtual void integrate(double t);
 	virtual void addForce(const Vector3& f) { if (dnRigid != nullptr) dnRigid->addForce(f); }
 	virtual void clearForce() { if (dnRigid != nullptr) dnRigid->clearForce(); }
 

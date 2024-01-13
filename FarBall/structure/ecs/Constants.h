@@ -15,6 +15,8 @@ using grpId_type = unsigned int;
 
 enum grpId : grpId_type {
 	_grp_GENERAL,
+	_grp_BACKGROUND,
+	_grp_PARTICLES,
 
 	//DO NOT REMOVE THIS
 	_LAST_GRP_ID
@@ -26,7 +28,7 @@ constexpr grpId_type maxGroupId = _LAST_GRP_ID;
 using hdlrId_type = unsigned int;
 
 enum hdlrId : hdlrId_type {
-	_hdlr_BALL,
+	_hdlr_PENGUIN,
 
 	//DO NOT REMOVE THIS
 	_LAST_HDLR_ID
@@ -39,18 +41,20 @@ using sysId_type = unsigned int;
 
 enum sysId : sysId_type {
 	_sys_TEXT,
-	_sys_FLOOR,
 	_sys_PENGUIN,
+	_sys_FLOOR,
+	_sys_OBSTACLES,
 
 	//DO NOT REMOVE THIS
 	_LAST_SYS_ID
 };
 
+constexpr sysId_type maxSystemId = _LAST_SYS_ID;
+
 // MESSAGES
 using msgId_type = unsigned int;
 enum msgId : msgId_type {
 	_m_INIT_STATE,
-	_m_PENGUIN_POS_UPDATE,
 };
 
 struct Message {
@@ -59,12 +63,4 @@ struct Message {
 	struct {
 		STATE st;
 	} state_data;
-	// _m_PENGUIN_POS_UPDATE
-	struct {
-		float x;
-		float z;
-	} penguin_pos_data;
 };
-
-
-constexpr sysId_type maxSystemId = _LAST_SYS_ID;

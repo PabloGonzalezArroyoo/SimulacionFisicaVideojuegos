@@ -15,7 +15,7 @@ Particle::~Particle() {
 }
 
 // Update
-bool Particle::integrate(double t) {
+void Particle::integrate(double t) {
 	// Calcular aceleración y velocidad
 	addForce(vel);
 	Vector3 resulting_accel = force * getInvMass();
@@ -26,16 +26,14 @@ bool Particle::integrate(double t) {
 	tr.p += vel * t;
 
 	// Borrar fuerza 
-	clearForce();
+	//clearForce();
 
 	// Eliminar tras lifeTime segundos
-	if (state == TIME && (startTime + lifeTime < GetLastTime())) return false;
+	if (state == TIME && (startTime + lifeTime < GetLastTime())) setAlive(false);
 	// Eliminar si ha sobrepasado el límite
-	else if (state == BOUNDARIES && !insideLimit()) return false;
+	else if (state == BOUNDARIES && !insideLimit()) setAlive(false);
 	// Eliminar tras lifeTime segundos o si ha sobrepasado el límite
-	else if (state == BOTH && (startTime + lifeTime < GetLastTime() || !insideLimit())) return false;
-	
-	return true;
+	else if (state == BOTH && (startTime + lifeTime < GetLastTime() || !insideLimit())) setAlive(false);
 }
 
 // Devuelve la partícula a su estado inicial

@@ -16,12 +16,11 @@ void FloorSystem::initSystem() {
 	floor->getDynRigid()->setRigidDynamicLockFlags(PxRigidDynamicLockFlag::eLOCK_LINEAR_Y |
 		PxRigidDynamicLockFlag::eLOCK_ANGULAR_X | PxRigidDynamicLockFlag::eLOCK_ANGULAR_Y | 
 		PxRigidDynamicLockFlag::eLOCK_ANGULAR_Z);
+	mngr->addActor(_grp_GENERAL, floor);
 }
 
 void FloorSystem::update(double t) {
-	if (penguin != nullptr) {
-		Vector3 floorPos = floor->getPos();
-		Vector3 penguinPos = penguin->getPos();
-		floor->setPos(Vector3(penguinPos.x + 100, floorPos.y, penguinPos.z));
-	}
+	Vector3 floorPos = floor->getPos();
+	Vector3 penguinPos = mngr->getHandler(_hdlr_PENGUIN)->getPos();
+	floor->setPos(Vector3(penguinPos.x + 100, floorPos.y, penguinPos.z));
 }

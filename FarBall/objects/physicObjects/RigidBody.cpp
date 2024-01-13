@@ -27,7 +27,7 @@ RigidBody::~RigidBody() {
 }
 
 // Update
-bool RigidBody::integrate(double t) {
+void RigidBody::integrate(double t) {
 	// Actualizar posición
 	Vector3 vel = getVelocity();
 	vel *= powf(damping, t);
@@ -37,13 +37,11 @@ bool RigidBody::integrate(double t) {
 	//clearForce();
 
 	// Eliminar tras lifeTime segundos
-	if (state == TIME && (startTime + lifeTime < GetLastTime())) return false;
+	if (state == TIME && (startTime + lifeTime < GetLastTime())) setAlive(false);
 	// Eliminar si ha sobrepasado el límite
-	else if (state == BOUNDARIES && !insideLimit()) return false;
+	else if (state == BOUNDARIES && !insideLimit()) setAlive(false);
 	// Eliminar tras lifeTime segundos o si ha sobrepasado el límite
-	else if (state == BOTH && (startTime + lifeTime < GetLastTime() || !insideLimit())) return false;
-
-	return true;
+	else if (state == BOTH && (startTime + lifeTime < GetLastTime() || !insideLimit())) setAlive(false);
 }
 
 // Clona la partícula actual

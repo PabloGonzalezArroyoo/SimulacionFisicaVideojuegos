@@ -262,6 +262,7 @@
     <ClCompile Include="objects\physicObjects\Particle.cpp" />
     <ClCompile Include="objects\physicObjects\RigidBody.cpp" />
     <ClCompile Include="objects\systems\FloorSystem.cpp" />
+    <ClCompile Include="objects\systems\ObstacleSystem.cpp" />
     <ClCompile Include="objects\systems\PenguinSystem.cpp" />
     <ClCompile Include="objects\systems\TextSystem.cpp" />
     <ClCompile Include="RenderUtils.cpp" />
@@ -285,11 +286,13 @@
     <ClInclude Include="objects\physicObjects\RigidBody.h" />
     <ClInclude Include="objects\systems\FloorSystem.h" />
     <ClInclude Include="objects\systems\ForceRegistry.h" />
+    <ClInclude Include="objects\systems\ObstacleSystem.h" />
     <ClInclude Include="objects\systems\PenguinSystem.h" />
     <ClInclude Include="objects\systems\TextSystem.h" />
     <ClInclude Include="RenderUtils.hpp" />
     <ClInclude Include="Render\Camera.h" />
     <ClInclude Include="Render\Render.h" />
+    <ClInclude Include="structure\CollisionCallbacks.h" />
     <ClInclude Include="structure\ecs\Constants.h" />
     <ClInclude Include="structure\ecs\Manager.h" />
     <ClInclude Include="structure\ecs\System.h" />

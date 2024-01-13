@@ -14,7 +14,7 @@ public:
 	virtual ~Particle();
 
 	// Actualizar
-	virtual bool integrate(double t);
+	virtual void integrate(double t);
 	void reset();
 
 	// Clonar partícula

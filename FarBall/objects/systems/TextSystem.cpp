@@ -7,14 +7,15 @@ void TextSystem::receive(const Message& m) {
 			state = m.state_data.st;
 			if (state == PLAY_STATE) setPlayState();
 			break;
-		case _m_PENGUIN_POS_UPDATE:
+		/*case _m_PENGUIN_POS_UPDATE:
 			updateDistance(m.penguin_pos_data.x);
-			break;
+			break;*/
 	}
 }
 
 void TextSystem::update(double t) {
 	if (state == MAINMENU_STATE) flickerText(t);
+	else if (state == PLAY_STATE) updateDistance(mngr->getHandler(_hdlr_PENGUIN)->getPos().x);
 }
 
 void TextSystem::flickerText(double t) {
@@ -35,5 +36,11 @@ void TextSystem::removeTexts() {
 }
 
 void TextSystem::setPlayState() {
+	// Activar texto de distancia
 	texts[DISTANCE] = "Distance: 0";
+
+	/*Vector3 cameraPos = mngr->getHandler(_hdlr_PENGUIN)->getPos() + Vector3(0.0, 100.0, -200.0);
+	pointsUI = new RigidBody(mngr->getPhysics(), mngr->getScene(), PxTransform(cameraPos + Vector3(10, 0, 20)),
+		CreateShape(PxBoxGeometry(10, 1, 1)), NONE, Vector4(1, 1, 1, 1), 10);
+	pointsUI->disableGravity();*/
 }

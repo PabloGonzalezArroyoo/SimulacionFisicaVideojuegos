@@ -46,6 +46,9 @@
     <ClCompile Include="objects\systems\PenguinSystem.cpp">
       <Filter>objects\systems</Filter>
     </ClCompile>
+    <ClCompile Include="objects\systems\ObstacleSystem.cpp">
+      <Filter>objects\systems</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="core.hpp" />
@@ -116,6 +119,12 @@
     </ClInclude>
     <ClInclude Include="objects\systems\PenguinSystem.h">
       <Filter>objects\systems</Filter>
+    </ClInclude>
+    <ClInclude Include="objects\systems\ObstacleSystem.h">
+      <Filter>objects\systems</Filter>
+    </ClInclude>
+    <ClInclude Include="structure\CollisionCallbacks.h">
+      <Filter>structure</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

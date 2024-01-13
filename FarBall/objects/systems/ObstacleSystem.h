@@ -1,16 +1,19 @@
 #pragma once
+
 #include "../../structure/ecs/System.h"
 #include "../physicObjects/RigidBody.h"
 
-class FloorSystem : public System {
+class ObstacleSystem : public System {
 private:
-	RigidBody* floor;
-
+	Vector3 posBg, posFg;
+	int prevPenX;
+	
 public:
-	constexpr static sysId_type id = _sys_FLOOR;
+	constexpr static sysId_type id = _sys_OBSTACLES;
 
-	// Métodos esenciales
 	virtual void initSystem();
 	virtual void update(double t);
-	virtual void receive(const Message& m);
+
+	void createBgObject(int x);
 };
+

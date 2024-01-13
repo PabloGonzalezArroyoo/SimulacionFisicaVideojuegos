@@ -48,7 +48,7 @@ public:
 	}
 	virtual ~Actor() {};
 
-	virtual bool integrate(double t) = 0;
+	virtual void integrate(double t) = 0;
 	virtual void addForce(const Vector3& f) = 0;
 	virtual void clearForce() = 0;
 

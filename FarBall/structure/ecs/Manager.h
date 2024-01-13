@@ -96,6 +96,11 @@ public:
 		return handlers[hId];
 	}
 
+	// Devuelve un grupo de actores
+	inline const auto& getActors(grpId_type gId = _grp_GENERAL) {
+		return objects[gId];
+	}
+
 	// Devuelve el sistema especifico
 	template<typename T>
 	inline T* getSystem() {

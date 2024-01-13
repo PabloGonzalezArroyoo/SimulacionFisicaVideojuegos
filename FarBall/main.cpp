@@ -13,6 +13,7 @@
 
 #include "structure/states/GameStateMachine.h"
 #include "structure/states/MainMenuState.h"
+#include "structure/CollisionCallbacks.h"
 
 vector<string> texts = {
 	"Proyecto Final - Pablo Gonzalez Arroyo",
@@ -41,6 +42,7 @@ ContactReportCallback gContactReportCallback;
 
 // VARIABLES PROPIAS
 GameStateMachine* gsm = nullptr;
+CollisionCallbacks callbacks;
 
 // Initialize physics engine
 void initPhysics(bool interactive)
@@ -63,7 +65,8 @@ void initPhysics(bool interactive)
 	gDispatcher = PxDefaultCpuDispatcherCreate(2);
 	sceneDesc.cpuDispatcher = gDispatcher;
 	sceneDesc.filterShader = contactReportFilterShader;
-	sceneDesc.simulationEventCallback = &gContactReportCallback;
+	//sceneDesc.simulationEventCallback = &gContactReportCallback;
+	sceneDesc.simulationEventCallback = &callbacks;
 	gScene = gPhysics->createScene(sceneDesc);
 
 	// Sistema de sólidos rígidos
