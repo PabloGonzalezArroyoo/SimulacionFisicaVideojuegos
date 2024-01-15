@@ -3,6 +3,10 @@
 #include "../../structure/ecs/System.h"
 #include "../physicObjects/RigidBody.h"
 
+enum ObstacleType {
+	TINY, MEDIUM, BIG, 
+};
+
 class ObstacleSystem : public System {
 private:
 	Vector3 posBg, posFg;

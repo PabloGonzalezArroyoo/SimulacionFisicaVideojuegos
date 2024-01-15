@@ -3,7 +3,7 @@
 
 void ObstacleSystem::initSystem() {
 	posBg = mngr->getHandler(_hdlr_PENGUIN)->getPos() + Vector3(600, -50, 300);
-	posFg = mngr->getHandler(_hdlr_PENGUIN)->getPos() + Vector3(600,   0, -200);
+	posFg = mngr->getHandler(_hdlr_PENGUIN)->getPos() + Vector3(600,   0, -160);
 }
 
 void ObstacleSystem::update(double t) {
@@ -12,6 +12,10 @@ void ObstacleSystem::update(double t) {
 	if (penActX > prevPenX + 100) {
 		createBgObject(penActX);
 		prevPenX = penActX;
+	}
+
+	if (penActX > prevPenX + rand() % 200 + 200) {
+		//createObstacle(penActX);
 	}
 
 	// Actualizar obstáculos y borrar si han pasado del pinguino

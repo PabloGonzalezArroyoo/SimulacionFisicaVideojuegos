@@ -19,10 +19,10 @@ void PenguinSystem::initSystem() {
 		PxRigidDynamicLockFlag::eLOCK_ANGULAR_Z);
 
 	// Crear base y bate
-	base = new Particle(Vector3(0, -47.5, 0), Vector3(0), NONE, Vector4(0.71, 0.71, 0.107, 1), CreateShape(PxBoxGeometry(20, 0.1, 20)), 10);
-	bat = new RigidBody(mngr->getPhysics(), mngr->getScene(), PxTransform(Vector3(-20, -30, 0)),
-		CreateShape(PxBoxGeometry(10, 3, 3)), NONE, Vector4(1, 1, 1, 1), 100);
-	bat->disableGravity();
+	base = new Particle(Vector3(0, -47.5, 0), Vector3(0), NONE, Vector4(0.71, 0.71, 0.107, 1),
+		CreateShape(PxBoxGeometry(20, 0.1, 20)));
+	bat = new Particle(Vector3(0, -20, 0), Vector3(0), NONE, Vector4(0.5, 1.0, 0.5, 1),
+		CreateShape(PxBoxGeometry(10, 2, 10)));
 
 	// Crear generador de partículas que sigue al pinguino
 	Particle* pt = new Particle(penguin->getPos(), Vector3(0), TIME, colors[RED], CreateShape(PxSphereGeometry(3)), 10);
@@ -37,6 +37,8 @@ void PenguinSystem::initSystem() {
 	// Guardar la cámara y posicionarla
 	camera = GetCamera();
 	camera->setView(penguin->getPos() + Vector3(0.0, -20.0, -100.0), Vector3(0.0f, 0.0f, 1.0f));
+
+	updatePos = 0;
 }
 
 void PenguinSystem::update(double t) {
@@ -44,6 +46,7 @@ void PenguinSystem::update(double t) {
 	penguin->integrate(t);
 
 	if (hit) {
+		// Actualizar generadores
 		list<Actor*> particles = partGen->generateParticles(t);
 		partGen->getModel()->setPos(penguin->getPos());
 		for (Actor* a : particles) mngr->addActor(_grp_PARTICLES, a);
@@ -51,7 +54,7 @@ void PenguinSystem::update(double t) {
 		for (Actor* a : mngr->getActors(_grp_PARTICLES)) a->integrate(t);
 
 		// Actualizar cámara
-		camera->setView(penguin->getPos() + Vector3(0.0, 100.0, -200.0), Vector3(0.25f, -0.4f, 1.0f));
+		camera->setView(Vector3(penguin->getPos().x, 100.0, -200.0), Vector3(0.25f, -0.4f, 1.0f));
 	}
 }
 
@@ -60,9 +63,17 @@ void PenguinSystem::keyPressed(char key) {
 	else {
 		switch (key) {
 			case ' ':
-				cout << "hola";
+				if (!hit) launch();
 			break;
 			default: break;
 		}
+	}
+}
+
+void PenguinSystem::launch() {
+	if (abs(penguin->getPos().y - bat->getPos().y) < 7) {
+		hit = true;
+		penguin->launch();
+		camera->setView(penguin->getPos() + Vector3(0.0, 100.0, -200.0), Vector3(0.25f, -0.4f, 1.0f));
 	}
 }

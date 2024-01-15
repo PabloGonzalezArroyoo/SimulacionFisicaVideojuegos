@@ -28,7 +28,7 @@ void TextSystem::flickerText(double t) {
 }
 
 void TextSystem::updateDistance(int x) {
-	texts[DISTANCE] = "Distance: " + to_string(x);
+	texts[DISTANCE] = "Distance: " + to_string(x / 10);
 }
 
 void TextSystem::removeTexts() {

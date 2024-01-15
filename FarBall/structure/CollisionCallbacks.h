@@ -4,12 +4,12 @@
 class CollisionCallbacks : public physx::PxSimulationEventCallback {
 public:
     virtual void onContact(const physx::PxContactPairHeader& pairHeader, const physx::PxContactPair* pairs, physx::PxU32 nbPairs) override {
-        cout << "hola";
+        
         for (physx::PxU32 i = 0; i < nbPairs; i++) {
             const physx::PxContactPair& cp = pairs[i];
 
             if (cp.events & physx::PxPairFlag::eNOTIFY_TOUCH_FOUND) {
-                
+
             }
         }
     }

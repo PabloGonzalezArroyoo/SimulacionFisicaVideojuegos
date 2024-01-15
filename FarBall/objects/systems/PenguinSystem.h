@@ -10,8 +10,10 @@ private:
 	Camera* camera;
 	UniformGenerator* partGen;
 	bool hit = false;
-	RigidBody* bat;
+	Particle* bat;
 	Particle* base;
+
+	float updatePos;
 
 public:
 	constexpr static sysId_type id = _sys_PENGUIN;
@@ -22,4 +24,6 @@ public:
 	virtual void receive(const Message& m);
 
 	void keyPressed(char key);
+
+	void launch();
 };
