@@ -7,15 +7,18 @@ void TextSystem::receive(const Message& m) {
 			state = m.state_data.st;
 			if (state == PLAY_STATE) setPlayState();
 			break;
-		/*case _m_PENGUIN_POS_UPDATE:
-			updateDistance(m.penguin_pos_data.x);
-			break;*/
+		case _m_USE_FUEL:
+			updateFuel(m.fuel_data.fuel);
+			break;
+		case _m_UPDATE_FUEL:
+			addFuel();
+			break;
 	}
 }
 
 void TextSystem::update(double t) {
 	if (state == MAINMENU_STATE) flickerText(t);
-	else if (state == PLAY_STATE) updateDistance(mngr->getHandler(_hdlr_PENGUIN)->getPos().x);
+	else if (state == PLAY_STATE) updateDistance(mngr->getHandler(_hdlr_JETPACK)->getPos().x);
 }
 
 void TextSystem::flickerText(double t) {
@@ -31,6 +34,15 @@ void TextSystem::updateDistance(int x) {
 	texts[DISTANCE] = "Distance: " + to_string(x / 10);
 }
 
+void TextSystem::updateFuel(int fuel) {
+	texts[FUEL] = "FUEL:";
+	for (int i = 0; i < fuel / 10; i++) texts[FUEL] += "\n+";
+}
+
+void TextSystem::addFuel() {
+	texts[FUEL] += "\n+";
+}
+
 void TextSystem::removeTexts() {
 	for (int i = 1; i < texts.size() - 1; i++) texts[i] = "";
 }
@@ -38,6 +50,10 @@ void TextSystem::removeTexts() {
 void TextSystem::setPlayState() {
 	// Activar texto de distancia
 	texts[DISTANCE] = "Distance: 0";
+
+	// Activar texto de combustible
+	texts[FUEL] = "FUEL:";
+	for (int i = 0; i < JETPACK_FUEL / 10; i++) texts[FUEL] += "\n+";
 
 	/*Vector3 cameraPos = mngr->getHandler(_hdlr_PENGUIN)->getPos() + Vector3(0.0, 100.0, -200.0);
 	pointsUI = new RigidBody(mngr->getPhysics(), mngr->getScene(), PxTransform(cameraPos + Vector3(10, 0, 20)),

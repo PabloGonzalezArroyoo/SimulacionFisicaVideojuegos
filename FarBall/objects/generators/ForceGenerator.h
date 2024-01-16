@@ -61,6 +61,7 @@ protected:
 	float k1, k2;
 	Vector3 vel;
 	float size;
+	bool limits;
 
 	RenderItem* renderItem = nullptr;
 
@@ -71,6 +72,7 @@ public:
 		name = "wind";
 		pos = p;
 		if (txt) renderItem = new RenderItem(CreateShape(PxBoxGeometry(s, 1, s)), new PxTransform(p), c);
+		s <= 0 ? limits = false : limits = true;
 	}
 
 	virtual void updateForce(Actor* actor) {
@@ -81,6 +83,7 @@ public:
 		}
 	}
 	virtual bool insideLimit(Vector3 p) {
+		if (!limits) return true;
 		return p.x < pos.x + size
 			&& p.x > pos.x - size
 			&& p.z < pos.z + size
@@ -222,7 +225,8 @@ public:
 	BuoyancyForceGenerator(Vector3 pos, float h, float v, float d) : ForceGenerator(pos), height(h), volume(v),
 		liquidDensity(d) {
 		name = "buoyancy";
-		liquidParticle = new Particle(pos, Vector3(0), NONE, colors[BLUE], CreateShape(PxBoxGeometry(h * 10, h / 10, h * 10)));
+		liquidParticle = new Particle(pos, Vector3(0), NONE, colors[BLUE], 
+			CreateShape(PxBoxGeometry(h * 10, h / 10, h * 10)));
 	}
 	virtual ~BuoyancyForceGenerator() { delete liquidParticle; }
 
@@ -243,5 +247,6 @@ public:
 	float getVolume() { return volume; }
 	void setHeight(float h) { height = h; }
 	float getHeight() { return height; }
+	void setLiquidParticle(Actor* a) { delete liquidParticle; liquidParticle = a; }
 };
 #pragma endregion

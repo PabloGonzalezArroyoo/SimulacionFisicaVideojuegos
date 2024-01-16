@@ -7,7 +7,7 @@ enum STATE {
 };
 
 enum Texts { 
-	NAME, TITLE, START, DISTANCE 
+	NAME, TITLE, START, DISTANCE, FUEL
 };
 
 // GRUPOS
@@ -16,6 +16,7 @@ using grpId_type = unsigned int;
 enum grpId : grpId_type {
 	_grp_GENERAL,
 	_grp_BACKGROUND,
+	_grp_FOREGROUND,
 	_grp_PARTICLES,
 
 	//DO NOT REMOVE THIS
@@ -28,7 +29,7 @@ constexpr grpId_type maxGroupId = _LAST_GRP_ID;
 using hdlrId_type = unsigned int;
 
 enum hdlrId : hdlrId_type {
-	_hdlr_PENGUIN,
+	_hdlr_JETPACK,
 
 	//DO NOT REMOVE THIS
 	_LAST_HDLR_ID
@@ -41,7 +42,7 @@ using sysId_type = unsigned int;
 
 enum sysId : sysId_type {
 	_sys_TEXT,
-	_sys_PENGUIN,
+	_sys_JETPACK,
 	_sys_FLOOR,
 	_sys_OBSTACLES,
 
@@ -55,6 +56,8 @@ constexpr sysId_type maxSystemId = _LAST_SYS_ID;
 using msgId_type = unsigned int;
 enum msgId : msgId_type {
 	_m_INIT_STATE,
+	_m_USE_FUEL,
+	_m_UPDATE_FUEL,
 };
 
 struct Message {
@@ -63,4 +66,10 @@ struct Message {
 	struct {
 		STATE st;
 	} state_data;
+	// _m_USE_FUEL && _m_UPDATE_FUEL
+	struct {
+		int fuel;
+	} fuel_data;
 };
+
+const int JETPACK_FUEL = 100;

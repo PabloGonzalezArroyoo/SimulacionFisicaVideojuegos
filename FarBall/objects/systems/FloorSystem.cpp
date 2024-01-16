@@ -26,12 +26,12 @@ void FloorSystem::initSystem() {
 	mngr->addActor(_grp_GENERAL, floor);
 	mngr->addActor(_grp_GENERAL, shadow);
 	
-	penguin = static_cast<Penguin*>(mngr->getHandler(_hdlr_PENGUIN));
+	jetpack = static_cast<Jetpack*>(mngr->getHandler(_hdlr_JETPACK));
 }
 
 void FloorSystem::update(double t) {
 	// Coger posición del pinguino
-	Vector3 penguinPos = penguin->getDynRigid()->getGlobalPose().p;
+	Vector3 penguinPos = jetpack->getDynRigid()->getGlobalPose().p;
 
 	// Actualizar posiciones del suelo y sombra
 	Vector3 floorPos = floor->getPos();

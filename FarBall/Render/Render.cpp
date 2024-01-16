@@ -294,6 +294,8 @@ void startRender(const PxVec3& cameraEye, const PxVec3& cameraDir, PxReal clipNe
 		if (i < 3) 
 			drawText(texts[i], glutGet(GLUT_WINDOW_WIDTH) / 2 - texts[i].length() * 5,
 				2 * glutGet(GLUT_WINDOW_HEIGHT) / 3.25 - 30 * i);
+		else if (i == 4) 
+			drawText(texts[i], glutGet(GLUT_WINDOW_WIDTH) - 235, glutGet(GLUT_WINDOW_HEIGHT) - 20);
 		else 
 			drawText(texts[i], 5, glutGet(GLUT_WINDOW_HEIGHT) - 20);
 	}

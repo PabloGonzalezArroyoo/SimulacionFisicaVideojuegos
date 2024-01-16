@@ -19,6 +19,7 @@ vector<string> texts = {
 	"Proyecto Final - Pablo Gonzalez Arroyo",
 	"[ FARBALL ]",
 	"Press SPACE to play",
+	"",
 	""
 };
 
@@ -129,10 +130,19 @@ void keyPress(unsigned char key, const PxTransform& camera)
 	gsm->currentState()->keyPressed(toupper(key));
 }
 
+// Function called when a key is released
+void keyRelease(unsigned char key, const PxTransform& camera)
+{
+	PX_UNUSED(camera);
+
+	gsm->currentState()->keyReleased(toupper(key));
+}
+
 void onCollision(physx::PxActor* actor1, physx::PxActor* actor2)
 {
 	PX_UNUSED(actor1);
 	PX_UNUSED(actor2);
+	cout << "hola";
 }
 
 

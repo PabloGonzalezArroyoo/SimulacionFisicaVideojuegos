@@ -1,22 +1,21 @@
 #pragma once
-#include "../gameObjects/Penguin.h"
+#include "../gameObjects/Jetpack.h"
 #include "../../structure/ecs/System.h"
 #include "../generators/UniformGenerator.h"
 #include "../physicObjects/Particle.h"
 
-class PenguinSystem : public System {
+class ForceGenerator;
+class JetpackSystem : public System {
 private:
-	Penguin* penguin;
+	Jetpack* jetpack;
 	Camera* camera;
 	UniformGenerator* partGen;
 	bool hit = false;
-	Particle* bat;
-	Particle* base;
-
-	float updatePos;
+	pair<Particle*, Particle*> base;
+	vector<ForceGenerator*> dirs;
 
 public:
-	constexpr static sysId_type id = _sys_PENGUIN;
+	constexpr static sysId_type id = _sys_JETPACK;
 
 	// Métodos virtuales
 	virtual void initSystem();
@@ -24,6 +23,7 @@ public:
 	virtual void receive(const Message& m);
 
 	void keyPressed(char key);
+	void keyReleased(char key);
 
 	void launch();
 };

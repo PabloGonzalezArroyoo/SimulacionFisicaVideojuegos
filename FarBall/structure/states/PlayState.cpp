@@ -1,7 +1,7 @@
 #include "PlayState.h"
 #include "../../objects/systems/FloorSystem.h"
 #include "../../objects/systems/TextSystem.h"
-#include "../../objects/systems/PenguinSystem.h"
+#include "../../objects/systems/JetpackSystem.h"
 #include "../../objects/systems/ObstacleSystem.h"
 
 PlayState::PlayState(GameStateMachine* g, PxPhysics* ph, PxScene* sc) : GameState(g, ph, sc) {
@@ -9,7 +9,7 @@ PlayState::PlayState(GameStateMachine* g, PxPhysics* ph, PxScene* sc) : GameStat
 	mng = new Manager(sc, ph);
 
 	// Añadir sistema de rígidos
-	mng->addSystem<PenguinSystem>();
+	mng->addSystem<JetpackSystem>();
 	mng->addSystem<FloorSystem>();
 	mng->addSystem<ObstacleSystem>();
 	mng->addSystem<TextSystem>();
@@ -27,9 +27,9 @@ void PlayState::update(double t) {
 }
 
 void PlayState::keyPressed(char key) {
-	switch (key) {
-		case 'I': case 'K': case ' ':
-			mng->getSystem<PenguinSystem>()->keyPressed(key);
-			break;
-	}
+	mng->getSystem<JetpackSystem>()->keyPressed(key);
+}
+
+void PlayState::keyReleased(char key) {
+	mng->getSystem<JetpackSystem>()->keyReleased(key);
 }

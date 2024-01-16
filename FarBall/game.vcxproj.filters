@@ -40,14 +40,17 @@
     <ClCompile Include="objects\systems\FloorSystem.cpp">
       <Filter>objects\systems</Filter>
     </ClCompile>
-    <ClCompile Include="objects\gameObjects\Penguin.cpp">
+    <ClCompile Include="objects\gameObjects\Jetpack.cpp">
       <Filter>objects\gameObjects</Filter>
     </ClCompile>
-    <ClCompile Include="objects\systems\PenguinSystem.cpp">
+    <ClCompile Include="objects\systems\JetpackSystem.cpp">
       <Filter>objects\systems</Filter>
     </ClCompile>
     <ClCompile Include="objects\systems\ObstacleSystem.cpp">
       <Filter>objects\systems</Filter>
+    </ClCompile>
+    <ClCompile Include="objects\gameObjects\Rings.cpp">
+      <Filter>objects\gameObjects</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -114,10 +117,10 @@
     <ClInclude Include="objects\systems\FloorSystem.h">
       <Filter>objects\systems</Filter>
     </ClInclude>
-    <ClInclude Include="objects\gameObjects\Penguin.h">
+    <ClInclude Include="objects\gameObjects\Jetpack.h">
       <Filter>objects\gameObjects</Filter>
     </ClInclude>
-    <ClInclude Include="objects\systems\PenguinSystem.h">
+    <ClInclude Include="objects\systems\JetpackSystem.h">
       <Filter>objects\systems</Filter>
     </ClInclude>
     <ClInclude Include="objects\systems\ObstacleSystem.h">
@@ -125,6 +128,9 @@
     </ClInclude>
     <ClInclude Include="structure\CollisionCallbacks.h">
       <Filter>structure</Filter>
+    </ClInclude>
+    <ClInclude Include="objects\gameObjects\Rings.h">
+      <Filter>objects\gameObjects</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

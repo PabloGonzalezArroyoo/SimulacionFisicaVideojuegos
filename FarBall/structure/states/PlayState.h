@@ -9,4 +9,5 @@ public:
 
 	virtual void update(double t);
 	virtual void keyPressed(char key);
+	virtual void keyReleased(char key);
 };

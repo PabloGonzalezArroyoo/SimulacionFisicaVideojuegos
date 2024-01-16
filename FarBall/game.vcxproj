@@ -255,7 +255,8 @@
   <ItemGroup>
     <ClCompile Include="callbacks.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="objects\gameObjects\Penguin.cpp" />
+    <ClCompile Include="objects\gameObjects\Jetpack.cpp" />
+    <ClCompile Include="objects\gameObjects\Rings.cpp" />
     <ClCompile Include="objects\generators\GaussianGenerator.cpp" />
     <ClCompile Include="objects\generators\UniformGenerator.cpp" />
     <ClCompile Include="objects\physicObjects\Firework.cpp" />
@@ -263,7 +264,7 @@
     <ClCompile Include="objects\physicObjects\RigidBody.cpp" />
     <ClCompile Include="objects\systems\FloorSystem.cpp" />
     <ClCompile Include="objects\systems\ObstacleSystem.cpp" />
-    <ClCompile Include="objects\systems\PenguinSystem.cpp" />
+    <ClCompile Include="objects\systems\JetpackSystem.cpp" />
     <ClCompile Include="objects\systems\TextSystem.cpp" />
     <ClCompile Include="RenderUtils.cpp" />
     <ClCompile Include="Render\Camera.cpp" />
@@ -275,7 +276,8 @@
   <ItemGroup>
     <ClInclude Include="callbacks.hpp" />
     <ClInclude Include="core.hpp" />
-    <ClInclude Include="objects\gameObjects\Penguin.h" />
+    <ClInclude Include="objects\gameObjects\Jetpack.h" />
+    <ClInclude Include="objects\gameObjects\Rings.h" />
     <ClInclude Include="objects\generators\ActorGenerator.h" />
     <ClInclude Include="objects\generators\ForceGenerator.h" />
     <ClInclude Include="objects\generators\GaussianGenerator.h" />
@@ -287,7 +289,7 @@
     <ClInclude Include="objects\systems\FloorSystem.h" />
     <ClInclude Include="objects\systems\ForceRegistry.h" />
     <ClInclude Include="objects\systems\ObstacleSystem.h" />
-    <ClInclude Include="objects\systems\PenguinSystem.h" />
+    <ClInclude Include="objects\systems\JetpackSystem.h" />
     <ClInclude Include="objects\systems\TextSystem.h" />
     <ClInclude Include="RenderUtils.hpp" />
     <ClInclude Include="Render\Camera.h" />

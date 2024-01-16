@@ -1,5 +1,6 @@
 #pragma once
 #include "../../objects/physicObjects/Actor.h"
+#include "../../objects/systems/ForceRegistry.h"
 #include "System.h"
 #include <vector>
 #include <array>
@@ -16,12 +17,16 @@ private:
 	array<System*, maxSystemId> sys;
 	vector<Message> msgs;
 	vector<Message> aux_msgs;
+
+	// Físicas
 	PxScene* gScene;
 	PxPhysics* gPhysics;
+	ForceRegistry* forceRegistry;
 
 public:
 	// Constructora y destructora
-	Manager(PxScene* gs, PxPhysics* ph) : objects(), handlers(), sys(), gScene(gs), gPhysics(ph) {};
+	Manager(PxScene* gs, PxPhysics* ph) : objects(), handlers(), sys(), gScene(gs), gPhysics(ph), 
+		forceRegistry(new ForceRegistry()) {};
 	virtual ~Manager() {
 		for (int i = 0; i < maxGroupId; i++) {
 			for (auto g : objects[i]) delete g;
@@ -49,6 +54,8 @@ public:
 	void update(double t) {
 		for (System* s : sys) {
 			if (s != nullptr) s->update(t);
+			forceRegistry->updateForces();
+			forceRegistry->updateTime(t);
 		}
 	}
 
@@ -114,6 +121,10 @@ public:
 
 	inline PxPhysics* getPhysics() {
 		return gPhysics;
+	}
+
+	inline ForceRegistry* getForceRegistry() {
+		return forceRegistry;
 	}
 
 	// ----- SETTERS -----
