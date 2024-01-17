@@ -308,6 +308,9 @@
     <ClInclude Include="structure\states\MainMenuState.h" />
     <ClInclude Include="structure\states\PlayState.h" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

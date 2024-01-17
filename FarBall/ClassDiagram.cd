@@ -1,0 +1,186 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="FireworkGenerator" Collapsed="true">
+    <Position X="6.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAACiAAAAAAAAAAAAAIAUAAAAAAAAAAAAAAAAIAA=</HashCode>
+      <FileName>objects\generators\FireworkGenerator.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UniformGenerator" Collapsed="true">
+    <Position X="4.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAABAAUAAAAAIAABQAAAACAAwAAAAAAAAA=</HashCode>
+      <FileName>objects\generators\UniformGenerator.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="System" Collapsed="true">
+    <Position X="10.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACAAAAAAAACAAAAAAQAAAAAgAAEAAAAEAAEAAA=</HashCode>
+      <FileName>structure\ecs\System.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Manager" Collapsed="true">
+    <Position X="8.75" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAEAAAIQEQBBAAACEAAAAkYgqBABAAICAAAkkgAA=</HashCode>
+      <FileName>structure\ecs\Manager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PlayState" Collapsed="true">
+    <Position X="8" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAQAAAAAIAAAAAAAAAAAAAAAAAAAAAAAEAAAAAkAAA=</HashCode>
+      <FileName>structure\states\PlayState.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MainMenuState" Collapsed="true">
+    <Position X="10.25" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAABAAAACAAAAAAAAAAAAAAAEAAAAAEAAA=</HashCode>
+      <FileName>structure\states\MainMenuState.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameStateMachine" Collapsed="true">
+    <Position X="12.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAAAAIAAAAIAQAAIAAAgAAAAAEAAEAAAAAAAA=</HashCode>
+      <FileName>structure\states\GameStateMachine.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameState" Collapsed="true">
+    <Position X="10.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAEIAAIAAAAAAAAAAAAAAAIgAAAAAAEABAAAEIAA=</HashCode>
+      <FileName>structure\states\GameState.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EndState" Collapsed="true">
+    <Position X="12.5" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAGAIA=</HashCode>
+      <FileName>structure\states\EndState.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FireworkSystem" Collapsed="true">
+    <Position X="8.5" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAABCAAAAAgAAAAAAAAAQAAAAAAAAAAAAAEAAEAgA=</HashCode>
+      <FileName>objects\systems\FireworkSystem.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FloorSystem" Collapsed="true">
+    <Position X="8.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAQAAAAAAAIAAQAAACAAAAAAAAAEAAEAgA=</HashCode>
+      <FileName>objects\systems\FloorSystem.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="JetpackSystem" Collapsed="true">
+    <Position X="12.5" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EEBAAAACAgAAQgAAAAAAAAQAAACAAAAAAkIAEAAEAgA=</HashCode>
+      <FileName>objects\systems\JetpackSystem.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ObstacleSystem" Collapsed="true">
+    <Position X="10.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQAACAEQAAACAAAAAAEGQAAAAAAAAAABEAAAAEAgA=</HashCode>
+      <FileName>objects\systems\ObstacleSystem.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TextSystem" Collapsed="true">
+    <Position X="12.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACQAIAAQAAAACAAAAQAQAAAAAEACAAAgAAEAAEAgA=</HashCode>
+      <FileName>objects\systems\TextSystem.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Actor" Collapsed="true">
+    <Position X="5.75" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QABBgUCECAAAwEBEAQIkAAAABAEcAACEAQBUkCQIRAA=</HashCode>
+      <FileName>objects\physicObjects\Actor.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Firework" Collapsed="true">
+    <Position X="4.5" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAABAAAAAQAQAACIIACAgCQAAgAAAAAAAAEAAAAAA=</HashCode>
+      <FileName>objects\physicObjects\Firework.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Particle" Collapsed="true">
+    <Position X="4.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIgAgUAECAABDAAAACAAEAAAAAAAAAAEAQBAEAAAAAA=</HashCode>
+      <FileName>objects\physicObjects\Particle.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RigidBody" Collapsed="true">
+    <Position X="6.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAgUCADIkABAAAAgAAAAAAAIAAAAAAAQhAEAAACAA=</HashCode>
+      <FileName>objects\physicObjects\RigidBody.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ActorGenerator" Collapsed="true">
+    <Position X="2.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAICIAAAAAAAAAAAAAAQIAgAAEUAABAAREEAAAIAAA=</HashCode>
+      <FileName>objects\generators\ActorGenerator.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Jetpack" Collapsed="true">
+    <Position X="6.75" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABCACAAAAAAAAAAAAAAAIAAAQACAAAAAQIAAAAAAIA=</HashCode>
+      <FileName>objects\gameObjects\Jetpack.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Rings" Collapsed="true">
+    <Position X="2.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAAAgAEAAAAAAgAAAAAAAAAAAAAQAAAAAAAAA=</HashCode>
+      <FileName>objects\gameObjects\Rings.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ForceGenerator" Collapsed="true">
+    <Position X="5" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gACAAAAAAAAASAAAAAEAAIBAAAAEAQAAAAQEIAAACAA=</HashCode>
+      <FileName>objects\generators\ForceGenerator.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GravityForceGenerator" Collapsed="true">
+    <Position X="0.5" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAgAAAAACAAAAAAAAAAAAAAAAAAIAAAAAAAAAAA=</HashCode>
+      <FileName>objects\generators\ForceGenerator.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WindForceGenerator" Collapsed="true">
+    <Position X="7.25" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAACABAgKIAAAAAAIEQgAAECEAQAAAAAAA=</HashCode>
+      <FileName>objects\generators\ForceGenerator.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ExplosionForceGenerator" Collapsed="true">
+    <Position X="2.75" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAACAACAAACAAAAAAAAAAAAAAAAAAEgAAAAAAAAAA=</HashCode>
+      <FileName>objects\generators\ForceGenerator.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BuoyancyForceGenerator" Collapsed="true">
+    <Position X="5" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAgAAACACAQAQAAAEAAAEAAAQAAEAggAgAACAAA=</HashCode>
+      <FileName>objects\generators\ForceGenerator.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

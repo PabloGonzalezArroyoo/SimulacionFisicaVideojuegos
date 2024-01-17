@@ -105,9 +105,6 @@
     <ClInclude Include="structure\states\GameStateMachine.h">
       <Filter>structure\state</Filter>
     </ClInclude>
-    <ClInclude Include="structure\ecs\Constants.h">
-      <Filter>structure\ecs</Filter>
-    </ClInclude>
     <ClInclude Include="structure\states\PlayState.h">
       <Filter>structure\state</Filter>
     </ClInclude>
@@ -116,12 +113,6 @@
     </ClInclude>
     <ClInclude Include="objects\systems\TextSystem.h">
       <Filter>objects\systems</Filter>
-    </ClInclude>
-    <ClInclude Include="structure\ecs\Manager.h">
-      <Filter>structure\ecs</Filter>
-    </ClInclude>
-    <ClInclude Include="structure\ecs\System.h">
-      <Filter>structure\ecs</Filter>
     </ClInclude>
     <ClInclude Include="objects\systems\FloorSystem.h">
       <Filter>objects\systems</Filter>
@@ -146,6 +137,15 @@
     </ClInclude>
     <ClInclude Include="objects\generators\FireworkGenerator.h">
       <Filter>objects\generators</Filter>
+    </ClInclude>
+    <ClInclude Include="structure\ecs\System.h">
+      <Filter>structure\ecs</Filter>
+    </ClInclude>
+    <ClInclude Include="structure\ecs\Constants.h">
+      <Filter>structure\ecs</Filter>
+    </ClInclude>
+    <ClInclude Include="structure\ecs\Manager.h">
+      <Filter>structure\ecs</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -176,5 +176,8 @@
     <Filter Include="objects\gameObjects">
       <UniqueIdentifier>{e1cf3977-6c8d-49b7-a7fa-0438f2b6a700}</UniqueIdentifier>
     </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
 </Project>
