@@ -7,12 +7,19 @@
 class ForceGenerator;
 class JetpackSystem : public System {
 private:
+	// Referencias
 	Jetpack* jetpack;
 	Camera* camera;
 	UniformGenerator* partGen;
-	bool hit = false;
+
+	// Base inicial
 	pair<Particle*, Particle*> base;
+
+	// Generadores de dirección
 	vector<ForceGenerator*> dirs;
+	
+	// Boleanos de control
+	bool hit = false, end = false;
 
 public:
 	constexpr static sysId_type id = _sys_JETPACK;
@@ -26,6 +33,7 @@ public:
 	void keyPressed(char key);
 	void keyReleased(char key);
 
+	// Métodos propios
 	void launch();
 	void updateFuel(int x);
 	void useFuel(int dir);

@@ -1,12 +1,13 @@
 #include "PlayState.h"
+#include "EndState.h"
 #include "../../objects/systems/FloorSystem.h"
 #include "../../objects/systems/TextSystem.h"
 #include "../../objects/systems/JetpackSystem.h"
 #include "../../objects/systems/ObstacleSystem.h"
 
-PlayState::PlayState(GameStateMachine* g, PxPhysics* ph, PxScene* sc) : GameState(g, ph, sc) {
+PlayState::PlayState(GameStateMachine* g, PxPhysics* ph, PxScene* sc) : GameState(g, ph, sc), fin(false) {
 	// Crear manager del estado
-	mng = new Manager(sc, ph);
+	mng = new Manager(this, sc, ph);
 
 	// Añadir sistema de rígidos
 	mng->addSystem<JetpackSystem>();
@@ -21,13 +22,19 @@ PlayState::PlayState(GameStateMachine* g, PxPhysics* ph, PxScene* sc) : GameStat
 	mng->send(m);
 }
 
+PlayState::~PlayState() {
+	delete mng;
+}
+
 void PlayState::update(double t) {
 	GameState::update(t);
 	mng->refresh();
+	if (fin) gsm->changeState(new EndState(gsm, gPhysics, gScene));
 }
 
 void PlayState::keyPressed(char key) {
-	mng->getSystem<JetpackSystem>()->keyPressed(key);
+	if (key != '@') mng->getSystem<JetpackSystem>()->keyPressed(key);
+	else fin = true;
 }
 
 void PlayState::keyReleased(char key) {

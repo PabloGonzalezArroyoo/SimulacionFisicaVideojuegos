@@ -10,7 +10,7 @@ void FloorSystem::receive(const Message& m) {
 }
 
 void FloorSystem::initSystem() {
-	// Suelo
+	// Crear suelo y restringir movimiento
 	floor = new RigidBody(mngr->getPhysics(), mngr->getScene(), PxTransform(Vector3(0, -50, 0)),
 		CreateShape(PxBoxGeometry(300, 2, 200)), NONE, Vector4(255, 255, 255, 1), 1000);
 	floor->disableGravity();
@@ -18,15 +18,16 @@ void FloorSystem::initSystem() {
 		PxRigidDynamicLockFlag::eLOCK_ANGULAR_X | PxRigidDynamicLockFlag::eLOCK_ANGULAR_Y | 
 		PxRigidDynamicLockFlag::eLOCK_ANGULAR_Z);
 
-	// Sombra
+	// Crear sombra
 	shadow = new Particle(Vector3(0, -47.75, 0), Vector3(0), NONE, Vector4(0.1, 0.1, 0.1, 1),
 		CreateShape(PxBoxGeometry(10, 0.1, 15)));
+
+	// Guardar referencia al jetpack
+	jetpack = static_cast<Jetpack*>(mngr->getHandler(_hdlr_JETPACK));
 
 	// Añadir al manager
 	mngr->addActor(_grp_GENERAL, floor);
 	mngr->addActor(_grp_GENERAL, shadow);
-	
-	jetpack = static_cast<Jetpack*>(mngr->getHandler(_hdlr_JETPACK));
 }
 
 void FloorSystem::update(double t) {

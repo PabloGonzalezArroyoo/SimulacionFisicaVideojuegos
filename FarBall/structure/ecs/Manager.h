@@ -9,6 +9,7 @@
 
 using namespace std;
 
+class GameState;
 class Manager {
 private:
 	// Estructura
@@ -17,6 +18,7 @@ private:
 	array<System*, maxSystemId> sys;
 	vector<Message> msgs;
 	vector<Message> aux_msgs;
+	GameState* gState;
 
 	// Físicas
 	PxScene* gScene;
@@ -25,7 +27,7 @@ private:
 
 public:
 	// Constructora y destructora
-	Manager(PxScene* gs, PxPhysics* ph) : objects(), handlers(), sys(), gScene(gs), gPhysics(ph), 
+	Manager(GameState* g, PxScene* gs, PxPhysics* ph) : objects(), handlers(), sys(), gState(g), gScene(gs), gPhysics(ph), 
 		forceRegistry(new ForceRegistry()) {};
 	virtual ~Manager() {
 		for (int i = 0; i < maxGroupId; i++) {
@@ -36,6 +38,8 @@ public:
 			delete sys[i];
 			sys[i] = nullptr;
 		}
+
+		delete forceRegistry;
 	}
 
 	// Métodos esenciales
@@ -125,6 +129,10 @@ public:
 
 	inline ForceRegistry* getForceRegistry() {
 		return forceRegistry;
+	}
+
+	inline GameState* getGameState() {
+		return gState;
 	}
 
 	// ----- SETTERS -----

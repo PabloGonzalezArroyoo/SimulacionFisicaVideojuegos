@@ -10,14 +10,12 @@ class Rings {
 private:
 	Manager* mng;
 	vector<Particle*> parts;
-	AnchoredSpringForceGenerator* spg = nullptr;
-	GravityForceGenerator* gfg = nullptr;
 
 public:
 	Rings(Vector3 p, Vector4 col, Manager* j);
 	~Rings();
 
+	// Actualizar
 	bool integrate(double t);
-	
 };
 

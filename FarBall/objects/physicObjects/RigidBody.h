@@ -45,18 +45,20 @@ public:
 			dnRigid->setGlobalPose(PxTransform(t));
 		}
 	}
-	inline Vector3 getSize() {
-		Vector3 size;
+	inline int getVolume() { 
+		int vol = 0;
 		if (shape->getGeometryType() == PxGeometryType::eBOX) {
 			PxBoxGeometry box;
 			shape->getBoxGeometry(box);
-			size = box.halfExtents;
+			Vector3 dims = box.halfExtents;
+			vol = dims.x * dims.y * dims.z;
 		}
-		return size;
-	}
-	inline int getVolume() { 
-		Vector3 size = getSize();
-		return size.x * size.y * size.z;
+		else if (shape->getGeometryType() == PxGeometryType::eSPHERE) {
+			PxSphereGeometry sph;
+			shape->getSphereGeometry(sph);
+			vol = sph.radius;
+		}
+		return vol;
 	}
 	inline PxRigidDynamic* getDynRigid() { return dnRigid; }
 	inline PxRigidStatic* getStRigid() { return stRigid; }

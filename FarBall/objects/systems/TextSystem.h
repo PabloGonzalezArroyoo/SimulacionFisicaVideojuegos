@@ -21,5 +21,7 @@ public:
 	void removeTexts();
 
 	// Setters
+	void setMainMenuState();
 	void setPlayState();
+	void setEndState();
 };

@@ -13,12 +13,12 @@
 
 #include "structure/states/GameStateMachine.h"
 #include "structure/states/MainMenuState.h"
-#include "structure/CollisionCallbacks.h"
 
 vector<string> texts = {
 	"Proyecto Final - Pablo Gonzalez Arroyo",
 	"[ FARBALL ]",
 	"Press SPACE to play",
+	"",
 	"",
 	""
 };
@@ -43,7 +43,6 @@ ContactReportCallback gContactReportCallback;
 
 // VARIABLES PROPIAS
 GameStateMachine* gsm = nullptr;
-CollisionCallbacks callbacks;
 
 // Initialize physics engine
 void initPhysics(bool interactive)
@@ -66,8 +65,7 @@ void initPhysics(bool interactive)
 	gDispatcher = PxDefaultCpuDispatcherCreate(2);
 	sceneDesc.cpuDispatcher = gDispatcher;
 	sceneDesc.filterShader = contactReportFilterShader;
-	//sceneDesc.simulationEventCallback = &gContactReportCallback;
-	sceneDesc.simulationEventCallback = &callbacks;
+	sceneDesc.simulationEventCallback = &gContactReportCallback;
 	gScene = gPhysics->createScene(sceneDesc);
 
 	// Sistema de sólidos rígidos
@@ -86,8 +84,8 @@ void stepPhysics(bool interactive, double t)
 	PX_UNUSED(interactive);
 
 	gScene->simulate(t);
-	gsm->currentState()->update(t);
 	gScene->fetchResults(true);
+	gsm->currentState()->update(t);
 	//gsm->currentState()->refresh(t);
 
 	//auto endTime = std::chrono::high_resolution_clock::now();
@@ -142,7 +140,6 @@ void onCollision(physx::PxActor* actor1, physx::PxActor* actor2)
 {
 	PX_UNUSED(actor1);
 	PX_UNUSED(actor2);
-	cout << "hola";
 }
 
 

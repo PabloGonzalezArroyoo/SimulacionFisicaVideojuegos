@@ -131,7 +131,7 @@ private:
 	float radius, k, tau;
 
 public:
-	ExplosionForceGenerator(Vector3 p, float r, float _k, float _tau) : ForceGenerator(Vector3(0)), radius(r),
+	ExplosionForceGenerator(Vector3 p, float r, float _k, float _tau) : ForceGenerator(p), radius(r),
 		k(_k), tau(1 / _tau) {
 		name = "explosion";
 	}
@@ -139,10 +139,11 @@ public:
 	virtual void updateForce(Actor* actor) {
 		if (active && fabs(actor->getMass()) > 1e-10) {
 			Vector3 pPos = actor->getPos();
-			float r = (pPos - pos).magnitude();
+			Vector3 diff = pPos - pos;
+			float r = diff.magnitude();
 
 			if (insideLimit(r)) {
-				Vector3 force = k / powf(r, 2) * Vector3(pPos.x - pos.x, pPos.y - pos.y, pPos.z - pos.z) * exp(-t / tau);
+				Vector3 force = k / powf(r, 2) * diff * exp(-t / tau);
 				actor->addForce(force);
 			}
 		}
@@ -206,7 +207,6 @@ public:
 			float deltaX = length - resisting_length;
 
 			Vector3 force = relativePosVector * deltaX * k;
-			cout << force.y << "\n";
 			actor->addForce(force);
 		}
 	}
@@ -249,5 +249,6 @@ public:
 	void setHeight(float h) { height = h; }
 	float getHeight() { return height; }
 	void setLiquidParticle(Actor* a) { delete liquidParticle; liquidParticle = a; }
+	Actor* getLiquidParticle() { return liquidParticle; }
 };
 #pragma endregion

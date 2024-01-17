@@ -3,11 +3,11 @@ using namespace std;
 
 // Los distintos estados del juego
 enum STATE {
-	MAINMENU_STATE, PLAY_STATE, PAUSE_STATE, GAMEOVER_STATE, WIN_STATE
+	MAINMENU_STATE, PLAY_STATE, END_STATE
 };
 
 enum Texts { 
-	NAME, TITLE, START, DISTANCE, FUEL
+	NAME, TITLE, START, DISTANCE, FUEL, END
 };
 
 // GRUPOS
@@ -19,6 +19,7 @@ enum grpId : grpId_type {
 	_grp_FOREGROUND,
 	_grp_FOLLOW_PARTICLES,
 	_grp_EXPLODE_PARTICLES,
+	_grp_FIREWORKS,
 
 	//DO NOT REMOVE THIS
 	_LAST_GRP_ID
@@ -46,6 +47,7 @@ enum sysId : sysId_type {
 	_sys_JETPACK,
 	_sys_FLOOR,
 	_sys_OBSTACLES,
+	_sys_FIREWORKS,
 
 	//DO NOT REMOVE THIS
 	_LAST_SYS_ID
@@ -66,6 +68,7 @@ struct Message {
 	// _m_INIT_STARTE
 	struct {
 		STATE st;
+		int points;
 	} state_data;
 	// _m_USE_FUEL && _m_UPDATE_FUEL
 	struct {

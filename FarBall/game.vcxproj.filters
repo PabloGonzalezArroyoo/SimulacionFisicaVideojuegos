@@ -52,6 +52,15 @@
     <ClCompile Include="objects\gameObjects\Rings.cpp">
       <Filter>objects\gameObjects</Filter>
     </ClCompile>
+    <ClCompile Include="objects\generators\FireworkGenerator.cpp">
+      <Filter>objects\generators</Filter>
+    </ClCompile>
+    <ClCompile Include="objects\systems\FireworkSystem.cpp">
+      <Filter>objects\systems</Filter>
+    </ClCompile>
+    <ClCompile Include="structure\states\EndState.cpp">
+      <Filter>structure\state</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="core.hpp" />
@@ -126,11 +135,15 @@
     <ClInclude Include="objects\systems\ObstacleSystem.h">
       <Filter>objects\systems</Filter>
     </ClInclude>
-    <ClInclude Include="structure\CollisionCallbacks.h">
-      <Filter>structure</Filter>
-    </ClInclude>
     <ClInclude Include="objects\gameObjects\Rings.h">
       <Filter>objects\gameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="objects\systems\FireworkSystem.h" />
+    <ClInclude Include="objects\generators\FireworkGenerator.h">
+      <Filter>objects\systems</Filter>
+    </ClInclude>
+    <ClInclude Include="structure\states\EndState.h">
+      <Filter>structure\state</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -14,10 +14,14 @@ public:
 	Jetpack(PxPhysics* p, PxScene* sc, PxTransform t, PxShape* s, ElimState st, Vector4 c, float m);
 	~Jetpack() {};
 
+	// Métodos virtuales
 	virtual void integrate(double t);
+
+	// Metodos propios
 	void useFuel();
+	void launch();
+
+	// Setters y getters
 	void setFuel(int f);
 	inline int getFuel() { return fuel; }
-
-	void launch();
 };

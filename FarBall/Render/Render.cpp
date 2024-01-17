@@ -261,7 +261,7 @@ void setupDefaultWindow(const char *name)
 void setupDefaultRenderState()
 {
 	// Setup default render states
-	glClearColor(0.300f, 0.198f, 0.0f, 1.0);
+	glClearColor(0.400f, 0.198f, 0.0f, 1.0);
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_COLOR_MATERIAL);
 	//glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -294,10 +294,13 @@ void startRender(const PxVec3& cameraEye, const PxVec3& cameraDir, PxReal clipNe
 		if (i < 3) 
 			drawText(texts[i], glutGet(GLUT_WINDOW_WIDTH) / 2 - texts[i].length() * 5,
 				2 * glutGet(GLUT_WINDOW_HEIGHT) / 3.25 - 30 * i);
+		else if (i == 3) 
+			drawText(texts[i], 5, glutGet(GLUT_WINDOW_HEIGHT) - 20);
 		else if (i == 4) 
 			drawText(texts[i], glutGet(GLUT_WINDOW_WIDTH) - 95, glutGet(GLUT_WINDOW_HEIGHT) - 20);
-		else 
-			drawText(texts[i], 5, glutGet(GLUT_WINDOW_HEIGHT) - 20);
+		else if (i == 5)
+			drawText(texts[i], glutGet(GLUT_WINDOW_WIDTH) / 2 - 180,
+				glutGet(GLUT_WINDOW_HEIGHT) / 2);
 	}
 	glColor4f(0.0f, 1.0f, 0.0f, 1.0f);
 
