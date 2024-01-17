@@ -17,7 +17,8 @@ enum grpId : grpId_type {
 	_grp_GENERAL,
 	_grp_BACKGROUND,
 	_grp_FOREGROUND,
-	_grp_PARTICLES,
+	_grp_FOLLOW_PARTICLES,
+	_grp_EXPLODE_PARTICLES,
 
 	//DO NOT REMOVE THIS
 	_LAST_GRP_ID
@@ -73,3 +74,4 @@ struct Message {
 };
 
 const int JETPACK_FUEL = 100;
+const int CONSTANT_X_VEL = 200;

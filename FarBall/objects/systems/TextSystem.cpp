@@ -10,9 +10,6 @@ void TextSystem::receive(const Message& m) {
 		case _m_USE_FUEL:
 			updateFuel(m.fuel_data.fuel);
 			break;
-		case _m_UPDATE_FUEL:
-			addFuel();
-			break;
 	}
 }
 
@@ -35,12 +32,7 @@ void TextSystem::updateDistance(int x) {
 }
 
 void TextSystem::updateFuel(int fuel) {
-	texts[FUEL] = "FUEL:";
-	for (int i = 0; i < fuel / 10; i++) texts[FUEL] += "\n+";
-}
-
-void TextSystem::addFuel() {
-	texts[FUEL] += "\n+";
+	texts[FUEL] = "FUEL: " + to_string(fuel) + "%";
 }
 
 void TextSystem::removeTexts() {
@@ -52,8 +44,7 @@ void TextSystem::setPlayState() {
 	texts[DISTANCE] = "Distance: 0";
 
 	// Activar texto de combustible
-	texts[FUEL] = "FUEL:";
-	for (int i = 0; i < JETPACK_FUEL / 10; i++) texts[FUEL] += "\n+";
+	texts[FUEL] = "FUEL: 100%";
 
 	/*Vector3 cameraPos = mngr->getHandler(_hdlr_PENGUIN)->getPos() + Vector3(0.0, 100.0, -200.0);
 	pointsUI = new RigidBody(mngr->getPhysics(), mngr->getScene(), PxTransform(cameraPos + Vector3(10, 0, 20)),

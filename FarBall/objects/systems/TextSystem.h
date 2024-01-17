@@ -18,7 +18,6 @@ public:
 	void flickerText(double t);
 	void updateDistance(int x);
 	void updateFuel(int fuel);
-	void addFuel();
 	void removeTexts();
 
 	// Setters

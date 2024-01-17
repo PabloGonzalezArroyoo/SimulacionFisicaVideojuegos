@@ -8,19 +8,20 @@ void ObstacleSystem::initSystem() {
 }
 
 void ObstacleSystem::update(double t) {
-	// Generar nuevos si se supera la distancia del anterior generado
+	// Generar nuevos objetos de fondo si se supera la distancia del anterior generado
 	int penActX = mngr->getHandler(_hdlr_JETPACK)->getPos().x;
 	if (penActX > prevPenXBg + 100) {
 		createBgObject(penActX);
 		prevPenXBg = penActX;
 	}
 
-	if (penActX > prevPenXRings + 200) {
+	// Generar nuevos anillos si se supera una distancia
+	if (penActX > prevPenXRings + 300) {
 		createRing(penActX);
 		prevPenXRings = penActX;
 	}
 
-	// Actualizar obstáculos y borrar si han pasado del pinguino
+	// Actualizar obstáculos y borrar si han pasado del jetpack o los ha atravesado
 	for (Actor* a : mngr->getActors(_grp_BACKGROUND)) {
 		a->integrate(t);
 		if (a->getPos().x < penActX - 200) a->setAlive(false);

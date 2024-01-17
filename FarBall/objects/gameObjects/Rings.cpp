@@ -17,6 +17,12 @@ Rings::Rings(Vector3 pos, Vector4 col, Manager* mg) : mng(mg) {
 	mng->addActor(_grp_GENERAL, ptDown);
 	mng->addActor(_grp_GENERAL, ptLeft);
 	mng->addActor(_grp_GENERAL, ptRight);
+
+	/*int spring = rand() % 10;
+	if (spring > 8) {
+		spg = new AnchoredSpringForceGenerator(pos + Vector3(0, 10, 0), 20, 300);
+		mng->fo
+	}*/
 }
 
 Rings::~Rings() {
@@ -29,9 +35,10 @@ bool Rings::integrate(double t) {
 	Vector3 jetPos = mng->getHandler(_hdlr_JETPACK)->getPos();
 	Vector3 ptUpPos = parts[0]->getPos();
 	if (jetPos.x < ptUpPos.x + 1 && jetPos.x > ptUpPos.x - 1 &&
-		jetPos.y < ptUpPos.y && jetPos.y > ptUpPos.y - 40) {
+		jetPos.y < ptUpPos.y + 5 && jetPos.y > ptUpPos.y - 50) {
 		Message m;
 		m.id = _m_UPDATE_FUEL;
+		m.fuel_data.fuel = 10;
 		mng->send(m);
 		return false;
 	}

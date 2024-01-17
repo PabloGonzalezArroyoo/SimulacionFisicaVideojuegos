@@ -10,6 +10,7 @@ class Rings {
 private:
 	Manager* mng;
 	vector<Particle*> parts;
+	AnchoredSpringForceGenerator* spg = nullptr;
 
 public:
 	Rings(Vector3 p, Vector4 col, Manager* j);

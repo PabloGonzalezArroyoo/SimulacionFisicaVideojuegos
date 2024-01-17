@@ -36,7 +36,7 @@ private:
 	// Marcadores
 	PracticeType practiceType = FORCES_P3A1;
 	ParticlesType particlesType = GeneratorsType;
-	ForceType forcesType = WIND;
+	ForceType forcesType = EXPLOSION;
 
 	// Listas de objetos
 	list<Particle*> _particles;

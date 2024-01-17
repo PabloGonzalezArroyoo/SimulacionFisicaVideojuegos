@@ -15,9 +15,14 @@ void Jetpack::integrate(double t) {
 }
 
 void Jetpack::launch() {
-	//clearForce();
-	//addForce(Vector3(4000, 3200, 0));
-	setVelocity(Vector3(200, 40, 0));
-	
+	setVelocity(Vector3(CONSTANT_X_VEL, 40, 0));
 	isLaunched = true;
+}
+
+void Jetpack::useFuel() {
+	fuel - 5 < 0 ? fuel = 0 : fuel -= 5;
+}
+
+void Jetpack::setFuel(int x) {
+	x > 100 ? fuel = 100 : fuel = x;
 }

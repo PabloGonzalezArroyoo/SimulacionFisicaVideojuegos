@@ -15,8 +15,8 @@ public:
 	~Jetpack() {};
 
 	virtual void integrate(double t);
-	inline void useFuel() { fuel--; }
-	inline void setFuel(int f) { fuel = f; }
+	void useFuel();
+	void setFuel(int f);
 	inline int getFuel() { return fuel; }
 
 	void launch();

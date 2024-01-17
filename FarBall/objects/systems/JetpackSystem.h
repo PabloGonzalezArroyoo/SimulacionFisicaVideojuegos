@@ -22,8 +22,12 @@ public:
 	virtual void update(double t); 
 	virtual void receive(const Message& m);
 
+	// Input
 	void keyPressed(char key);
 	void keyReleased(char key);
 
 	void launch();
+	void updateFuel(int x);
+	void useFuel(int dir);
+	void createExplosion(Vector3 pos, int n, int rad);
 };
