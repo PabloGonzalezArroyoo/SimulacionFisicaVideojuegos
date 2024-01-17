@@ -11,6 +11,7 @@ private:
 	Manager* mng;
 	vector<Particle*> parts;
 	AnchoredSpringForceGenerator* spg = nullptr;
+	GravityForceGenerator* gfg = nullptr;
 
 public:
 	Rings(Vector3 p, Vector4 col, Manager* j);

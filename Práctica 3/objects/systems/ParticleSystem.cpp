@@ -233,11 +233,11 @@ void ParticleSystem::createParticleSpheres(int n, int rad) {
 		float z = rad * cos(theta * pi / 180.0f);
 
 		Particle* p;
-		p = new Particle(Vector3(x, y, z), Vector3(0), NONE, colors[rand() % 4], CreateShape(PxSphereGeometry(2)), rand() % 1000);
-		/*else if (i < n * 2 / 5) p = new Particle(Vector3(x + rad * 4, y, z), Vector3(0), NONE, colors[rand() % 4], CreateShape(PxSphereGeometry(2)), rand() % 1000);
+		if (i < n * 1 / 5) p = new Particle(Vector3(x, y, z), Vector3(0), NONE, colors[rand() % 4], CreateShape(PxSphereGeometry(2)), rand() % 1000);
+		else if (i < n * 2 / 5) p = new Particle(Vector3(x + rad * 4, y, z), Vector3(0), NONE, colors[rand() % 4], CreateShape(PxSphereGeometry(2)), rand() % 1000);
 		else if (i < n * 3 / 5) p = new Particle(Vector3(x, y + rad * 4, z), Vector3(0), NONE, colors[rand() % 4], CreateShape(PxSphereGeometry(2)), rand() % 1000);
 		else if (i < n * 4 / 5) p = new Particle(Vector3(x, y - rad * 4, z), Vector3(0), NONE, colors[rand() % 4], CreateShape(PxSphereGeometry(2)), rand() % 1000);
-		else if (i < n) p = new Particle(Vector3(x - rad * 4, y, z), Vector3(0), NONE, colors[rand() % 4], CreateShape(PxSphereGeometry(2)), rand() % 1000);*/
+		else if (i < n) p = new Particle(Vector3(x - rad * 4, y, z), Vector3(0), NONE, colors[rand() % 4], CreateShape(PxSphereGeometry(2)), rand() % 1000);
 		
 		_particles.push_back(p);
 	}

@@ -206,6 +206,7 @@ public:
 			float deltaX = length - resisting_length;
 
 			Vector3 force = relativePosVector * deltaX * k;
+			cout << force.y << "\n";
 			actor->addForce(force);
 		}
 	}

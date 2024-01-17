@@ -34,7 +34,7 @@ void RigidBody::integrate(double t) {
 	tr.p += vel * t;
 
 	// Borrar fuerza 
-	//clearForce();
+	clearForce();
 
 	// Eliminar tras lifeTime segundos
 	if (state == TIME && (startTime + lifeTime < GetLastTime())) setAlive(false);
