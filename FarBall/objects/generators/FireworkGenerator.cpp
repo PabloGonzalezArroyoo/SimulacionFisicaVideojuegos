@@ -30,6 +30,7 @@ list<Actor*> FireworkGenerator::generateParticles(double t) {
 	list<Actor*> lista;
 
 	if (initiateGenerator) {
+		cout << "hola" << endl;
 		Firework* fr = static_cast<Firework*>(model);
 		model->setPos(iniPos);
 		fr = new Firework(model, this, fr->getGenerations(), fr->getChilds(), fr->getChangeColors());

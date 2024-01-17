@@ -17,7 +17,6 @@ Particle::~Particle() {
 // Update
 void Particle::integrate(double t) {
 	// Calcular aceleración y velocidad
-	addForce(vel);
 	Vector3 resulting_accel = force * getInvMass();
 	vel += resulting_accel * t;
 	vel *= powf(damping, t);

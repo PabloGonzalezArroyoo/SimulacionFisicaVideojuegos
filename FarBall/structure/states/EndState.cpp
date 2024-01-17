@@ -22,6 +22,7 @@ EndState::~EndState() {
 
 void EndState::update(double t) {
 	GameState::update(t);
+	mng->refresh();
 }
 
 void EndState::keyPressed(char key) {

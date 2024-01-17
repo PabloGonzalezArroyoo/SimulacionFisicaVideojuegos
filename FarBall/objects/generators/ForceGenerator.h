@@ -67,7 +67,7 @@ protected:
 
 public:
 	~WindForceGenerator() { if (renderItem != nullptr) renderItem->release(); };
-	WindForceGenerator(Vector3 p, Vector3 v, float s, Vector4 c, const float _k1, bool txt = false, const float _k2 = 0) : ForceGenerator(pos),
+	WindForceGenerator(Vector3 p, Vector3 v, float s, Vector4 c, const float _k1, bool txt = false, const float _k2 = 0.1) : ForceGenerator(pos),
 		vel(v), size(s), k1(_k1), k2(_k2) {
 		name = "wind";
 		pos = p;

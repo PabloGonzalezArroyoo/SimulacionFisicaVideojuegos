@@ -138,12 +138,14 @@
     <ClInclude Include="objects\gameObjects\Rings.h">
       <Filter>objects\gameObjects</Filter>
     </ClInclude>
-    <ClInclude Include="objects\systems\FireworkSystem.h" />
-    <ClInclude Include="objects\generators\FireworkGenerator.h">
-      <Filter>objects\systems</Filter>
-    </ClInclude>
     <ClInclude Include="structure\states\EndState.h">
       <Filter>structure\state</Filter>
+    </ClInclude>
+    <ClInclude Include="objects\systems\FireworkSystem.h">
+      <Filter>objects\systems</Filter>
+    </ClInclude>
+    <ClInclude Include="objects\generators\FireworkGenerator.h">
+      <Filter>objects\generators</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

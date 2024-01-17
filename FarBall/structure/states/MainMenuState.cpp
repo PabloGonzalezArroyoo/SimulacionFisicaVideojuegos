@@ -1,5 +1,6 @@
 #include "MainMenuState.h"
 #include "PlayState.h"
+#include "EndState.h"
 
 MainMenuState::MainMenuState(GameStateMachine* g, PxPhysics* ph, PxScene* sc) : GameState(g, ph, sc) {
 	// Crear manager del estado

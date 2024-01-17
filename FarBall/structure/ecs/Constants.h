@@ -68,7 +68,6 @@ struct Message {
 	// _m_INIT_STARTE
 	struct {
 		STATE st;
-		int points;
 	} state_data;
 	// _m_USE_FUEL && _m_UPDATE_FUEL
 	struct {
